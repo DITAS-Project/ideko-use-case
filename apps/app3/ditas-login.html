@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>DITAS Framework Login</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="shortcut icon" href="../images/ditas-favicon.png">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link href="../css/ditaslogin.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha512.js"></script>
+	<script src="../js/config.js"></script>
+</head>
+
+<body>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="../images/ditas-login-icon.png" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container" style="margin-top: 95px !important;">
+					<form style="margin-bottom: -20px !important;">
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input id="username" type="text" name="" class="form-control input_user" value="" placeholder="username">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input id="password" type="password" name="" class="form-control input_pass" value="" placeholder="password">
+						</div>
+						<!--
+						<div class="form-group">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="customControlInline">
+								<label class="custom-control-label" for="customControlInline">Remember me</label>
+							</div>
+						</div>
+						-->
+					</form>
+				</div>
+				<div class="d-flex justify-content-center mt-3 login_container">
+					<button onclick="checkLogin()" type="button" name="button" class="btn login_btn" style="margin-top: 11px;">Login</button>
+				</div>
+				<div class="feedback-icon" style="margin-top:10px;">
+					<center><img src="../images/warning-login-ditas.png" width="7%"></center>
+				</div>
+					<div id="feedback" class="feedback">
+						In order to use the DITAS framework, please enter the credentials provided by the data administrator
+					</div>
+			</div>
+		</div>
+	</div>
+
+
+<script type="application/javascript">
+	$(window).ready(function()
+		{
+			// Checks if the app login has made beforehand, otherwise, redirect
+			var appStorageValue = window.localStorage.getItem('appStorage');
+			if (!appStorageValue)
+			{
+				window.location.href = "app-login.html";
+				return;
+			}
+		});
+
+	function checkLogin()
+	{
+		// Get input values
+		var inputUser = document.getElementById('username').value;
+		var inputPassword = document.getElementById('password').value;
+
+		// Get saved user and password
+		var savedUser = AppConfiguration.AppUser;
+		var savedPassword = AppConfiguration.AppPassword;
+
+		// Hash input values
+		var hashedInputUser = CryptoJS.SHA512(inputUser).toString(CryptoJS.enc.Hex);
+		var hashedInputPassword = CryptoJS.SHA512(inputPassword).toString(CryptoJS.enc.Hex);
+
+		// Check if match
+		if (hashedInputPassword == savedPassword && hashedInputUser == savedUser)
+		{
+			window.localStorage.setItem("ditasStorage", "exist");
+			window.location.href = "app3.html";
+		}
+		else
+		{
+			document.getElementById("feedback").innerHTML = "Wrong user or password, please try again";
+		}
+
+
+
+	}
+</script>
+
+</body>
+</html>

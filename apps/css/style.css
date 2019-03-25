@@ -1,0 +1,251 @@
+
+.top-horizontal {
+     padding-top:95px!important;
+     display: inline-block;
+     width: 100%;
+}
+
+.modal-izq {
+  float: left!important;
+  padding-top:10px;
+  width:400px;
+}
+
+.modal-dere {
+  float: right!important;
+  margin-right:80px;
+  margin-top:20px;
+  width:200px;
+}
+ .top-horizontal-left {
+     float: left;
+     padding-left:23px !important;
+     font-weight: bold;
+     font-size: 30px;
+     color: #89C1DB;
+     padding-top:14px;
+     font-family: 'Staatliches', serif;
+}
+
+ .top-horizontal-right {
+    padding-top:15px;
+    margin-right:-200px;
+     float: right;
+}
+
+body {
+	background-color:white;
+}
+
+.form-control {
+	width: 121%!important;
+}
+
+.modal-title {
+	font-weight: 700!important;
+  font-size: 20px;
+}
+
+.modal-header {
+  padding:5px 5px 5px 15px!important;
+}
+
+.modal-body {
+  padding:5px!important;
+  margin-left:10px;
+}
+
+.modal-dialog {
+  margin-bottom:50px;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    font-family: "Open Sans";
+}
+
+.header {
+	background: #0077BE;
+	-webkit-user-select: auto;
+	-moz-user-select: auto;
+	-ms-user-select: auto;
+	user-select: auto;
+	height:70px!important;
+
+	/* Header fijo */
+	width:100%;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+}
+
+.logo {
+	padding-left:25px;
+	padding-top:21px;
+}
+
+.modal-content {
+    box-shadow: 0 0px 0px rgba(0,0,0,.5);!important
+}
+
+
+h3 {
+font-family: "Open Sans"!important;
+font-weight:700;
+}
+
+.machine-status {
+  width: 50%;
+  margin: 0 auto;
+  background-color: #e5f1f8;
+  width:800px;
+  height:80px;
+  border-radius: 5px;
+}
+
+
+.machine-status-left {
+  padding:50px;
+  float:left;
+  font-size:20px;
+  text-align: center;
+  font-weight:bold;
+  padding-top:60px;
+  padding-bottom: 0px !important;
+}
+.machine-status-right {
+  width:500px;
+  float:right;
+  padding: 10px 30px 0px 0px;
+}
+
+.machine-indicators {
+  margin-top:25px!important;
+  width: 50%;
+  margin: 0 auto;
+  background-color: #e5f1f8;
+  width:800px;
+  height:300px;
+  border-radius: 5px;
+}
+
+/* Quita la barrita azul de las barras de la app3 */
+.highcharts-legend-nav-active{
+  display:none
+}
+
+.program-name {
+  background-color:#e5e5e5;
+  border-radius:5px;
+  padding-left:3px;
+}
+
+.float-button{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#e66e2e;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:5px;
+  font-size:45px;
+  color:white;
+}
+
+.indicator-right {
+	background-color:#e5e5e5;
+	border-radius:5px;
+	margin-bottom:10px;
+	width:260px;
+}
+
+.machine-borrame {
+	background-color:#5A5764;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	height:150px;
+}
+
+.machine-error {
+	background-color:#F44336;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	height:150px;
+}
+
+.machine-warning {
+	background-color:#FFC000;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	height:150px;
+}
+
+.machine-ok {
+	background-color:#66BB6A;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	height:150px;
+}
+
+.machine-noerror-v-image {
+	padding-top:31px;
+	width:64%;
+}
+
+.machine-error-x-image {
+	width:22%;
+}
+
+.machine-error-status {
+	font-size:25px;
+}
+
+.machine-error-metric {
+	font-size:10px;
+}
+
+.machine-error-message {
+	font-size:10px;
+}
+
+.machine-error-value {
+	font-size:22px;
+}
+
+.machine-error-date {
+	font-size: 11px;
+	margin-top: -2px !important;
+}
+
+.machine-status-background-error {
+	color:white;
+	background-color:#F05228;
+	border-radius:15px;
+	margin-top:-27px
+}
+
+.machine-status-background-noerror {
+	color:white;
+	background-color:#6AC259;
+	border-radius:15px;
+	margin-top:-27px;
+	height:190px
+}
+
+.execution-state-style {
+	border-radius:5px;
+	background-color:#E5E5E5;
+	font-style:italic;
+	font-size:16px;
+}

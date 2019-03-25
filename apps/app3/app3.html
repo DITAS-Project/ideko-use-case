@@ -1,0 +1,314 @@
+<head>
+    <meta charset="UTF-8">
+    <title>App3 - Extended real time machine diagnostic</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Staatliches">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800">
+</head>
+
+<body>
+    <header class="header" class="clearfix">
+        <div class="top-horizontal-left">
+            Spart manufacturing real time machine diagnostic
+        </div>
+        <div class="top-horizontal-right">
+            <img src="../images/ideko.png" style="width:40%">
+        </div>
+    </header>
+
+    <div class="top-horizontal"></div>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#first-machine">ESTARTA 315 FV - Kelly</a></li>
+            <li><a data-toggle="tab" href="#second-machine">ESTARTA 315 FV - Slater</a></li>
+            <li><a data-toggle="tab" href="#third-machine">ESTARTA 315 FV - Zack</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+          <!-- ###########################################################################
+          ################################  MACHINE 1 ####################################
+          ################################################################################ -->
+            <div id="first-machine" class="tab-pane fade in active">
+                <!-- ###########################################
+                #################### SEÑALES ################### -->
+                <div class="machine-indicators" style="height:763px;margin-bottom:30px;">
+					<div class="machine-status-left">
+                        <div class="machine-status" style="width:200px">
+							<div class="machine-status-background-noerror">
+								Machine status<br>
+								<div id="machine-error-status-m1" class="machine-error-status"></div>
+								<img id="machine-status-icon-m1" src="../images/checked-white.png" style="width:50%;padding-top:22px">
+								<div id="machine-error-status-m1" class="machine-error-metric"></div>
+								<div id="machine-error-status-m1" class="machine-error-message"></div>
+								<div id="machine-error-status-m1" class="machine-error-value"></div>
+						  	</div>
+                          Execution state
+                          <div id="execution-state-m1" class="execution-state-style">WAITING</div>
+                        </div>
+					</div>
+
+                    <!-- Barras máquina 1 -->
+                    <div class="machine-status-right" style="margin-top:20px">
+						Program name:
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="program-name-m1" class="indicator-right" style="width:470px;margin-bottom:0px;"></div>
+						Controller mode:
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="controller-mode-m1" class="indicator-right" style="width:470px;margin-bottom:0px;"></div>
+						Z1 Axis Engine Intensity:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z1-intensity-bar-m1"></div>
+						Z1 Axis Temperature:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z1-temperature-bar-m1"></div>
+						Z2 Axis Engine Intensity:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z2-intensity-bar-m1"></div>
+						Z2 Axis Temperature:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z2-temperature-bar-m1"></div>
+                    </div>
+
+                    <br>
+
+                    <!-- Inicio gráficos máquina 1 -->
+                    <div class="graph-container" style="margin-top:280px;margin-left:25px;width:94%">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#z1-temperature-m1">Z1 Temperature</a></li>
+                            <li><a data-toggle="tab" href="#z2-temperature-m1">Z2 Temperature</a></li>
+                            <li><a data-toggle="tab" href="#z1-intensity-m1">Z1 Intensity</a></li>
+                            <li><a data-toggle="tab" href="#z2-intensity-m1">Z2 Intensity</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Pestaña 1 - Z1 temperature -->
+                            <div id="z1-temperature-m1" class="tab-pane fade in active">
+                                <div id="z1-temperature-graph-m1"></div>
+                            </div>
+                            <!-- Pestaña 2 - Z2 temperature -->
+                            <div id="z2-temperature-m1" class="tab-pane fade">
+                              <div id="z2-temperature-graph-m1"></div>
+                            </div>
+                            <!-- Pestaña 1 - Z1 intensity -->
+                            <div id="z1-intensity-m1" class="tab-pane fade">
+                              <div id="z1-intensity-graph-m1"></div>
+                            </div>
+                            <!-- Pestaña 2 - Z2 temperature -->
+                            <div id="z2-intensity-m1" class="tab-pane fade">
+                              <div id="z2-intensity-graph-m1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin gráficos -->
+
+                </div>
+            </div>
+
+            <!-- ###########################################################################
+            ################################  MACHINE 2 ####################################
+            ################################################################################ -->
+            <div id="second-machine" class="tab-pane fade">
+                <!-- ###########################################
+                #################### SEÑALES ################### -->
+                <div class="machine-indicators" style="height:763px;margin-bottom:30px;">
+					<div class="machine-status-left">
+						<div class="machine-status" style="width:200px">
+							<div class="machine-status-background-noerror">
+								Machine status<br>
+								<img src="../images/checked-white.png" style="width:50%;padding-top:22px">
+								<div id="machine-error-status-m2" class="machine-error-status"></div>
+								<div id="machine-error-metric-m2" class="machine-error-metric"></div>
+								<div id="machine-error-message-m2" class="machine-error-message"></div>
+								<div id="machine-error-value-m2" class="machine-error-value"></div>
+						  	</div>
+                          Execution state
+                          <div id="execution-state-m2" class="execution-state-style">WAITING</div>
+                        </div>
+                    </div>
+
+                    <!-- Barras máquina 2 -->
+                    <div class="machine-status-right" style="margin-top:20px;margin-bottom:0px;">
+						Program name:
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="program-name-m2" class="indicator-right" style="width:470px;margin-bottom:0px;"></div>
+						Controller mode:
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="controller-mode-m2" class="indicator-right" style="width:470px;margin-bottom:0px;"></div>
+						Z1 Axis Engine Intensity:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z1-intensity-bar-m2"></div>
+						Z1 Axis Temperature:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z1-temperature-bar-m2"></div>
+						Z2 Axis Engine Intensity:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z2-intensity-bar-m2"></div>
+						Z2 Axis Temperature:<br>
+						<!--<img src="images/bar-mockup.png">-->
+						<div id="z2-temperature-bar-m2"></div>
+                    </div>
+
+                    <br>
+
+                    <!-- Inicio gráficos máquina 2 -->
+                    <div class="graph-container" style="margin-top:280px;margin-left:25px;width:94%">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#z1-temperature-m2">Z1 Temperature</a></li>
+                            <li><a data-toggle="tab" href="#z2-temperature-m2">Z2 Temperature</a></li>
+                            <li><a data-toggle="tab" href="#z1-intensity-m2">Z1 Intensity</a></li>
+                            <li><a data-toggle="tab" href="#z2-intensity-m2">Z2 Intensity</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Pestaña 1 - Z1 temperature -->
+                            <div id="z1-temperature-m2" class="tab-pane fade in active">
+                                <div id="z1-temperature-graph-m2"></div>
+                            </div>
+                            <!-- Pestaña 2 - Z2 temperature -->
+                            <div id="z2-temperature-m2" class="tab-pane fade">
+                              <div id="z2-temperature-graph-m2"></div>
+                            </div>
+                            <!-- Pestaña 1 - Z1 intensity -->
+                            <div id="z1-intensity-m2" class="tab-pane fade">
+                              <div id="z1-intensity-graph-m2"></div>
+                            </div>
+                            <!-- Pestaña 2 - Z2 temperature -->
+                            <div id="z2-intensity-m2" class="tab-pane fade">
+                              <div id="z2-intensity-graph-m2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin gráficos -->
+
+                </div>
+            </div>
+
+            <!-- ###########################################################################
+            ################################  MACHINE 3 ####################################
+            ################################################################################ -->
+            <div id="third-machine" class="tab-pane fade">
+              <!-- ###########################################
+              #################### SEÑALES ################### -->
+              <div class="machine-indicators" style="height:763px;margin-bottom:30px;">
+                  <div class="machine-status-left">
+					  <div class="machine-status-m3" style="width:200px">
+						  <div class="machine-status-background-noerror" id="machine-status-m3"  style="height: 200px!important; width:200px;padding-top:0px;border-radius:15px">
+							  Machine status<br>
+							  <div id="machine-error-status-m3" class="machine-error-status" style="padding-bottom:5px"></div>
+							  <img id="machine-error-image-m3" src="../images/checked-white.png" style="width:50%;padding-top:22px">
+							  <div id="machine-error-metric-m3" class="machine-error-metric" style="padding-top:5px"></div>
+							  <div id="machine-error-message-m3" class="machine-error-message"></div>
+							  <div id="machine-error-value-m3" class="machine-error-value"></div>
+							  <div id="machine-error-date-m3" class="machine-error-date"></div>
+						  </div>
+						Execution state
+						<div id="execution-state-m3" class="execution-state-style">&nbsp</div>
+					  </div>
+                  </div>
+
+                  <!-- Barras máquina 3 -->
+                  <div class="machine-status-right" style="margin-top:20px;">
+					  Program name:
+					  <div id="program-name-m3" class="indicator-right" style="width:470px;margin-bottom:0px!important">&nbsp</div>
+					  Controller mode:
+					  <div id="controller-mode-m3" class="indicator-right" style="width:470px;margin-bottom:0px!important">&nbsp</div>
+                      Z1 Axis Engine Intensity:<br>
+                      <div id="z1-intensity-bar-m3"></div>
+                      Z1 Axis Temperature:<br>
+                      <div id="z1-temperature-bar-m3"></div>
+                      Z2 Axis Engine Intensity:<br>
+                      <div id="z2-intensity-bar-m3"></div>
+                      Z2 Axis Temperature:<br>
+                      <div id="z2-temperature-bar-m3"></div>
+                  </div>
+
+                  <br>
+
+                  <!-- Inicio gráficos máquina 3 -->
+                  <div class="graph-container" style="margin-top:280px;margin-left:25px;width:94%">
+                      <ul class="nav nav-tabs">
+                          <li class="active"><a data-toggle="tab" href="#z1-temperature-m3">Z1 Temperature</a></li>
+                          <li><a data-toggle="tab" href="#z2-temperature-m3">Z2 Temperature</a></li>
+                          <li><a data-toggle="tab" href="#z1-intensity-m3">Z1 Intensity</a></li>
+                          <li><a data-toggle="tab" href="#z2-intensity-m3">Z2 Intensity</a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                          <!-- Pestaña 1 - Z1 temperature -->
+                          <div id="z1-temperature-m3" class="tab-pane fade in active">
+                              <div id="z1-temperature-graph-m3"></div>
+                          </div>
+                          <!-- Pestaña 2 - Z2 temperature -->
+                          <div id="z2-temperature-m3" class="tab-pane fade">
+                            <div id="z2-temperature-graph-m3"></div>
+                          </div>
+                          <!-- Pestaña 1 - Z1 intensity -->
+                          <div id="z1-intensity-m3" class="tab-pane fade">
+                            <div id="z1-intensity-graph-m3"></div>
+                          </div>
+                          <!-- Pestaña 2 - Z2 temperature -->
+                          <div id="z2-intensity-m3" class="tab-pane fade">
+                            <div id="z2-intensity-graph-m3"></div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- Fin gráficos -->
+                  </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/config.js"></script>
+	<script src="https://github.highcharts.com/master/highcharts.js"></script>
+    <!--<script src="js/highcharts/highcharts.js"></script>-->
+    <!--<script src="js/highcharts/highcharts-more.js"></script>-->
+    <script src="../js/highcharts/charts/app3-bars.js"></script>
+    <script src="../js/highcharts/charts/app3-graphs.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="../js/stream/stream.js"></script>
+	<script src="../js/stream/stream-controller.js"></script>
+	<script src="../js/diagnostic/diagnostic.js"></script>
+	<script src="../js/diagnostic/diagnostic-controller.js"></script>
+	<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+	<!--<script src="https://code.highcharts.com/6.1.4/modules/boost.js"></script>-->
+	<script src="https://code.highcharts.com/modules/boost.js"></script>
+
+	<script>
+		$(window).ready(function()
+		{
+			// Checks if the app local storage exist, otherwise, redirected to the login page
+			var appStorageValue = window.localStorage.getItem('appStorage');
+			if (!appStorageValue)
+			{
+				window.location.href = "app-login.html";
+				return;
+			}
+
+			// Checks if the DITAS local storage exist, otherwise, redirected to the login page
+			var ditasStorageValue = window.localStorage.getItem('ditasStorage');
+			if (!ditasStorageValue)
+			{
+				window.location.href = "ditas-login.html";
+				return;
+			}
+
+			// Call the stream
+			urlStream = AppConfiguration.GetStreamingDataURL + "?machines=" + AppConfiguration.machineId;
+			console.log("Starting stream...");
+			StreamController.startStreaming(urlStream);
+
+			// Call the GetSimplifiedDiagnostic
+			setInterval(function() {
+				console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms to get values. Actual time: " + new Date(Date.now()).toLocaleTimeString());
+
+					// TODO: Con machines
+					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineId;
+					DiagnosticController.startDiagnosticCall(urlFullDiagnostic);
+				}, AppConfiguration.CallDiagnosticValuesInterval);
+			});
+	</script>
+</body>

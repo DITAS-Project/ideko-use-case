@@ -1,0 +1,619 @@
+<script type="text/x-red" data-template-name="savvy">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <hr>
+
+    <div class="form-row">
+        <label for="node-input-endpoint"><i class="fa fa-globe"></i> Endpoint</label>
+        <input type="text" id="node-input-endpoint" placeholder="endpoint">
+    </div>
+
+	<div class="form-row">
+        <label for="node-input-returntype"><i class="fa fa-arrow-left"></i> Return</label>
+        <select id="node-input-returntype">
+			<option value="" selected="selected" >-- Select a return type --</option>
+			<option value="utf-8">a UTF-8 string</option>
+            <option value="json">a parsed JSON object</option>
+        </select>
+    </div>
+
+    <div  class="form-row" >
+        <label for="node-input-apitype"><i class="fa fa-cogs"></i> API type</label>
+        <select id="node-input-apitype" onchange="methodChange()">
+			<option value="" selected="selected" >-- Select an API type --</option>
+            <option value="cloudv1">Cloud API v1</option>
+			<option value="cloudv2">Cloud API v2</option>
+            <option value="local">Local (RestStreaming)</option>
+        </select>
+    </div>
+
+	<hr>
+
+    <div class="form-row" id="key">
+        <label for="node-input-key"><i class="fa fa-tag"></i> Key</label>
+        <input type="text" id="node-input-key" placeholder="key">
+    </div>
+
+	<div class="form-row" id="secret">
+        <label for="node-input-secret"><i class="fa fa-tag"></i> Secret</label>
+        <input type="text" id="node-input-secret" placeholder="secret">
+    </div>
+
+	<!-- Combo de los métodos del Cloud v1 -->
+    <div  class="form-row" id="methodv1">
+        <label for="node-input-methodCloudv1"><i class="fa fa-cogs"></i> Method</label>
+        <select id="node-input-methodCloudv1" onchange="methodChange()">
+			<option value="" selected="selected" >-- Select a method --</option>
+            <option value="list-indicators" id="list-indicators" >List indicators</option>
+            <option value="list-capture-groups" id="list-capture-groups">List capture groups</option>
+            <option value="list-machines" id="list-machines">List machines</option>
+            <option value="list-locations" id="list-locations">List locations</option>
+            <option value="details-indicator" id="details-indicator">Details indicator</option>
+            <option value="details-capture-group" id="details-capture-group">Details capture group</option>
+            <option value="details-machine" id="details-machine">Details machine</option>
+            <option value="details-location" id="details-location">Details location</option>
+            <option value="data" id="data">Data</option>
+            <option value="stream" id="stream">Stream</option>
+        </select>
+    </div>
+
+	<!-- Combo de los métodos del Cloud v2 -->
+	<div  class="form-row" id="methodv2">
+        <label for="node-input-methodCloudv2"><i class="fa fa-cogs"></i> Method</label>
+        <select id="node-input-methodCloudv2" onchange="methodChange()">
+			<option value="" selected="selected" >-- Select a method --</option>
+			<option value="list-locations" id="list-locations">List locations</option>
+			<option value="details-location" id="details-location">Details location</option>
+			<option value="list-machines" id="list-machines">List machines</option>
+			<option value="details-machine" id="details-machine">Details machine</option>
+			<option value="list-capture-groups" id="list-capture-groups">List capture groups</option>
+			<option value="details-capture-group" id="details-capture-group">Details capture group</option>
+            <option value="list-indicators" id="list-indicators" >List indicators</option>
+            <option value="details-indicator" id="details-indicator">Details indicator</option>
+			<option value="list-alarm-categories" id="list-alarm-categories">List alarm categories</option>
+			<option value="details-alarms-categories" id="details-alarms-categories">Details alarm categories</option>
+			<option value="list-alarm-severities" id="list-alarm-severities">List alarm severities</option>
+			<option value="details-alarms-severities" id="details-alarms-severities">Details alarms severities</option>
+			<option value="list-production-lines" id="list-production-lines">List production lines</option>
+			<option value="details-production-line" id="details-production-line">Details production line</option>
+			<option value="details-segment" id="details-segment">Details segment</option>
+			<option value="list-alarms" id="list-alarms">List alarms</option>
+			<option value="details-alarm" id="details-alarm">Details alarm</option>
+			<option value="data-machine" id="data-machine">Data (machine)</option>
+			<option value="data-alarm" id="data-alarm">Data (alarm)</option>
+            <option value="stream" id="stream">Stream</option>
+			<option value="list-files" id="list-files">List files</option>
+        </select>
+    </div>
+
+	<!-- Combo de los métodos del Rest Streaming -->
+    <div class="form-row" id="methodloc">
+        <label for="node-input-methodLocal"><i class="fa fa-cogs"></i> Method</label>
+        <select id="node-input-methodLocal" onchange="methodChange()">
+			<option value="" selected="selected" >-- Select a method --</option>
+            <option value="details-indicator" id="details-indicator">Details indicator</option>
+			<option value="list-files" id="list-files">List files</option>
+            <option value="stream" id="stream">Stream</option>
+        </select>
+    </div>
+
+	<!-- Inicio de combos de los parámetros -->
+    <div class="form-row" id="locationId">
+        <label for="node-input-locationId"><i class="fa fa-tag"></i> Location Id</label>
+        <input type="text" id="node-input-locationId" placeholder="location-id">
+    </div>
+
+    <div class="form-row" id="machineId">
+        <label for="node-input-machineId"><i class="fa fa-tag"></i> Machine Id</label>
+        <input type="text" id="node-input-machineId" placeholder="machine-id">
+    </div>
+
+    <div class="form-row" id="groupId">
+        <label for="node-input-groupId"><i class="fa fa-tag"></i> Group Id</label>
+        <input type="text" id="node-input-groupId" placeholder="group-id">
+    </div>
+
+    <div class="form-row" id="indicatorId">
+        <label for="node-input-indicatorId"><i class="fa fa-tag"></i> Indicator Id</label>
+        <input type="text" id="node-input-indicatorId" placeholder="indicator-id">
+    </div>
+
+    <div class="form-row" id="fromTs">
+        <label for="node-input-to-ts"><i class="fa fa-tag"></i> From ts</label>
+        <input placeholder="timestamp in milliseconds" type="text" id="node-input-fromTs">
+    </div>
+
+    <div class="form-row" id="toTs">
+        <label for="node-input-to-ts"><i class="fa fa-tag"></i> To ts</label>
+        <input placeholder="timestamp in milliseconds" type="text" id="node-input-toTs">
+    </div>
+
+	<div class="form-row" id="productionLineId">
+		<label for="node-input-productionLineId"><i class="fa fa-tag"></i> Line Id</label>
+		<input placeholder="productionLineId" type="text" id="node-input-productionLineId">
+	</div>
+
+	<div class="form-row" id="active">
+		<label for="node-input-active"><i class="fa fa-tag"></i> Active</label>
+		<input placeholder="machine active (1 or 0)" type="text" id="node-input-active">
+	</div>
+
+	<div class="form-row" id="isKey">
+		<label for="node-input-isKey"><i class="fa fa-tag"></i> Is Key</label>
+		<input placeholder="isKey (1 or 0)" type="text" id="node-input-isKey">
+	</div>
+
+	<div class="form-row" id="categoryId">
+		<label for="node-input-categoryId"><i class="fa fa-tag"></i> Category Id</label>
+		<input placeholder="category-id" type="text" id="node-input-categoryId">
+	</div>
+
+	<div class="form-row" id="severityId">
+		<label for="node-input-severityId"><i class="fa fa-tag"></i> Severity Id</label>
+		<input placeholder="severity-id" type="text" id="node-input-severityId">
+	</div>
+
+	<div class="form-row" id="alarmId">
+		<label for="node-input-alarmId"><i class="fa fa-tag"></i> Alarm Id</label>
+		<input placeholder="alarm-id" type="text" id="node-input-alarmId">
+	</div>
+
+	<div class="form-row" id="human">
+		<label for="node-input-human"><i class="fa fa-tag"></i> Human</label>
+		<input placeholder="human" type="text" id="node-input-human">
+	</div>
+
+	<div class="form-row" id="delimeter">
+		<label for="node-input-delimeter"><i class="fa fa-tag"></i> Delimeter</label>
+		<input placeholder="delimeter" type="text" id="node-input-delimeter">
+	</div>
+
+	<div class="form-row" id="aggregation">
+		<label for="node-input-aggregation"><i class="fa fa-tag"></i> Aggregation</label>
+		<input placeholder="aggregation" type="text" id="node-input-aggregation">
+	</div>
+
+	<div class="form-row" id="grain">
+		<label for="node-input-grain"><i class="fa fa-tag"></i> Grain</label>
+		<input placeholder="grain (minute, hour)" type="text" id="node-input-grain">
+	</div>
+
+	<div class="form-row" id="defined">
+		<label for="node-input-defined"><i class="fa fa-tag"></i> Defined</label>
+		<input placeholder="defined (1 or 0)" type="text" id="node-input-defined">
+	</div>
+
+	<div class="form-row" id="durationFrom">
+		<label for="node-input-durationFrom"><i class="fa fa-tag"></i> Duration From</label>
+		<input placeholder="durationFrom in milliseconds" type="text" id="node-input-durationFrom">
+	</div>
+
+	<div class="form-row" id="durationTo">
+		<label for="node-input-durationTo"><i class="fa fa-tag"></i> Duration To</label>
+		<input placeholder="durationTo in milliseconds" type="text" id="node-input-durationTo">
+	</div>
+	<div class="form-row" id="fileName">
+		<label for="node-input-fileName"><i class="fa fa-tag"></i> Filename</label>
+		<input placeholder="fileName" type="text" id="node-input-fileName">
+	</div>
+	<!-- Fin de los combos de los parámetros -->
+
+</script>
+
+<!-- Next, some simple help text is provided for the node. -->
+<script type="text/x-red" data-help-name="savvy">
+    <p>This node can be used to connect to the Savvy API. </p>
+	<p>The property <code>endpoint</code> should be used to specify the location of the box endpoint should be defined without the "https".
+	<ul>
+		<li>For cloud requests, the endpoint should be <code>api-segmentname.savvyds.com</code>.</li>
+		<li>For local requests, the endpoint should be the IP of the Savvy box, without http</li>
+	</ul>
+	The property <code>key</code> will be used to ensure the proper HMAC encryption for the cloud requests. <br>
+	The select box <code>method</code> can be used to specify which method of the API will be called by the node.</p>
+	<p>All the parameters can be passed using properties in the <i>msg</i> object.
+	The properties must be named this way: <code>endpoint</code>, <code>returntype</code>, <code>apitype</code>, <code>key</code>, <code>secret</code>, <code>methodCloudv1</code>, <code>methodCloudv2</code>, <code>methodLocal</code>, <code>locationId</code>, <code>machineId</code>, <code>groupId</code>, <code>indicatorId</code>, <code>fromTs</code>, <code>toTs</code>, <code>productionLineId</code>, <code>active</code>, <code>isKey</code>, <code>categoryId</code>, <code>severityId</code>, <code>alarmId</code>, <code>human</code>, <code>delimeter</code>, <code>aggregation</code>, <code>grain</code>, <code>defined</code>, <code>durationFrom</code>, <code>durationTo</code> and <code>fileName</code>. The message has preference over the node configuration. For example <code>msg.endpoint</code>.</p>
+	<p>An ongoing request (stream or not) can be stopped at any time by providing a message with a <code>stopRequest</code> property with <code>true</code> value.</p>
+	<p>The node button behaves this way:</p>
+	<ul>
+		<li>If the request is a stream, the first click starts the request (starts the stream) and a second click stops the stream.</li>
+		<li>If the request is not a stream, each click starts a new request.</li>
+	</ul>
+	<p>For the <i>Stream</i> requests, the <code>Machine Id</code> field can contain several machines separated by comma, with no spaces.</p>
+</script>
+
+<script>
+
+function methodChange()
+{
+	// Recogemos todos los elementos por id para poder controlarlos en este y los demás métodos
+	keyDiv = document.getElementById("key");
+	secretDiv = document.getElementById("secret");
+	methodCloudv1Div = document.getElementById("methodv1");
+	methodCloudv2Div = document.getElementById("methodv2");
+	methodLocalDiv = document.getElementById("methodloc");
+	locationIdDiv = document.getElementById("locationId");
+	machineIdDiv = document.getElementById("machineId");
+	groupIdDiv = document.getElementById("groupId");
+	indicatorIdDiv = document.getElementById("indicatorId");
+	fromTsDiv = document.getElementById("fromTs");
+	toTsDiv = document.getElementById("toTs");
+	activeDiv =  document.getElementById("active");
+	isKeyDiv = document.getElementById("isKey");
+	categoryIdDiv = document.getElementById("categoryId");
+	severityIdDiv = document.getElementById("severityId");
+	productionLineIdDiv = document.getElementById("productionLineId");
+	alarmIdDiv = document.getElementById("alarmId");
+	humanDiv = document.getElementById("human");
+	delimeterDiv = document.getElementById("delimeter");
+	aggregationDiv = document.getElementById("aggregation");
+	grainDiv = document.getElementById("grain");
+	definedDiv = document.getElementById("defined");
+	durationFromDiv = document.getElementById("durationFrom");
+	durationToDiv = document.getElementById("durationTo");
+	fileNameDiv = document.getElementById("fileName");
+
+	// Los ocultamos todos
+	hideAll();
+
+	// Dependiendo lo que elijamos, mostramos unos elementos u otros
+	apitype = document.getElementById("node-input-apitype").value;
+
+	if (apitype === 'cloudv1')
+	{
+		// Mostramos los selectores disponibles para esta opción
+		methodCloudv1Div.style.display = " block";
+		keyDiv.style.display = " block";
+		secretDiv.style.display = " block";
+
+		// Seteamos los valores de los demás combos al valor por defecto para que no haya liadas con los métodos 'stream'
+		document.getElementById("node-input-methodCloudv2").selectedIndex = 0;
+		document.getElementById("node-input-methodLocal").selectedIndex = 0;
+
+		methodtype = document.getElementById("node-input-methodCloudv1").value;
+		switch (methodtype)
+		{
+			case "list-indicators":
+				locationIdDiv.style.display = " block";
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				break;
+			case "list-capture-groups":
+				locationIdDiv.style.display = " block";
+				machineIdDiv.style.display = " block";
+				break;
+			case "list-machines":
+				locationIdDiv.style.display = " block";
+				break;
+			case "list-locations":
+				break;
+			case "details-indicator":
+				locationIdDiv.style.display = " block";
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				indicatorIdDiv.style.display = " block";
+				break;
+			case "details-capture-group":
+				locationIdDiv.style.display = " block";
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				break;
+			case "details-machine":
+				locationIdDiv.style.display = " block";
+				machineIdDiv.style.display = " block";
+				break;
+			case "details-location":
+				locationIdDiv.style.display = " block";
+				break;
+			case "data":
+				locationIdDiv.style.display = " block";
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				indicatorIdDiv.style.display = " block";
+				fromTsDiv.style.display = " block";
+				toTsDiv.style.display = " block";
+				break;
+			case "stream":
+				machineIdDiv.style.display = " block";
+				break;
+		}
+	}
+	else if (apitype === 'cloudv2')
+	{
+		// Mostramos los selectores disponibles para esta opción
+		methodCloudv2Div.style.display = " block";
+		keyDiv.style.display = " block";
+		secretDiv.style.display = " block";
+
+		// Seteamos los valores de los demás combos al valor por defecto para que no haya liadas con los métodos 'stream'
+		document.getElementById("node-input-methodCloudv1").selectedIndex = 0;
+		document.getElementById("node-input-methodLocal").selectedIndex = 0;
+
+		methodtype = document.getElementById("node-input-methodCloudv2").value;
+		switch (methodtype)
+		{
+			case "list-locations":
+				break;
+			case "details-location":
+				locationIdDiv.style.display = " block";
+				break;
+			case "list-machines":
+				locationIdDiv.style.display = " block";
+				productionLineIdDiv.style.display = " block";
+				activeDiv.style.display = " block";
+				break;
+			case "details-machine":
+				machineIdDiv.style.display = " block";
+				break;
+			case "list-capture-groups":
+				machineIdDiv.style.display = " block";
+				activeDiv.style.display = " block";
+				break;
+			case "details-capture-group":
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				break;
+			case "list-indicators":
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				activeDiv.style.display = " block";
+				isKeyDiv.style.display = " block";
+				break;
+			case "details-indicator":
+				machineIdDiv.style.display = " block";
+				indicatorIdDiv.style.display = " block";
+				break;
+			case "list-alarm-categories":
+				machineIdDiv.style.display = " block";
+				break;
+			case "details-alarms-categories":
+				machineIdDiv.style.display = " block";
+				categoryIdDiv.style.display = " block";
+				break;
+			case "list-alarm-severities":
+				machineIdDiv.style.display = " block";
+				break;
+			case "details-alarms-severities":
+				machineIdDiv.style.display = " block";
+				severityIdDiv.style.display = " block";
+				break;
+			case "list-production-lines":
+				locationIdDiv.style.display = " block";
+				break;
+			case "details-production-line":
+				productionLineIdDiv.style.display = " block";
+				break;
+			case "details-segment":
+				break;
+			case "list-alarms":
+				machineIdDiv.style.display = " block";
+				severityIdDiv.style.display = " block";
+				categoryIdDiv.style.display = " block";
+				break;
+			case "details-alarm":
+				machineIdDiv.style.display = " block";
+				alarmIdDiv.style.display = " block";
+				break;
+			case "data-machine":
+				machineIdDiv.style.display = " block";
+				groupIdDiv.style.display = " block";
+				indicatorIdDiv.style.display = " block";
+				humanDiv.style.display = " block";
+				fromTsDiv.style.display = " block";
+				toTsDiv.style.display = " block";
+				delimeterDiv.style.display = " block";
+				aggregationDiv.style.display = " block";
+				grainDiv.style.display = " block";
+				break;
+			case "data-alarm":
+				machineIdDiv.style.display = " block";
+				alarmIdDiv.style.display = " block";
+				fromTsDiv.style.display = " block";
+				toTsDiv.style.display = " block";
+				delimeterDiv.style.display = " block";
+				severityIdDiv.style.display = " block";
+				categoryIdDiv.style.display = " block";
+				definedDiv.style.display = " block";
+				durationFromDiv.style.display = " block";
+				durationToDiv.style.display = " block";
+				break;
+			case "stream":
+				machineIdDiv.style.display = " block";
+				humanDiv.style.display = " block";
+				delimeterDiv.style.display = " block";
+				fromTsDiv.style.display = " block";
+				break;
+			case "list-files":
+				machineIdDiv.style.display = " block";
+				break;
+		}
+	}
+	else if (apitype === 'local')
+	{
+		// Mostramos los selectores disponibles para esta opción
+		methodLocalDiv.style.display = " block";
+
+		// Seteamos los valores de los demás combos al valor por defecto para que no haya liadas con los métodos 'stream'
+		document.getElementById("node-input-methodCloudv1").selectedIndex = 0;
+		document.getElementById("node-input-methodCloudv2").selectedIndex = 0;
+
+		methodtype = document.getElementById("node-input-methodLocal").value;
+		switch (methodtype)
+		{
+			case "details-indicator":
+				break;
+			case "list-files":
+				machineIdDiv.style.display = " block";
+				fromTsDiv.style.display = " block";
+				toTsDiv.style.display = " block";
+				break;
+			case "stream":
+				machineIdDiv.style.display = " block";
+				break;
+		}
+	}
+}
+
+// Función que oculta todas y cada uno de los elementos
+function hideAll()
+{
+	keyDiv.style.display = " none";
+	secretDiv.style.display = " none";
+	methodCloudv1Div.style.display = " none";
+	methodCloudv2Div.style.display = " none";
+	methodLocalDiv.style.display = " none";
+	locationIdDiv.style.display = " none";
+	machineIdDiv.style.display = " none";
+	groupIdDiv.style.display = " none";
+	indicatorIdDiv.style.display = " none";
+	fromTsDiv.style.display = " none";
+	toTsDiv.style.display = " none";
+	productionLineIdDiv.style.display = " none";
+	activeDiv.style.display = " none";
+	isKeyDiv.style.display = " none";
+	categoryIdDiv.style.display = " none";
+	severityIdDiv.style.display = " none";
+	alarmIdDiv.style.display = " none";
+	humanDiv.style.display = " none";
+	delimeterDiv.style.display = " none";
+	aggregationDiv.style.display = " none";
+	grainDiv.style.display = " none";
+	definedDiv.style.display = " none";
+	durationFromDiv.style.display = " none";
+	durationToDiv.style.display = " none";
+	fileNameDiv.style.display = " none";
+}
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('savvy', {
+        category: 'savvy',
+        defaults: {
+            name: {
+                value: ""
+            },
+            endpoint: {
+                value: ""
+            },
+			returntype: {
+                value: ""
+            },
+			apitype: {
+                value: ""
+            },
+            key: {
+                value: ""
+            },
+			secret: {
+                value: ""
+            },
+            locationId: {
+                value: ""
+            },
+            groupId: {
+                value: ""
+            },
+            machineId: {
+                value: ""
+            },
+            indicatorId: {
+                value: ""
+            },
+            fromTs: {
+                value: ""
+            },
+            toTs: {
+                value: ""
+            },
+            methodCloudv1: {
+                value: ""
+            },
+            methodCloudv2: {
+                value: ""
+            },
+            methodLocal: {
+                value: ""
+            },
+            productionLineId: {
+                value: ""
+            },
+            active: {
+                value: ""
+            },
+            isKey: {
+                value: ""
+            },
+            categoryId: {
+                value: ""
+            },
+            alarmId: {
+                value: ""
+            },
+            severityId: {
+                value: ""
+            },
+            severityId: {
+                value: ""
+            },
+            human: {
+                value: ""
+            },
+            delimeter: {
+                value: ""
+            },
+            aggregation: {
+                value: ""
+            },
+            grain: {
+                value: ""
+            },
+            defined: {
+                value: ""
+            },
+            durationFrom: {
+                value: ""
+            },
+            durationTo: {
+                value: ""
+            },
+            fileName: {
+                value: ""
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "hash.png",
+        color: "#FFFFFF",
+        label: function () {
+            return this.name || " Savvy node ";
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        button: {
+            onclick: function() {
+                var node = this;
+                $.ajax({
+                    url: "savvy/"+this.id,
+                    type:"POST",
+                    success: function(resp) {
+                        RED.notify(node._("savvy.success",{label:label}),"success");
+                    },
+                    error: function(jqXHR,textStatus,errorThrown) {
+                        if (jqXHR.status == 404) {
+                            RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.not-deployed")}),"error");
+                        } else if (jqXHR.status == 500) {
+                            RED.notify(node._("common.notification.error",{message:node._("inject.errors.failed")}),"error");
+                        } else if (jqXHR.status == 0) {
+                            RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.no-response")}),"error");
+                        } else {
+                            RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.unexpected",{status:jqXHR.status,message:textStatus})}),"error");
+                        }
+                    }
+                });
+            }
+        }
+    });
+</script>

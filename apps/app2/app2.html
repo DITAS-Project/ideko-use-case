@@ -1,0 +1,246 @@
+<head>
+    <meta charset="UTF-8">
+    <title>App2 - Real time machine diagnostic</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Staatliches">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800">
+</head>
+
+<body>
+    <header class="header" class="clearfix" style="background-color:#e66f2e">
+        <div class="top-horizontal-left" style="color:white">
+          SPART plant machine live status
+        </div>
+        <div class="top-horizontal-right" style="margin-right:0px!important;padding-top:5px!important">
+          <img src="../images/spart.png" style="width:85%">
+        </div>
+    </header>
+
+    <div class="top-horizontal"></div>
+
+    <div class="modal-dialog" style="width:1020px;margin-top: -25px;height:60%">
+
+        <!--
+		################################################################################
+		################################  MACHINE 1 ####################################
+		################################################################################
+		-->
+        <div class="row" style="padding-top: 20px;margin-left:-120px">
+
+            <!-- ###########################################
+            #################### LOGO V/X ################## -->
+            <div class="col-md-3" style="padding-top:40px">
+                <div class="modal-content" style="background-color:#66bb6a;height: 150px!important; width:150px">
+                    <img src="../images/v.png" style="padding-left:30px;padding-top:35px;width:80%">
+                </div>
+            </div>
+
+            <!-- ###########################################
+            ################# DIBUJO MÁQUINA ############### -->
+            <div class="col-md-4" style="margin-left:-100px;padding-top:40px">
+                <div class="modal-content" style="background-color:#F1F1F1;height: 150px!important; width:150px">
+                    <img src="../images/estarta.png" style="padding-top:30px;padding-left:15px;width:90%">
+                </div>
+            </div>
+
+            <!-- ###########################################
+            ################## INDICADORES ################# -->
+            <div class="col-md-5" style="margin-left:-195px">
+                <div class="modal-content" style="background-color:#F1F1F1;height: 230px !important;width:750px">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ESTARTA 315 FV Centreless grinding - Kelly</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-izq">
+                            Z1 Axis Engine Intensity:<br>
+                            <div id="z1-intensity-bar-m1"></div>
+                            Z1 Axis Temperature:<br>
+                            <div id="z1-temperature-bar-m1"></div>
+                            Z2 Axis Engine Intensity:<br>
+                            <div id="z2-intensity-bar-m1"></div>
+                            Z2 Axis Temperature:<br>
+                            <div id="z2-temperature-bar-m1"></div>
+
+                        </div>
+                        <div class="modal-dere">
+							Controller Mode:<br>
+							<div id="controller-mode-m1" class="indicator-right"></div>
+                            Execution State:<br>
+							<div id="execution-state-m1" class="indicator-right"></div>
+                            Program Name:<br>
+							<div id="program-name-m1" class="indicator-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--
+		################################################################################
+        ################################  MACHINE 2 ####################################
+		################################################################################
+		-->
+        <div class="row" style="padding-top: 20px;margin-left:-120px">
+
+            <!-- ###########################################
+            #################### LOGO V/X ################## -->
+            <div class="col-md-3" style="padding-top:40px">
+				<div class="modal-content" style="background-color:#66bb6a;height: 150px!important; width:150px">
+                    <img src="../images/v.png" style="padding-left:30px;padding-top:35px;width:80%">
+                </div>
+            </div>
+
+            <!-- ###########################################
+            ################# DIBUJO MÁQUINA ############### -->
+            <div class="col-md-4" style="margin-left:-100px;padding-top:40px">
+	                <div class="modal-content" style="background-color:#F1F1F1;height: 150px!important; width:150px">
+	                 	<img src="../images/estarta.png" style="padding-top:30px;padding-left:15px;width:90%">
+	                </div>
+            </div>
+
+            <!-- ###########################################
+            ################## INDICADORES ################# -->
+            <div class="col-md-5" style="margin-left:-195px">
+                <div class="modal-content" style="background-color:#F1F1F1;height: 230px !important;width:750px">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ESTARTA 315 FV Centreless grinding - Slater</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-izq">
+                          Z1 Axis Engine Intensity:<br>
+                          <div id="z1-intensity-bar-m2"></div>
+                          Z1 Axis Temperature:<br>
+                          <div id="z1-temperature-bar-m2"></div>
+                          Z2 Axis Engine Intensity:<br>
+                          <div id="z2-intensity-bar-m2"></div>
+                          Z2 Axis Temperature:<br>
+                          <div id="z2-temperature-bar-m2"></div>
+                        </div>
+                        <div class="modal-dere">
+							Controller Mode:<br>
+							<div id="controller-mode-m2" class="indicator-right"></div>
+                            Execution State:<br>
+							<div id="execution-state-m2" class="indicator-right"></div>
+                            Program Name:<br>
+							<div id="program-name-m2" class="indicator-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--
+		################################################################################
+        ################################  MACHINE 3 ####################################
+		################################################################################
+		-->
+        <div class="row" style="padding-top: 20px;margin-left:-120px">
+
+            <!-- ###########################################
+            #################### LOGO V/X ################## -->
+            <div class="col-md-3" style="padding-top:40px">
+                <div class="modal-content" style="height: 150px!important; width:150px;background-color:#F1F1F1">
+					<div id="machine-status">
+						<div id="machine-error-status-m3" class="machine-error-status"></div>
+						<img id="machine-error-image-m3" src="" >
+						<div id="machine-error-metric-m3" class="machine-error-metric"></div>
+						<div id="machine-error-message-m3" class="machine-error-message"></div>
+						<div id="machine-error-value-m3" class="machine-error-value"></div>
+						<div id="machine-error-date-m3" class="machine-error-date"></div>
+					</div>
+                </div>
+            </div>
+
+            <!-- ###########################################
+            ################# DIBUJO MÁQUINA ############### -->
+            <div class="col-md-4" style="margin-left:-100px;padding-top:40px">
+                <div class="modal-content" style="background-color:#F1F1F1;height: 150px!important; width:150px">
+                  <img src="../images/estarta.png" style="padding-top:30px;padding-left:15px;width:90%">
+                </div>
+            </div>
+
+            <!-- ###########################################
+            ################## INDICADORES ################# -->
+            <div class="col-md-5" style="margin-left:-195px">
+                <div class="modal-content" style="background-color:#F1F1F1;height: 230px !important;width:750px">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ESTARTA 315 FV Centreless grinding - Zack</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-izq">
+							Z1 Axis Temperature:<br>
+							<div id="z1-temperature-bar-m3"></div>
+							Z2 Axis Temperature:<br>
+							<div id="z2-temperature-bar-m3"></div>
+							Z1 Axis Engine Intensity:<br>
+							<div id="z1-intensity-bar-m3"></div>
+							Z2 Axis Engine Intensity:<br>
+							<div id="z2-intensity-bar-m3"></div>
+                        </div>
+                        <div class="modal-dere">
+                            Controller Mode:<br>
+							<div id="controller-mode-m3" class="indicator-right"></div>
+                            Execution State:<br>
+							<div id="execution-state-m3" class="indicator-right"></div>
+                            Program Name:<br>
+							<div id="program-name-m3" class="indicator-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="mailto:sat@ideko.es" class="float-button">
+      <i class="fa fa-plus my-float glyphicon glyphicon-envelope"></i>
+    </a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/highcharts/highcharts.js"></script>
+    <script src="../js/highcharts/highcharts-more.js"></script>
+    <script src="../js/highcharts/charts/app2-bars.js"></script>
+    <script src="../js/diagnostic/diagnostic.js"></script>
+	<script src="../js/stream/stream.js"></script>
+	<script src="../js/stream/stream-controller.js"></script>
+	<script src="../js/diagnostic/diagnostic.js"></script>
+	<script src="../js/diagnostic/diagnostic-controller.js"></script>
+
+	<script>
+		$(window).ready(function()
+		{
+			// Checks if the app local storage exist, otherwise, redirected to the login page
+			var appStorageValue = window.localStorage.getItem('appStorage');
+			if (!appStorageValue)
+			{
+				window.location.href = "app-login.html";
+				return;
+			}
+
+			// Checks if the DITAS local storage exist, otherwise, redirected to the login page
+			var ditasStorageValue = window.localStorage.getItem('ditasStorage');
+			if (!ditasStorageValue)
+			{
+				window.location.href = "ditas-login.html";
+				return;
+			}
+
+			// Call the stream
+			urlStream = AppConfiguration.GetStreamingDataURL + "?machines=" + AppConfiguration.machineId;
+			console.log("Starting stream...");
+			StreamController.startStreaming(urlStream);
+
+			// Call the GetSimplifiedDiagnostic
+			setInterval(function() {
+				console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms to get values. Actual time: " + new Date(Date.now()).toLocaleTimeString());
+
+					// TODO: Con machines
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineId;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic);
+				}, AppConfiguration.CallDiagnosticValuesInterval);
+			});
+	</script>
+
+  </body>

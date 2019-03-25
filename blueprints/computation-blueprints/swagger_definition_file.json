@@ -1,0 +1,250 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Computation blueprints for SPART MANUFACTURING plant (IDEKO use case)",
+    "description": "Computations blueprints able to get data from the 3 ESTARTA 315 FV machines working on the SPART MANUFATURING plant. Expose 3 methods.",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/GetStreamingData": {
+      "get": {
+        "summary": "Returns the streaming data for the parameters given. MachinesIds can be a comma-separated list of machines.",
+        "operationId": "GetStreamingData",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "machines",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStreamingDataResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-data-sources": [
+          "Streaming API"
+        ]
+      }
+    },
+    "/GetSimplifiedDiagnostic": {
+      "get": {
+        "summary": "Returns a simplified view of the state of the machines in the plant. A list of comma separated machine ids can be passed.",
+        "operationId": "GetSimplifiedDiagnostic",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "machines",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSimplifiedDiagnostic"
+                }
+              }
+            }
+          }
+        },
+        "x-data-sources": [
+          "InfluxDB"
+        ]
+      }
+    },
+    "/GetFullDiagnostic": {
+      "get": {
+        "summary": "Returns a complete view of the states of the machines in the plant. A list of comma separated machine ids can be passed.",
+        "operationId": "GetFullDiagnostic",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "machines",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFullDiagnostic"
+                }
+              }
+            }
+          }
+        },
+        "x-data-sources": [
+          "InfluxDB"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer"
+          },
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "developerMessage": {
+            "type": "string"
+          }
+        }
+      },
+      "GetStreamingDataResponse": {
+        "type": "object",
+        "properties": {
+          "machine": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetSimplifiedDiagnostic": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "ALERT",
+              "WARNING"
+            ]
+          },
+          "timestamp": {
+            "type": "number",
+            "example": 1550584972266
+          },
+          "cause": {
+            "type": "object",
+            "properties": {
+              "raw": {
+                "type": "string"
+              },
+              "metric": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "GetFullDiagnostic": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "ALERT",
+              "WARNING"
+            ]
+          },
+          "timestamp": {
+            "type": "number",
+            "example": 1550584972266
+          },
+          "cause": {
+            "type": "object",
+            "properties": {
+              "raw": {
+                "type": "string"
+              },
+              "metric": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          },
+          "signals": {
+            "type": "object",
+            "properties": {
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
