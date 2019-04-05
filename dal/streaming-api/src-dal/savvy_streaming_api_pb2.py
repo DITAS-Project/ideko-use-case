@@ -16,10 +16,10 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='savvy-streaming-api.proto',
-  package='SavvyStreamingAPI',
+  package='IdekoStreamingDal',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x19savvy-streaming-api.proto\x12\x11SavvyStreamingAPI\"%\n\x10StreamParameters\x12\x11\n\tmachineId\x18\x01 \x01(\t\"&\n\x0eStreamResponse\x12\x14\n\x0cresponseLine\x18\x01 \x01(\t2p\n\x11SavvyStreamingAPI\x12[\n\rStreamMachine\x12#.SavvyStreamingAPI.StreamParameters\x1a!.SavvyStreamingAPI.StreamResponse\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x19savvy-streaming-api.proto\x12\x11IdekoStreamingDal\"%\n\x10StreamParameters\x12\x11\n\tmachineId\x18\x01 \x01(\t\"&\n\x0eStreamResponse\x12\x14\n\x0cresponseLine\x18\x01 \x01(\t2p\n\x11SavvyStreamingAPI\x12[\n\rStreamMachine\x12#.IdekoStreamingDal.StreamParameters\x1a!.IdekoStreamingDal.StreamResponse\"\x00\x30\x01\x62\x06proto3')
 )
 
 
@@ -27,13 +27,13 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _STREAMPARAMETERS = _descriptor.Descriptor(
   name='StreamParameters',
-  full_name='SavvyStreamingAPI.StreamParameters',
+  full_name='IdekoStreamingDal.StreamParameters',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='machineId', full_name='SavvyStreamingAPI.StreamParameters.machineId', index=0,
+      name='machineId', full_name='IdekoStreamingDal.StreamParameters.machineId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -58,13 +58,13 @@ _STREAMPARAMETERS = _descriptor.Descriptor(
 
 _STREAMRESPONSE = _descriptor.Descriptor(
   name='StreamResponse',
-  full_name='SavvyStreamingAPI.StreamResponse',
+  full_name='IdekoStreamingDal.StreamResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='responseLine', full_name='SavvyStreamingAPI.StreamResponse.responseLine', index=0,
+      name='responseLine', full_name='IdekoStreamingDal.StreamResponse.responseLine', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -93,14 +93,14 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 StreamParameters = _reflection.GeneratedProtocolMessageType('StreamParameters', (_message.Message,), dict(
   DESCRIPTOR = _STREAMPARAMETERS,
   __module__ = 'savvy_streaming_api_pb2'
-  # @@protoc_insertion_point(class_scope:SavvyStreamingAPI.StreamParameters)
+  # @@protoc_insertion_point(class_scope:IdekoStreamingDal.StreamParameters)
   ))
 _sym_db.RegisterMessage(StreamParameters)
 
 StreamResponse = _reflection.GeneratedProtocolMessageType('StreamResponse', (_message.Message,), dict(
   DESCRIPTOR = _STREAMRESPONSE,
   __module__ = 'savvy_streaming_api_pb2'
-  # @@protoc_insertion_point(class_scope:SavvyStreamingAPI.StreamResponse)
+  # @@protoc_insertion_point(class_scope:IdekoStreamingDal.StreamResponse)
   ))
 _sym_db.RegisterMessage(StreamResponse)
 
@@ -108,7 +108,7 @@ _sym_db.RegisterMessage(StreamResponse)
 
 _SAVVYSTREAMINGAPI = _descriptor.ServiceDescriptor(
   name='SavvyStreamingAPI',
-  full_name='SavvyStreamingAPI.SavvyStreamingAPI',
+  full_name='IdekoStreamingDal.SavvyStreamingAPI',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
@@ -117,7 +117,7 @@ _SAVVYSTREAMINGAPI = _descriptor.ServiceDescriptor(
   methods=[
   _descriptor.MethodDescriptor(
     name='StreamMachine',
-    full_name='SavvyStreamingAPI.SavvyStreamingAPI.StreamMachine',
+    full_name='IdekoStreamingDal.SavvyStreamingAPI.StreamMachine',
     index=0,
     containing_service=None,
     input_type=_STREAMPARAMETERS,

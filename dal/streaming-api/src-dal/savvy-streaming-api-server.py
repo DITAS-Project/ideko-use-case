@@ -32,6 +32,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         for line in result_requests.iter_lines():
                 # Remember The first line of the stream is only the status
                 #if raw_result.find("status") < 0:
+                print 'Sending response line'
                 yield savvy_streaming_api_pb2.StreamResponse(responseLine=line)
 
 def serve():
@@ -39,6 +40,7 @@ def serve():
     savvy_streaming_api_pb2_grpc.add_SavvyStreamingAPIServicer_to_server(SavvyStreamingAPI(), server)
     server.add_insecure_port('[::]:40001')
     server.start()
+    print('Server started on port 40001')
     try:
         # Supongo que esto es un truco para que el server este corriendo maximo un dia
         while True:

@@ -15,7 +15,7 @@ class SavvyStreamingAPIStub(object):
       channel: A grpc.Channel.
     """
     self.StreamMachine = channel.unary_stream(
-        '/SavvyStreamingAPI.SavvyStreamingAPI/StreamMachine',
+        '/IdekoStreamingDal.SavvyStreamingAPI/StreamMachine',
         request_serializer=savvy__streaming__api__pb2.StreamParameters.SerializeToString,
         response_deserializer=savvy__streaming__api__pb2.StreamResponse.FromString,
         )
@@ -42,5 +42,5 @@ def add_SavvyStreamingAPIServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'SavvyStreamingAPI.SavvyStreamingAPI', rpc_method_handlers)
+      'IdekoStreamingDal.SavvyStreamingAPI', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

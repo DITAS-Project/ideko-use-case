@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package SavvyStreamingAPI;
+package IdekoStreamingDal;
 
 // SavvyStreamingAPI service definition
 service SavvyStreamingAPI {
