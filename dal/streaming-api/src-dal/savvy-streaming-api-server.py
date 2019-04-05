@@ -32,7 +32,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         for line in result_requests.iter_lines():
                 # Remember The first line of the stream is only the status
                 #if raw_result.find("status") < 0:
-                print 'Sending response line'
+                print('Sending response line')
                 yield savvy_streaming_api_pb2.StreamResponse(responseLine=line)
 
 def serve():
