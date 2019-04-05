@@ -18,6 +18,9 @@ To run properly, some requirements must be met:
 
 How to run the container
 ===
+Build using `docker build -t computation-vdc .` from the folder where the Dockerfile is.
+
+
 This info is for the Deployment Engine. NOTE: adapt the host paths
 
 ```
