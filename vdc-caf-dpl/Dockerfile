@@ -13,6 +13,7 @@ RUN npm install node-red-contrib-influxdb
 # Copy the HTTPin and Savvy nodes
 ADD node-red-files/httpin-node/* ./node_modules/node-red/nodes/core/io/
 ADD node-red-files/savvy-node/* /savvy_node_data/
+ADD node-red-files/grpc/* /grpc/
 
 # Copy the settings file
 COPY node-red-files/settings/settings.js /data
@@ -22,11 +23,21 @@ COPY node-red-files/flows/flows.json /data
 
 # Needs to be root to make the npm links
 USER root
+
+# Install savvy node
 WORKDIR /savvy_node_data/
 RUN npm install
 RUN npm link
 WORKDIR /data
 RUN npm link savvy-contrib
+
+# Install grpc nodes
+WORKDIR /grpc/
+RUN npm install
+RUN npm link
+WORKDIR /data
+RUN npm link node-red-contrib-grpc
+
 
 # Node-red owns the /data path
 RUN chown -R node-red /data
@@ -58,6 +69,8 @@ RUN  apk add --update $RUNTIME_DEPS && \
         && cp /usr/bin/envsubst /usr/local/bin/envsubst  \
     && apk del build_deps \
     && rm -rf /var/cache/apk/*
+
+EXPOSE 1888
 
 # TODO can user nodered execute also the troughput agent?
 # TODO change the entrypoint to use root for the agent
