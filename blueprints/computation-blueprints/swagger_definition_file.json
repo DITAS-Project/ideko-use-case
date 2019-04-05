@@ -8,12 +8,12 @@
   "paths": {
     "/GetStreamingData": {
       "get": {
-        "summary": "Returns the streaming data for the parameters given. MachinesIds can be a comma-separated list of machines.",
+        "summary": "Returns the streaming data for the parameters given. Machine must be a single machine id.",
         "operationId": "GetStreamingData",
         "parameters": [
           {
             "in": "query",
-            "name": "machines",
+            "name": "machine",
             "required": true,
             "schema": {
               "type": "string"
