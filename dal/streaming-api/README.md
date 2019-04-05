@@ -28,16 +28,16 @@ Remenber the use case turns around an scenario where there are three machines in
 
 * Get the environment ready.
 * Download thi repo.
-* Run the server with `python savvy-streaming-api-server.py` (Ensure the python binary points to a Python 3 version and ensure this is running in the same local network as the machines).
-* Run the client with `python savvy-streaming-api-client.py`.
+* Run the server with `python3 savvy-streaming-api-server.py` (Ensure the python binary points to a Python 3 version and ensure this is running in the same local network as the machines).
+* Run the client with `python3 savvy-streaming-api-client.py`.
 * The client calls the server with a harcoded machine ID so we should start receiving machine data.
 
 The server listens in the port 40001.
 
 # Running with Docker
 
-* Run `docker build -t dal-ideko .` from the folder where the Dockerfile is.
-* Run `docker run -p 40001:40001 -d dal-ideko`. The server will be automatically started.
+* Run `docker build -t dal-streaming-ideko .` from the folder where the Dockerfile is.
+* Run `docker run -p 40001:40001 -d dal-streaming-ideko`. The server will be automatically started.
 * Run any _grpc_ client or use the included cliente by `docker exec -it ID /bin/bash` and then running the client as detailed in the previus section.
 
 # TODO
