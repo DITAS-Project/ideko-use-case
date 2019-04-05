@@ -25,4 +25,4 @@ COPY ./src-dal .
 EXPOSE 40001
 
 # Execute the server 
-CMD ["python3", "/opt/dal/savvy-streaming-api-server.py"]
+CMD ["python3", "-u", "/opt/dal/savvy-streaming-api-server.py"]
