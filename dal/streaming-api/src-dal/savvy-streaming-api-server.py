@@ -61,10 +61,6 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                         return False
                 except jwt.exceptions.DecodeError:
                     return False
-
-                # Decoded, everything's ok
-                return True
-
         # Key not found on the keycloak server
         return False
     '''
