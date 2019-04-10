@@ -13,7 +13,7 @@ RUN npm install node-red-contrib-influxdb
 # Copy the HTTPin and Savvy nodes
 ADD node-red-files/httpin-node/* ./node_modules/node-red/nodes/core/io/
 ADD node-red-files/savvy-node/* /savvy_node_data/
-ADD node-red-files/grpc/* /grpc/
+ADD node-red-files/grpc/ /grpc/
 
 # Copy the settings file
 COPY node-red-files/settings/settings.js /data
@@ -33,7 +33,7 @@ RUN npm link savvy-contrib
 
 # Install grpc nodes
 WORKDIR /grpc/
-RUN npm install
+#RUN npm install
 RUN npm link
 WORKDIR /data
 RUN npm link node-red-contrib-grpc
