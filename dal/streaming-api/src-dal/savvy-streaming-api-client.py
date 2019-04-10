@@ -22,7 +22,6 @@ def run():
             print (line.responseLine)
         #print("La API de Savvy ha respondido: " + response.responseLine)
 
-
 if __name__ == '__main__':
     #logging.basicConfig()
 

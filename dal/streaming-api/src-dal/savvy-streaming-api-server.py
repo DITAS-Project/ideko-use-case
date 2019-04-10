@@ -16,8 +16,14 @@ import savvy_streaming_api_pb2_grpc
 
 class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
 
-    '''
     def JWT_is_valid(self, request, context, accepted_roles):
+        """ Check if the JWT token (which is taken from the "auhorization" header) token is valid for an accepted role
+            This is a implementation of the "Token validation" section of the ""[DITAS] VDC Access Control" document
+
+            Returns:
+                bool(True): If the token is valid
+                bool(False): If the token is not valid
+        """
 
         # Get the metadata
         metadata = dict(context.invocation_metadata())
@@ -34,7 +40,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         # Get the algorithm from the header of the JWT
         algorithm = jwt.get_unverified_header(jwt_token)["alg"]
 
-        # TODO - How do we get this one?
+        # TODO - How do we get this one? How do we get the Blueprint ID (288)?
         # Generate the URL to get the public key
         available_keys_url = "https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs"
         # available_keys_url = request.params['??']
@@ -52,26 +58,28 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                 try:
                     # Decode de JWT with the provided secret
                     decoded_jwt_payload = jwt.decode(jwt_token, secret, algorithms=[algorithm])
-                    # Check if the user role (taken from the content) is an accepted role (is this neccesary?)
-                    if decoded_jwt_payload["real_access"]["role_name"] in accepted_roles:
-                        # For this method, he has access
-                        return True
-                    # That role has no access to this method
-                    else:
-                        return False
+                    # Check if any user role (taken from the payload) is an accepted role
+                    for accepted_role in decoded_jwt_payload["realm_access"]["roles"]:
+                        if accepted_role in accepted_roles:
+                            # He has access for this method!
+                            return True
                 except jwt.exceptions.DecodeError:
                     return False
-        # Key not found on the keycloak server
+        # Key not found on the keycloak server, or the token role is not an accepted one
         return False
-    '''
+
 
     def StreamMachine(self, request, context):
         '''
-        # Acepted roles for this user
-        accepted_roles = ["administrator", "operator"]
+        # TODO: Remove this coments and align properly after the "if"
+
+        # Acepted roles for this function - This roles should match the ones created on Keycloak
+        accepted_roles = ["ideko-operator", "spart-operator"]
+
         # Check if the JWT token is valid before doing anything
         if self.JWT_is_valid(request, context, accepted_roles):
         '''
+
         machineId = request.machineId
 
         # TODO gestionar errores, grpc tiene una forma propia
