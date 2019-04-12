@@ -24,7 +24,7 @@ Build using `docker build -t computation-vdc .` from the folder where the Docker
 This info is for the Deployment Engine. NOTE: adapt the host paths
 
 ```
-docker run -d -p 1888:1888 -v /HOST/CONFIG/FOLDERfig:/etc/config ditas/vdc-node-red:production
+docker run -d -p 1888:1888 -v /HOST/CONFIG/FOLDERfig:/etc/config computation-vdc
 ```
 
 Part by part:

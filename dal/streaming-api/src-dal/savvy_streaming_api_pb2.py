@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='IdekoStreamingDal',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x19savvy-streaming-api.proto\x12\x11IdekoStreamingDal\"%\n\x10StreamParameters\x12\x11\n\tmachineId\x18\x01 \x01(\t\"&\n\x0eStreamResponse\x12\x14\n\x0cresponseLine\x18\x01 \x01(\t2p\n\x11SavvyStreamingAPI\x12[\n\rStreamMachine\x12#.IdekoStreamingDal.StreamParameters\x1a!.IdekoStreamingDal.StreamResponse\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x19savvy-streaming-api.proto\x12\x11IdekoStreamingDal\"<\n\x10StreamParameters\x12\x11\n\tmachineId\x18\x01 \x01(\t\x12\x15\n\rauthorization\x18\x02 \x01(\t\"&\n\x0eStreamResponse\x12\x14\n\x0cresponseLine\x18\x01 \x01(\t2p\n\x11SavvyStreamingAPI\x12[\n\rStreamMachine\x12#.IdekoStreamingDal.StreamParameters\x1a!.IdekoStreamingDal.StreamResponse\"\x00\x30\x01\x62\x06proto3')
 )
 
 
@@ -39,6 +39,13 @@ _STREAMPARAMETERS = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='authorization', full_name='IdekoStreamingDal.StreamParameters.authorization', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -52,7 +59,7 @@ _STREAMPARAMETERS = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=48,
-  serialized_end=85,
+  serialized_end=108,
 )
 
 
@@ -82,8 +89,8 @@ _STREAMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=125,
+  serialized_start=110,
+  serialized_end=148,
 )
 
 DESCRIPTOR.message_types_by_name['StreamParameters'] = _STREAMPARAMETERS
@@ -112,8 +119,8 @@ _SAVVYSTREAMINGAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=127,
-  serialized_end=239,
+  serialized_start=150,
+  serialized_end=262,
   methods=[
   _descriptor.MethodDescriptor(
     name='StreamMachine',
