@@ -17,7 +17,9 @@ RUN python3 get-pip.py
 RUN python3 -m pip install grpcio
 RUN python3 -m pip install grpcio-tools
 RUN python3 -m pip install requests
-RUN python3 -m pip install jwt
+RUN python3 -m pip uninstall jwt
+RUN python3 -m pip uninstall PyJWT
+RUN python3 -m pip install PyJWT
 
 # Bring DAL code into image
 WORKDIR /opt/dal
