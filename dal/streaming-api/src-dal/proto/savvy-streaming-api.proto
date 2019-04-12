@@ -11,6 +11,7 @@ service SavvyStreamingAPI {
 // The request parameters
 message StreamParameters {
   string machineId = 1;
+  string authorization = 2;
 }
 
 // The response message containing the json line

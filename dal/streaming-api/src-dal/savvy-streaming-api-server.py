@@ -4,6 +4,7 @@ import time
 import logging
 import json
 import requests
+import sys
 
 import grpc
 import jwt
@@ -13,6 +14,9 @@ from helpers.config import Config
 
 import savvy_streaming_api_pb2
 import savvy_streaming_api_pb2_grpc
+
+# Whether the test mode is on (don't check for authorization)
+testing = False
 
 class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
 
@@ -24,6 +28,11 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                 bool(True): If the token is valid
                 bool(False): If the token is not valid
         """
+        
+        # Don't check for auth in testing mode
+        if testing:
+            print("DAL is in testing mode, omitting auth check")
+            return True;
 
         # Get the metadata
         metadata = dict(context.invocation_metadata())
@@ -114,4 +123,12 @@ def serve():
 
 if __name__ == '__main__':
     #logging.basicConfig()
+    
+    # Check for a --testing arg
+    if '--testing' in sys.argv:
+        print ('DAL started in test mode');
+        testing = True
+    else:
+        print ('Dal is no in test mode, auth checks will be performed')
+        
     serve()
