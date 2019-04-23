@@ -36,11 +36,13 @@ sbt assembly
 
 4) cp vdc-dal-grpc-assembly-0.1.jar to lib directory
 
-5) Create distribution with:
+5) Build and copy to lib directory scala-influxdb-client jar
+
+6) Create distribution with:
 ```
 sbt universal:packageZipTarball
 ```
-6) Unzip the archive in target/universal/:
+7) Unzip the archive in target/universal/:
 ```
 tar xvfz ideko-dal-influxdb-0.1.tgz
 ```
