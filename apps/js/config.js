@@ -11,12 +11,14 @@ var AppConfiguration = {
   AppUser: "c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec",
   AppPassword: "260179d083fc875f132b1be295913e26070c76f677609796b73f09ae3f0dc7f8073a999e26a189a87e362a960b6b1288817a452b4ae697d3971327a589615bfb",
 
-  DitasUser: "",
-  DitasPassword: "",
-
   GetSimplifiedDiagnosticURL: "http://52.50.248.116:1888/caf/GetSimplifiedDiagnostic",
   GetFullDiagnosticURL: "http://52.50.248.116:1888/caf/GetFullDiagnostic",
   GetStreamingDataURL: "http://52.50.248.116:1888/caf/GetStreamingData",
+  
+  // Keycloak
+  KeycloakURL: "https://153.92.30.56:58080",
+  KeycloakRealm : "288",
+  KeycloackClientID : "vdc_client",
 
   // Machine ID to call
   machineId: 'CMX_LQLS26',
@@ -30,6 +32,7 @@ var AppConfiguration = {
   // Interval to get the values from the GetStreamingData function
   GetStreamValuesInterval: 2000,
 
+  // Execution state ID mapping
   ExecutionState: {
 	  "interrupted" : 1,
 	  "stopped" : 2,
@@ -38,6 +41,7 @@ var AppConfiguration = {
 	  "aborted" : 5
   },
 
+  // Controller mode ID mapping
   ControllerMode: {
 	  "JOG": 0,
 	  "MDI": 1,

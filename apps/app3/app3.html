@@ -276,26 +276,11 @@
 	<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
 	<!--<script src="https://code.highcharts.com/6.1.4/modules/boost.js"></script>-->
 	<script src="https://code.highcharts.com/modules/boost.js"></script>
-
+	<script src="../js/login/check-local-storage.js"></script>
+	
 	<script>
 		$(window).ready(function()
 		{
-			// Checks if the app local storage exist, otherwise, redirected to the login page
-			var appStorageValue = window.localStorage.getItem('appStorage');
-			if (!appStorageValue)
-			{
-				window.location.href = "app-login.html";
-				return;
-			}
-
-			// Checks if the DITAS local storage exist, otherwise, redirected to the login page
-			var ditasStorageValue = window.localStorage.getItem('ditasStorage');
-			if (!ditasStorageValue)
-			{
-				window.location.href = "ditas-login.html";
-				return;
-			}
-
 			// Call the stream
 			urlStream = AppConfiguration.GetStreamingDataURL + "?machines=" + AppConfiguration.machineId;
 			console.log("Starting stream...");
@@ -305,10 +290,10 @@
 			setInterval(function() {
 				console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms to get values. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-					// TODO: Con machines
-					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineId;
-					DiagnosticController.startDiagnosticCall(urlFullDiagnostic);
+				// TODO: Con machines
+				urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineId;
+				DiagnosticController.startDiagnosticCall(urlFullDiagnostic);
 				}, AppConfiguration.CallDiagnosticValuesInterval);
-			});
+		});
 	</script>
 </body>

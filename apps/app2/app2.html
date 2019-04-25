@@ -207,26 +207,11 @@
 	<script src="../js/stream/stream-controller.js"></script>
 	<script src="../js/diagnostic/diagnostic.js"></script>
 	<script src="../js/diagnostic/diagnostic-controller.js"></script>
-
+	<script src="../js/login/check-local-storage.js"></script>
+	
 	<script>
 		$(window).ready(function()
 		{
-			// Checks if the app local storage exist, otherwise, redirected to the login page
-			var appStorageValue = window.localStorage.getItem('appStorage');
-			if (!appStorageValue)
-			{
-				window.location.href = "app-login.html";
-				return;
-			}
-
-			// Checks if the DITAS local storage exist, otherwise, redirected to the login page
-			var ditasStorageValue = window.localStorage.getItem('ditasStorage');
-			if (!ditasStorageValue)
-			{
-				window.location.href = "ditas-login.html";
-				return;
-			}
-
 			// Call the stream
 			urlStream = AppConfiguration.GetStreamingDataURL + "?machines=" + AppConfiguration.machineId;
 			console.log("Starting stream...");
@@ -236,11 +221,11 @@
 			setInterval(function() {
 				console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms to get values. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-					// TODO: Con machines
-					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineId;
-					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic);
+				// TODO: Con machines
+				urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineId;
+				DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic);
 				}, AppConfiguration.CallDiagnosticValuesInterval);
-			});
+		});
 	</script>
 
   </body>

@@ -3,6 +3,7 @@
 
 <head>
 	<title>IK4-IDEKO login</title>
+	<meta charset="UTF-8">
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link rel="shortcut icon" href="../images/favicon.ico">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -13,6 +14,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha512.js"></script>
 	<script src="../js/config.js"></script>
+	<script src="../js/login/app-login.js"></script>
 </head>
 
 <body>
@@ -47,7 +49,7 @@
 					</form>
 				</div>
 				<div class="d-flex justify-content-center mt-3 login_container">
-					<button onclick="checkLogin()" type="button" name="button" class="btn login_btn">Login</button>
+					<button onclick="AppLogin.checkLogin(3)" type="button" name="button" class="btn login_btn">Login</button>
 				</div>
 				<div class="feedback-icon" style="margin-top:10px;">
 					<center><img src="../images/app3-warning-icon.png" width="7%"></center>
@@ -58,35 +60,6 @@
 			</div>
 		</div>
 	</div>
-
-<script type="application/javascript">
-
-	function checkLogin()
-	{
-		// Get input values
-		var inputUser = document.getElementById('username').value;
-		var inputPassword = document.getElementById('password').value;
-
-		// Get saved user and password
-		var savedUser = AppConfiguration.AppUser;
-		var savedPassword = AppConfiguration.AppPassword;
-
-		// Hash input values
-		var hashedInputUser = CryptoJS.SHA512(inputUser).toString(CryptoJS.enc.Hex);
-		var hashedInputPassword = CryptoJS.SHA512(inputPassword).toString(CryptoJS.enc.Hex);
-
-		// Check if match
-		if (hashedInputPassword == savedPassword && hashedInputUser == savedUser)
-		{
-			window.localStorage.setItem("appStorage", "exist");
-			window.location.href = "app3.html";
-		}
-		else
-		{
-			document.getElementById("feedback").innerHTML = "Wrong user or password, please try again";
-		}
-	}
-</script>
 
 </body>
 </html>
