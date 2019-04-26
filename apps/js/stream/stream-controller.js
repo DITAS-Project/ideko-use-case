@@ -9,10 +9,11 @@ var StreamController =
 	{
 		Stream.Call(pURL, function (pStreamResponseLine)
 		{
-			//console.log(pStreamResponseLine);
-
 			if (pStreamResponseLine.hasOwnProperty("data"))
 			{
+				// Remove this line if you want to print all the stream response lines
+				//console.log(pStreamResponseLine.data)
+
 				/*
 		        // MACHINE 1
 		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.ExecutionStateM1id)) StreamController.ExecutionStateM1 = pStreamResponseLine.data.I_XXC_MBXSLL_AW8HY7;
@@ -33,7 +34,6 @@ var StreamController =
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_68SBRS")) StreamController.Z2AxisEngineIntensityM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_68SBRS;
 */
 		        // MACHINE 3
-				//console.log("StreamResponse.data: " + JSON.stringify(pStreamResponseLine.data));
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_AW8HY7")) StreamController.ExecutionStateM3 = pStreamResponseLine.data.I_CMX_LQLS26_AW8HY7;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_FS38ZU")) StreamController.ControllerModeM3 = pStreamResponseLine.data.I_CMX_LQLS26_FS38ZU;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_UKZVHZ")) StreamController.ProgramNameM3 = pStreamResponseLine.data.I_CMX_LQLS26_UKZVHZ;
@@ -41,9 +41,7 @@ var StreamController =
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_V3TRK1")) StreamController.Z1AxisEngineIntensityM3 = pStreamResponseLine.data.I_CMX_LQLS26_V3TRK1;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_ARKS8V")) StreamController.Z2AxisTemperatureM3 = pStreamResponseLine.data.I_CMX_LQLS26_ARKS8V;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_68SBRS")) StreamController.Z2AxisEngineIntensityM3 = pStreamResponseLine.data.I_CMX_LQLS26_68SBRS;
-
 			}
-
 		});
 	}
 }

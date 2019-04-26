@@ -220,7 +220,7 @@ DiagnosticController.StatusM3 = "ALERT";
 			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById("machine-status-m" + machineNumber).className = "machine-error";
 			else document.getElementById("machine-status-m" + machineNumber).className = "machine-warning";
 			document.getElementById("machine-error-image-m" + machineNumber).className = "machine-error-x-image";
-			document.getElementById("machine-error-image-m" + machineNumber).src = "images/cross.png";
+			document.getElementById("machine-error-image-m" + machineNumber).src = "../images/cross.png";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("width", "18%");
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("margin-top", "-27px");
@@ -235,7 +235,7 @@ DiagnosticController.StatusM3 = "ALERT";
 		} else {
 			document.getElementById("machine-status-m" + machineNumber).className = "machine-ok";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");
-			document.getElementById("machine-error-image-m" + machineNumber).src = "images/checked-white.png";
+			document.getElementById("machine-error-image-m" + machineNumber).src = "../images/checked-white.png";
 			document.getElementById("machine-error-image-m" + machineNumber).className = "machine-noerror-v-image";
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty('width', '50%');
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("padding-top", "22px");
