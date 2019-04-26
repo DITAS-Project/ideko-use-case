@@ -42,4 +42,5 @@ When _app3_ launches:
 ### Access control
 After logging on the _DITAS framework_, a JWT token is received and added to every method call. This means that when the application calls to the  `/GetSimplifiedDiagnostic` method for example, the request header `Authorization: Beaber JWT` will be added, being `JWT` the token received after the _DITAS framework_ login.
 
+### Others
 Charts by *Highcharts*.
