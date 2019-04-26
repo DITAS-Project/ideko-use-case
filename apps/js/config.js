@@ -14,7 +14,7 @@ var AppConfiguration = {
   GetSimplifiedDiagnosticURL: "http://52.50.248.116:1888/caf/GetSimplifiedDiagnostic",
   GetFullDiagnosticURL: "http://52.50.248.116:1888/caf/GetFullDiagnostic",
   GetStreamingDataURL: "http://52.50.248.116:1888/caf/GetStreamingData",
-  
+
   // Keycloak
   KeycloakURL: "https://153.92.30.56:58080",
   KeycloakRealm : "288",

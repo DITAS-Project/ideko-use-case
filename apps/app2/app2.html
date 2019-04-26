@@ -208,7 +208,7 @@
 	<script src="../js/diagnostic/diagnostic.js"></script>
 	<script src="../js/diagnostic/diagnostic-controller.js"></script>
 	<script src="../js/login/check-local-storage.js"></script>
-	
+
 	<script>
 		$(window).ready(function()
 		{
@@ -224,7 +224,7 @@
 				// TODO: Con machines
 				urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineId;
 				DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic);
-				}, AppConfiguration.CallDiagnosticValuesInterval);
+			}, AppConfiguration.CallDiagnosticValuesInterval);
 		});
 	</script>
 

@@ -3,12 +3,15 @@
 */
 
 var Diagnostic = {
-
-	ContentType: 'application/json',
-
 	Call: function(url, pOKCallback)
 	{
+		// Get the token from the local storage
+		var token = window.localStorage.getItem('ditasToken');
+
+		// Set the headers
 		var headers = {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + token
 		}
 
 		this.makeCall(url, pOKCallback, headers);
@@ -18,10 +21,9 @@ var Diagnostic = {
 	makeCall: function(pUrl, pOKCallback, pHeaders)
 	{
 		var request = new XMLHttpRequest();
-
 		request.open('GET', pUrl, true);
 
-		// Set headers
+		// Set the headers for the request
 		for (key in pHeaders)
 		{
 			request.setRequestHeader(key, pHeaders[key]);
@@ -53,10 +55,3 @@ var Diagnostic = {
 		request.send();
 	}
 }
-
-/*
-// Ejemplo de llamada desde otros ficheros JS
-DiagnosticController.diagnosticCall('https://jsonplaceholder.typicode.com/todos/1', function (pResult) {
-	console.log(pResult);
-});
-*/

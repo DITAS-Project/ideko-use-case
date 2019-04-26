@@ -3,31 +3,15 @@
 */
 
 var Stream = {
-	Method: 'GET',
-	ContentType: 'application/json',
-
-	// Dominio
-	Segment: '', // Se debe fijar dede fuera
-
 	Call: function(pURL, pOKCallback)
 	{
-		/*
 		// Get the token from the local storage
 		var token = window.localStorage.getItem('ditasToken');
-		console.log("The JWT token is: " + token)
 
-		// Add the token to the URL
-		pURL = pURL + "?jwt=" + token;
-		*/
-		// Array con los parámetros de la firma
-		var signParameters = [Stream.Method,
-			Stream.ContentType,
-			Stream.Resource
-		];
-
+		// Request headers
 		var headers = {
-			'Content-Type': Stream.ContentType,
-			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + token
 		}
 
 		this.makeCall(pURL, pOKCallback, headers);
@@ -40,10 +24,10 @@ var Stream = {
 		var isChunked = false;
 		var request = new XMLHttpRequest();
 
-		// Recogemos la URL
+		// Initialize the request and set the headers
 		request.open('GET', pUrl, true);
 
-		// Fijar cabeceras tras abir el recurso
+		// Set the headers for the request
 		for (key in pHeaders)
 		{
 			request.setRequestHeader(key, pHeaders[key]);
@@ -52,7 +36,7 @@ var Stream = {
 		// Cuando se termina la conexión
 		request.onload = function()
 		{
-			console.log("onload - Volver a reconectarnos - Ha caido la conexion - Volvemos a la pagina de inicio");
+			console.log("onload - Reconect again - Connection is down");
 		};
 
 		request.onreadystatechange = function()
@@ -60,24 +44,21 @@ var Stream = {
 			if (typeof this.index == "undefined")
 				this.index = 0;
 
-
+			// Everthing's ok :)
 			if (this.readyState >= 3 && this.status == 200)
 			{
 				var content = this.responseText;
 				var uniqueResponse = content.substring(this.index);
-
-				//console.log('Respuesta: ' +  uniqueResponse);
-				//console.log("content.length: " + uniqueResponse.length + ' - ' + new Date());
-
 				this.index += uniqueResponse.length;
 
-				// Devolvemos la respuesta si su longitud es mayor que 1 ya que manda tramas de bit de conexión abierta
+				// We return the response is its length is more than 1 (we ignore the bits to maintain the conection open)
 				if ((uniqueResponse) && (uniqueResponse.length > 1))
 				{
 					var responseString = '' + uniqueResponse;
-					// Nos curamos en salud en diferentes formatos de saltos de línea
+					// Just in case, we replace the break lines
 					var responseArray = responseString.replace("\r", "").replace("\n", "\r\n").split("\r\n")
-					//console.log(responseArray.length);
+
+					// Parse de response to a proper value and call the callback
 					responseArray.forEach(function(el)
 					{
 						if (el)
@@ -106,7 +87,6 @@ var Stream = {
 			{
 				console.log("Stream error. If you just lunched the stream this is normal, stream should start right after this message\n");
 			}
-
 		};
 
 		request.onerror = function()
