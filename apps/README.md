@@ -1,7 +1,7 @@
 
 # IDEKO UC Application
 
-[WIP, lot of things missing]
+[WIP]
 
 IDEKO demonstrator apps than consume the Node-RED CAF.
 
