@@ -224,7 +224,7 @@ function printMachineStatus(machineNumber)
 		{
 			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById('machine-status').className = 'machine-error';
 			else document.getElementById('machine-status').className = 'machine-warning';
-			document.getElementById('machine-error-image-m' + machineNumber).src = "images/cross.png";
+			document.getElementById('machine-error-image-m' + machineNumber).src = "../images/cross.png";
 			document.getElementById('machine-error-image-m' + machineNumber).className = "machine-error-x-image";
 			if (eval("DiagnosticController.StatusM" + machineNumber)) document.getElementById("machine-error-status-m" + machineNumber).innerHTML = eval("DiagnosticController.StatusM" + machineNumber);
 			if (eval("DiagnosticController.MetricM" + machineNumber)) document.getElementById("machine-error-metric-m" + machineNumber).innerHTML = eval("DiagnosticController.MetricM" + machineNumber);
@@ -234,7 +234,7 @@ function printMachineStatus(machineNumber)
 		// OK
 		} else {
 			document.getElementById('machine-status').className = 'machine-ok';
-			document.getElementById('machine-error-image-m' + machineNumber).src = "images/v.png";
+			document.getElementById('machine-error-image-m' + machineNumber).src = "../images/v.png";
 			document.getElementById('machine-error-image-m' + machineNumber).className = "machine-noerror-v-image";
 			document.getElementById('machine-error-status-m' + machineNumber).innerHTML = "";
 			document.getElementById('machine-error-metric-m' + machineNumber).innerHTML = "";

@@ -12,10 +12,10 @@ There are two applications, apps 2 and 3 from the _IDEKO Use case_ document (pri
 - **app3.html**: Demo application made for DANOBATGROUP's technical service team.
 
 ### Login
-Two login must be done in order to use the apps. The apps guide the user through the login process:
+Two logins must be done in order to use the apps. The apps guide the user through the login process:
 
 - **Application login**: This is the login provided by the application developer, nothing to do with DITAS.
-- **DITAS framework login**: To identify the user against the DITAS Framework.
+- **DITAS framework login**: To identify the user against the DITAS Framework, which calls the Keycloak server.
 
 ### Methods
 Both application call or can call the following methods.
