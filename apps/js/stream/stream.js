@@ -11,6 +11,14 @@ var Stream = {
 
 	Call: function(pURL, pOKCallback)
 	{
+		/*
+		// Get the token from the local storage
+		var token = window.localStorage.getItem('ditasToken');
+		console.log("The JWT token is: " + token)
+
+		// Add the token to the URL
+		pURL = pURL + "?jwt=" + token;
+		*/
 		// Array con los parámetros de la firma
 		var signParameters = [Stream.Method,
 			Stream.ContentType,
@@ -34,7 +42,6 @@ var Stream = {
 
 		// Recogemos la URL
 		request.open('GET', pUrl, true);
-
 
 		// Fijar cabeceras tras abir el recurso
 		for (key in pHeaders)
