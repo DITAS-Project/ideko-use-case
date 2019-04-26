@@ -3,19 +3,19 @@
 
 [WIP, lot of things missing]
 
-IDEKO demontrator apps than consume the Node-RED CAF.
+IDEKO demonstrator apps than consume the Node-RED CAF.
 
 ## Application
 There are two applications, apps 2 and 3 from the _IDEKO Use case_ document (private to the consortium)
 
 - **app2.html**: Demo application for our demo client, Spart Manufacturing.
-- **app3.html**: Demo applicatin made for DANOBATGROUP's technical service team.
+- **app3.html**: Demo application made for DANOBATGROUP's technical service team.
 
 ### Login
 Two login must be done in order to use the apps. The apps guide the user through the login process:
 
 - **Application login**: This is the login provided by the application developer, nothing to do with DITAS.
-- **DITAS framework login**: To identify the user agains the DITAS Framework. After the login, the JWT token is received and added to every call.
+- **DITAS framework login**: To identify the user against the DITAS Framework.
 
 ### Methods
 Both application call or can call the following methods.
@@ -23,8 +23,6 @@ Both application call or can call the following methods.
 - `/GetStreamingData`: Streaming data from the machines.
 - `/GetSimplifiedDiagnostic`: A simple diagnostic for the machines being monitored.
 - `/GetFullDiagnostic`: A complete diagnostic for the machines being monitored.
-
-Every method sends the JWT token on the header as follows; `Authorization: Bearer JWTTOKEN`.
 
 ### Functioning
 When _app2_ launches:
