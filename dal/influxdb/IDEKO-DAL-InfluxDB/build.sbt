@@ -21,7 +21,9 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-api" % "1.7.25",
   "org.apache.httpcomponents" % "httpcore" % "4.4.8",
   "org.asynchttpclient" % "async-http-client" % "2.4.9",
-  "io.spray" %%  "spray-json" % "1.3.4"
+  "io.spray" %%  "spray-json" % "1.3.4",
+  "com.pauldijou" %% "jwt-core" % "2.1.0",
+  "com.auth0" % "jwks-rsa" % "0.8.0"
 
 //  "com.paulgoldbaum" %% "scala-influxdb-client" % scalaInfluxdbVersion
 )

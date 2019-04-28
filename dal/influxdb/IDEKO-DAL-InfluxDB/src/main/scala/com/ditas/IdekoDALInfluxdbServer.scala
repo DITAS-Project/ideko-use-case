@@ -1,6 +1,7 @@
 package com.ditas
 
 
+import java.net.URL
 import java.util
 import java.util.logging.Logger
 
@@ -15,7 +16,12 @@ import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
-
+import pdi.jwt.{Jwt, JwtAlgorithm, JwtOptions}
+import pdi.jwt.exceptions.JwtValidationException
+import com.auth0.jwk.Jwk
+import com.auth0.jwk.JwkProvider
+import com.auth0.jwk.UrlJwkProvider
+import com.auth0.jwk.GuavaCachedJwkProvider
 
 object IdekoDALInfluxdbServer {
   private val LOGGER = Logger.getLogger(getClass.getName)
@@ -92,6 +98,7 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
   private object QueryInfluxDBImpl {
     private val DB_REGEX = raw"\{\{db\}\}".r
     private val POLICY_REGEX = raw"\{\{policy\}\}".r
+    private val AUTH_HEADER_PATTERN = "Bearer (.*)".r
   }
 
 
@@ -100,16 +107,31 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
       IdekoDALInfluxdbServer.influxdbUsername, IdekoDALInfluxdbServer.influxdbPassword, false, null)
     private val LOGGER = Logger.getLogger(getClass.getName)
 
+    private val JWKS_ENDPOINT = new URL("https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs")
+    private val kid = "auytc2T_c-7Y9HQ-TB5QBMskPvXCYzXSfJ6rOiBKv-E"
+
     override def query(request: QueryInfluxDBRequest): Future[QueryInfluxDBReply] = {
       val machineId = request.machineId
       val queryObject = request.query
 //      val purpose = req.dalMessageProperties.get.purpose
 
-      if (queryObject.isEmpty) {
+      if (request.dalMessageProperties.isEmpty || request.dalMessageProperties.get.authorization.isEmpty) {
+        Future.failed(Status.ABORTED.augmentDescription("Missing authorization").asRuntimeException())
+      } else if (queryObject.isEmpty) {
         Future.failed(Status.ABORTED.augmentDescription("Missing query").asRuntimeException())
       } else if (machineId.isEmpty) {
         Future.failed(Status.ABORTED.augmentDescription("Missing machine id").asRuntimeException())
       } else {
+        val authorizationHeader: String = request.dalMessageProperties.get.authorization
+        try {
+          validateJwtToken(authorizationHeader)
+        } catch {
+          case e: Exception => {
+            LOGGER.throwing(getClass.getName, "query", e);
+            return Future.failed(Status.ABORTED.augmentDescription(e.getMessage).asRuntimeException())
+          }
+        }
+
         val (dbName, policy) = chooseMachine(machineId)
         (dbName, policy) match {
           case (Some(dbName), Some(policy)) => {
@@ -118,10 +140,26 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
             return Future.successful(reply)
           }
           case (None, None) => {
-            return Future.failed(Status.ABORTED.augmentDescription("Machine id didn't match any dbName").asRuntimeException())
+            return Future.failed(Status.ABORTED.augmentDescription("Machine id didn't match any dbName and policy").asRuntimeException())
           }
         }
       }
+    }
+
+    private def validateJwtToken(authorizationHeader: String) = {
+      val token = for (m <- QueryInfluxDBImpl.AUTH_HEADER_PATTERN.findFirstMatchIn(authorizationHeader)) yield m.group(1)
+      val http = new UrlJwkProvider(JWKS_ENDPOINT)
+      val allJwkss = http.getAll
+      println(s"Num JWKSS: ${allJwkss.size()}")
+      val jwk = http.get(kid)
+
+//      val provider = new GuavaCachedJwkProvider(http)
+//      val jwk = provider.get(kid) //throws Exception when not found or can't get one
+
+//      val algorithm = Algorithm.RSA256(keyProvider)
+
+
+      Jwt.validate(token.getOrElse(""), jwk.getPublicKey())
     }
 
     private def queryInfluxDB(query: String, machineId: String, dbName: String, policy: String): String = {
