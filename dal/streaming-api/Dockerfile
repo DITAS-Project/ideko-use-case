@@ -20,6 +20,7 @@ RUN python3 -m pip install requests
 RUN python3 -m pip uninstall jwt
 RUN python3 -m pip uninstall PyJWT
 RUN python3 -m pip install PyJWT
+RUN python3 -m pip install cryptography
 
 # Bring DAL code into image
 WORKDIR /opt/dal
