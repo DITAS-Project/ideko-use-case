@@ -8,17 +8,53 @@ import sys
 import traceback
 import grpc
 import jwt
-import json
 
 from helpers.config import Config
 
 import savvy_streaming_api_pb2
 import savvy_streaming_api_pb2_grpc
 
+# RSA key decruption from here down
+import argparse
+import base64
+import six
+import struct
+import json
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicNumbers
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization
+
 # Whether the test mode is on (don't check for authorization)
 testing = False
 
 class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
+
+    ######
+    # METHODS FOR RSA KEY DECRYPTION
+    #####
+    def int_arr_to_long(self, arr):
+        return int(''.join(["%02x" % byte for byte in arr]), 16)
+
+    def base64_to_long(self, data):
+        if isinstance(data, six.text_type):
+            data = data.encode("ascii")
+        _d = base64.urlsafe_b64decode(bytes(data) + b'==')
+        return self.int_arr_to_long(struct.unpack('%sB' % len(_d), _d))
+
+
+    def get_PEM_from_RSA(self, modulus, exponent):
+        exponent_long = self.base64_to_long(exponent)
+        modulus_long = self.base64_to_long(modulus)
+        numbers = RSAPublicNumbers(exponent_long, modulus_long)
+        public_key = numbers.public_key(backend=default_backend())
+        pem = public_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+        return pem
+    #####
+    #  END PF METHODS FOR RSA KEY DECRYPTION
+    #####
 
     def JWT_is_valid(self, request, context, accepted_roles):
         """ Check if the JWT token (which is taken from the "auhorization" header) token is valid for an accepted role
@@ -28,7 +64,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                 bool(True): If the token is valid
                 bool(False): If the token is not valid
         """
-        
+
         print("Performing JWT check")
 
         # Don't check for auth in testing mode
@@ -61,27 +97,30 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         if len(jwt_token.split(".")) != 3:
             print("Error validating JWT token, the token length must be 3 after splitting by .2")
             return False
-        
+
         print("The token preliminary checks are ok, checking real content")
 
         try:
             # Get the key_id from the header of the JWT
             key_id = jwt.get_unverified_header(jwt_token)["kid"]
+            print('kid from token: ' + str(key_id))
 
             # Get the algorithm from the header of the JWT
             algorithm = jwt.get_unverified_header(jwt_token)["alg"]
+            print('Algorithm from token: ' + str(algorithm))
 
             # TODO - How do we get this one? How do we get the Blueprint ID (288)?
             # Generate the URL to get the public key
             available_keys_url = "https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs"
             # available_keys_url = request.params['??']
- 
+
             # Get the keys from the keycloak server
             r = requests.get(available_keys_url, verify=False)
             available_keys_from_keycloak = json.loads(r.text)
+            print('Available keys from keycloak: ' + str(available_keys_from_keycloak))
         except Exception as e:
             print ("Exception processing the token " + str(e))
-            traceback.print_exc() 
+            traceback.print_exc()
             return False
 
         # For each key of the keycloak server
@@ -90,23 +129,36 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             if key_of_keycloak["kid"] == key_id:
                 # Found key!
                 print("Found key: " + key_id)
-                secret = key_of_keycloak["n"]
+
                 try:
+                    # The key comes in module exponent format
+                    # https://stackoverflow.com/questions/39890232/how-to-decode-keys-from-keycloak-openid-connect-cert-api
+                    pub_key = self.get_PEM_from_RSA(key_of_keycloak["n"], key_of_keycloak["e"])
+                    # Butes to string
+                    pub_key = pub_key.decode('utf-8')
+                    print('The public key in plain text is: ' + pub_key)
+
                     # Decode de JWT with the provided secret
-                    decoded_jwt_payload = jwt.decode(jwt_token, secret, algorithms=[algorithm])
+                    # TODO always account?
+                    decoded_jwt_payload = jwt.decode(jwt_token, pub_key, audience='account', algorithms=[algorithm])
                     # Check if any user role (taken from the payload) is an accepted role
                     for accepted_role in decoded_jwt_payload["realm_access"]["roles"]:
                         if accepted_role in accepted_roles:
                             # He has access for this method!
+                            print('Found role ' + accepted_role + '. Role validation ok')
                             return True
-                except jwt.exceptions.DecodeError:
+                except Exception as e:
+                    print ("Exception decoding the token " + str(e))
+                    traceback.print_exc()
                     return False
-        # Key not found on the keycloak server, or the token role is not an accepted one
+        # Key not found on the keycloak server
+        print('Key not found in available keys in keycloak server')
         return False
 
 
     def StreamMachine(self, request, context):
-        
+        print('StreamMachine called')
+
         # Acepted roles for this function - This roles should match the ones created on Keycloak
         accepted_roles = ["ideko-operator", "spart-operator"]
 
@@ -151,12 +203,12 @@ def serve():
 
 if __name__ == '__main__':
     #logging.basicConfig()
-    
+
     # Check for a --testing arg
     if '--testing' in sys.argv:
         print ('DAL started in test mode');
         testing = True
     else:
         print ('Dal is no in test mode, auth checks will be performed')
-        
+
     serve()
