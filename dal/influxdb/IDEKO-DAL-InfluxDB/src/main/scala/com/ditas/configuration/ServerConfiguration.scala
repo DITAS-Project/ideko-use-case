@@ -15,4 +15,6 @@ class ServerConfiguration {
   @BeanProperty var influxdbDBNameMap: util.Map[String, util.ArrayList[String]] = new util.HashMap[String, util.ArrayList[String]]()
   @BeanProperty var waitDuration: Int = 2 // seconds
 
+  @BeanProperty var jwtServerTimeout: Int = 5000 // milliseconds
+
 }

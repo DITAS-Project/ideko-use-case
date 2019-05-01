@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
   "org.apache.httpcomponents" % "httpclient" % "4.5.3",
   "joda-time" % "joda-time" % "2.9.9",
   "com.fasterxml.jackson.core" % "jackson-core" % "2.9.8",
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.8",
   "org.yaml" % "snakeyaml" % "1.11",
   "org.scalaj" %% "scalaj-http" % "2.4.1",
   "org.slf4j" % "slf4j-api" % "1.7.25",
@@ -23,6 +24,7 @@ libraryDependencies ++= Seq(
   "org.asynchttpclient" % "async-http-client" % "2.4.9",
   "io.spray" %%  "spray-json" % "1.3.4",
   "com.pauldijou" %% "jwt-core" % "2.1.0",
+//  "com.thesamet.scalapb" %% "scalapb-json4s" % "0.7.2",
   "com.auth0" % "jwks-rsa" % "0.8.0"
 
 //  "com.paulgoldbaum" %% "scala-influxdb-client" % scalaInfluxdbVersion

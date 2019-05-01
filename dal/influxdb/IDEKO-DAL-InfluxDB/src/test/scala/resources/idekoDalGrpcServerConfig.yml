@@ -6,6 +6,7 @@ influxdbPort: 8086
 influxdbUsername: username
 influxdbPassword: password
 waitDuration: 2 # seconds
+jwtServerTimeout: 5 #seconds
 
 influxdbDBNameMap:
   CMX_LQLS26:
