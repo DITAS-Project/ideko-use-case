@@ -109,13 +109,13 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             print('Algorithm from token: ' + str(algorithm))
 
             # Get the unverified token in order to get the payload
-            unverified_token = jwt.decode(jwt_token, verify=False)
+            unverified_payload = jwt.decode(jwt_token, verify=False)
 
             # Get the audience in order to verifiry the token afterwards
-            audience = unverified_token["aud"]
+            audience = unverified_payload["aud"]
 
             # Generate the URL to get the public key
-            available_keys_url = unverified_token["iss"] + "/protocol/openid-connect/certs"
+            available_keys_url = unverified_payload["iss"] + "/protocol/openid-connect/certs"
 
             # Get the keys from the keycloak server
             r = requests.get(available_keys_url, verify=False)
