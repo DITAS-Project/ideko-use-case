@@ -183,7 +183,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             for line in result_requests.iter_lines():
                 # Remember The first line of the stream is only the status
                 #if raw_result.find("status") < 0:
-                print('Sending response line')
+                print('[Machine ' + machineId + '] Sending response line (first 300 chars): ' +  line[0:300])
                 yield savvy_streaming_api_pb2.StreamResponse(responseLine=line)
         else:
             # Unauthorized, the JWT toke does not validate
