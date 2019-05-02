@@ -223,8 +223,16 @@
 			$(window).ready(function()
 			{
 				// Call the stream
-				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineId;
-				console.log("Starting stream...");
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
+				console.log("Starting stream for Kelly...");
+				StreamController.startStreaming(urlStream);
+                
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Slater;
+				console.log("Starting stream for Slater...");
+				StreamController.startStreaming(urlStream);
+                
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
+				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
 
 				// Call the GetSimplifiedDiagnostic

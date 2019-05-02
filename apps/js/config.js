@@ -18,9 +18,9 @@ var AppConfiguration = {
 */
 
   // DAL:
-  GetSimplifiedDiagnosticURL: "http://172.16.33.89:1888/caf/GetSimplifiedDiagnostic",
-  GetFullDiagnosticURL: "http://172.16.33.89:1888/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://172.16.33.89:1888/caf/GetStreamingData",
+  GetSimplifiedDiagnosticURL: "http://172.16.33.89/caf/GetSimplifiedDiagnostic",
+  GetFullDiagnosticURL: "http://172.16.33.89/caf/GetFullDiagnostic",
+  GetStreamingDataURL: "http://172.16.33.89/caf/GetStreamingData",
 
   // Keycloak
   KeycloakURL: "https://153.92.30.56:58080",
@@ -28,7 +28,11 @@ var AppConfiguration = {
   KeycloackClientID : "vdc_client",
 
   // Machine ID to call
-  machineId: 'CMX_LQLS26',
+  machineIds: {
+      Kelly: 'XXC_MBXSLL',
+      Slater: 'CMS_LJ3Z4P',
+      Zack: 'CMX_LQLS26'
+  },
 
   // Interval to call the Diagnostic values fom the CAF. Launched from the HTML
   CallDiagnosticValuesInterval: 20000,

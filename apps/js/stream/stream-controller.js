@@ -12,9 +12,9 @@ var StreamController =
 			if (pStreamResponseLine.hasOwnProperty("data"))
 			{
 				// Remove this line if you want to print all the stream response lines
-				//console.log(pStreamResponseLine.data)
+				console.log(pStreamResponseLine.data)
 
-				/*
+
 		        // MACHINE 1
 		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.ExecutionStateM1id)) StreamController.ExecutionStateM1 = pStreamResponseLine.data.I_XXC_MBXSLL_AW8HY7;
 		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.StreamControllerModeM1id)) StreamController.StreamControllerModeM1 = pStreamResponseLine.data.I_XXC_MBXSLL_FS38ZU;
@@ -32,7 +32,7 @@ var StreamController =
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_V3TRK1")) StreamController.Z1AxisEngineIntensityM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_V3TRK1;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_ARKS8V")) StreamController.Z2AxisTemperatureM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_ARKS8V;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_68SBRS")) StreamController.Z2AxisEngineIntensityM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_68SBRS;
-*/
+
 		        // MACHINE 3
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_AW8HY7")) StreamController.ExecutionStateM3 = pStreamResponseLine.data.I_CMX_LQLS26_AW8HY7;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMX_LQLS26_FS38ZU")) StreamController.ControllerModeM3 = pStreamResponseLine.data.I_CMX_LQLS26_FS38ZU;

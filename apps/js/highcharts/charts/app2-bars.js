@@ -116,9 +116,9 @@ $(document).ready(function() {
 	printBars('z2-intensity-bar-m1',"Z2AxisEngineIntensityM1");
 
 	// Print string (controller / execution / program)
-	//printStrings("controller-mode-m1", "ControllerModeM1", AppConfiguration.ControllerMode);
-	//printStrings("execution-state-m1", "ExecutionStateM1", AppConfiguration.ExecutionState);
-	//printStrings("program-name-m1", "ProgramNameM1");
+	printStrings("controller-mode-m1", "ControllerModeM1", AppConfiguration.ControllerMode);
+	printStrings("execution-state-m1", "ExecutionStateM1", AppConfiguration.ExecutionState);
+	printStrings("program-name-m1", "ProgramNameM1");
 
 	// Remove after Haifa demo
 	document.getElementById("controller-mode-m1").innerHTML = "&nbsp";
@@ -140,11 +140,11 @@ $(document).ready(function() {
   printBars('z1-intensity-bar-m2',"Z1AxisEngineIntensityM2");
   printBars('z2-intensity-bar-m2',"Z2AxisEngineIntensityM2");
 
-/*
+
   // Print string (controller / execution / program)
   printStrings("controller-mode-m2", "ControllerModeM2", AppConfiguration.ControllerMode);
   printStrings("execution-state-m2", "ExecutionStateM2", AppConfiguration.ExecutionState);
-  printStrings("program-name-m2", "ProgramNameM2");*/
+  printStrings("program-name-m2", "ProgramNameM2");
 
   // Remove after Haifa demo
   document.getElementById("controller-mode-m2").innerHTML = "&nbsp";
