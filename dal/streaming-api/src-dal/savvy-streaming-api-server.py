@@ -41,7 +41,6 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         _d = base64.urlsafe_b64decode(bytes(data) + b'==')
         return self.int_arr_to_long(struct.unpack('%sB' % len(_d), _d))
 
-
     def get_PEM_from_RSA(self, modulus, exponent):
         exponent_long = self.base64_to_long(exponent)
         modulus_long = self.base64_to_long(modulus)
@@ -53,7 +52,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         )
         return pem
     #####
-    #  END PF METHODS FOR RSA KEY DECRYPTION
+    #  END OF METHODS FOR RSA KEY DECRYPTION
     #####
 
     def JWT_is_valid(self, request, context, accepted_roles):
@@ -109,10 +108,14 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             algorithm = jwt.get_unverified_header(jwt_token)["alg"]
             print('Algorithm from token: ' + str(algorithm))
 
-            # TODO - How do we get this one? How do we get the Blueprint ID (288)?
+            # Get the unverified token in order to get the payload
+            unverified_token = jwt.decode(jwt_token, verify=False)
+
+            # Get the audience in order to verifiry the token afterwards
+            audience = unverified_token["aud"]
+
             # Generate the URL to get the public key
-            available_keys_url = "https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs"
-            # available_keys_url = request.params['??']
+            available_keys_url = unverified_token["iss"] + "/protocol/openid-connect/certs"
 
             # Get the keys from the keycloak server
             r = requests.get(available_keys_url, verify=False)
@@ -139,8 +142,8 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                     print('The public key in plain text is: ' + pub_key)
 
                     # Decode de JWT with the provided secret
-                    # TODO always account?
-                    decoded_jwt_payload = jwt.decode(jwt_token, pub_key, audience='account', algorithms=[algorithm])
+                    decoded_jwt_payload = jwt.decode(jwt_token, pub_key, audience=audience, algorithms=[algorithm])
+
                     # Check if any user role (taken from the payload) is an accepted role
                     for accepted_role in decoded_jwt_payload["realm_access"]["roles"]:
                         if accepted_role in accepted_roles:
