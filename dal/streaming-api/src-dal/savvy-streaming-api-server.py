@@ -108,10 +108,10 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             algorithm = jwt.get_unverified_header(jwt_token)["alg"]
             print('Algorithm from token: ' + str(algorithm))
 
-            # Get the unverified token in order to get the payload
+            # Decode without verification in order to get the payload from the token
             unverified_payload = jwt.decode(jwt_token, verify=False)
 
-            # Get the audience in order to verifiry the token afterwards
+            # Get the audience in order to verify the token afterwards
             audience = unverified_payload["aud"]
 
             # Generate the URL to get the public key
@@ -134,14 +134,14 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                 print("Found key: " + key_id)
 
                 try:
-                    # The key comes in module exponent format
+                    # The key comes in modulus exponent format
                     # https://stackoverflow.com/questions/39890232/how-to-decode-keys-from-keycloak-openid-connect-cert-api
                     pub_key = self.get_PEM_from_RSA(key_of_keycloak["n"], key_of_keycloak["e"])
-                    # Butes to string
+                    # Bytes to string
                     pub_key = pub_key.decode('utf-8')
                     print('The public key in plain text is: ' + pub_key)
 
-                    # Decode de JWT with the provided secret
+                    # Decode the JWT with the provided secret
                     decoded_jwt_payload = jwt.decode(jwt_token, pub_key, audience=audience, algorithms=[algorithm])
 
                     # Check if any user role (taken from the payload) is an accepted role
