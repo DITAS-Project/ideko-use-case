@@ -223,7 +223,7 @@
 			$(window).ready(function()
 			{
 				// Call the stream
-				urlStream = AppConfiguration.GetStreamingDataURL + "?machines=" + AppConfiguration.machineId;
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineId;
 				console.log("Starting stream...");
 				StreamController.startStreaming(urlStream);
 

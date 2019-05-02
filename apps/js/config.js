@@ -18,9 +18,9 @@ var AppConfiguration = {
 */
 
   // DAL:
-  GetSimplifiedDiagnosticURL: "http://52.50.248.116:1888/caf/GetSimplifiedDiagnostic",
-  GetFullDiagnosticURL: "http://52.50.248.116:1888/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://172.16.33.235:1888/caf/GetStreamingData",
+  GetSimplifiedDiagnosticURL: "http://172.16.33.89:1888/caf/GetSimplifiedDiagnostic",
+  GetFullDiagnosticURL: "http://172.16.33.89:1888/caf/GetFullDiagnostic",
+  GetStreamingDataURL: "http://172.16.33.89:1888/caf/GetStreamingData",
 
   // Keycloak
   KeycloakURL: "https://153.92.30.56:58080",
