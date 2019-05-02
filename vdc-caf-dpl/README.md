@@ -26,7 +26,7 @@ This info is for the Deployment Engine.
 **NOTE**: As the end-users have their own Docker Registry and don't use the one at Docker Hub, the below command must use the ip and port of that registry.
 
 ```
-docker run -d -p 1888:1888 --restart always -v /HOST/CONFIG/FOLDER:/etc/config end-user-registry-ip:port/computation-vdc
+docker run -d -p 1888:1888 --restart always -v /HOST/CONFIG/FOLDER:/etc/ditas end-user-registry-ip:port/computation-vdc
 ```
 
 Part by part:

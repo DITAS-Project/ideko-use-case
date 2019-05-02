@@ -11,7 +11,7 @@ RUN npm install node-red-node-mysql
 RUN npm install node-red-contrib-influxdb
 
 # Copy the HTTPin and Savvy nodes
-ADD node-red-files/httpin-node/* ./node_modules/node-red/nodes/core/io/
+ADD node-red-files/httpin-node/* ./node_modules/@node-red/nodes/core/io/
 ADD node-red-files/savvy-node/* /savvy_node_data/
 ADD node-red-files/grpc/ /grpc/
 
