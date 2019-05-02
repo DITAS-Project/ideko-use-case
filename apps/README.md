@@ -6,9 +6,9 @@
 IDEKO demonstrator apps than consume the Node-RED CAF.
 
 ## Application
-There are two applications, apps 2 and 3 from the _IDEKO Use case_ document (private to the consortium)
+There are two applications, app2 and app3, from the _IDEKO Use case_ document (private to the consortium)
 
-- **app2.html**: Demo application for our demo client, Spart Manufacturing.
+- **app2.html**: Demo application for our demo client, SPART Manufacturing.
 - **app3.html**: Demo application made for DANOBATGROUP's technical service team.
 
 ### Login

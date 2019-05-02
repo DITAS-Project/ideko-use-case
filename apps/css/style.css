@@ -1,4 +1,15 @@
+/* Hide the general div */
+.general-div {
+	display: none;
+}
 
+.loading-div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .top-horizontal {
      padding-top:95px!important;
      display: inline-block;

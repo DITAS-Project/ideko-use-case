@@ -15,4 +15,9 @@ $(window).ready(function()
 		window.location.href = "ditas-login.html";
 		return;
 	}
+
+	// Everything's ok, hide the loader, show the div
+	$(".loading-div").hide();
+	$(".general-div").show();
+
 });
