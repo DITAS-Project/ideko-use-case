@@ -167,7 +167,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         context.add_callback(stop_stream)
         
         # Acepted roles for this function - This roles should match the ones created on Keycloak
-        #accepted_roles = ["ideko-operator", "spart-operator"]
+        accepted_roles = ["ideko-operator", "spart-operator"]
         
         # Check if the JWT token is valid before doing anything
         if self.JWT_is_valid(request, context, accepted_roles):
