@@ -164,7 +164,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
         
         # Callback to detect client disconnections
         # TODO test this with BloomRPC client as grpc node-red node doesn't seem to handle disconnections gracefully
-        context.add_callback(stop_stream)
+        #context.add_callback(stop_stream)
         
         # Acepted roles for this function - This roles should match the ones created on Keycloak
         accepted_roles = ["ideko-operator", "spart-operator"]
