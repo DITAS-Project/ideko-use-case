@@ -120,11 +120,6 @@ $(document).ready(function() {
 	printStrings("execution-state-m1", "ExecutionStateM1", AppConfiguration.ExecutionState);
 	printStrings("program-name-m1", "ProgramNameM1");
 
-	// Remove after Haifa demo
-	//document.getElementById("controller-mode-m1").innerHTML = "&nbsp";
-	//document.getElementById("execution-state-m1").innerHTML = "&nbsp";
-	//document.getElementById("program-name-m1").innerHTML = "&nbsp";
-
 	// Prints the machine status (left green/yellow/red icon)
 	printMachineStatus("1");
 
@@ -146,11 +141,6 @@ $(document).ready(function() {
 	printStrings("controller-mode-m2", "ControllerModeM2", AppConfiguration.ControllerMode);
 	printStrings("execution-state-m2", "ExecutionStateM2", AppConfiguration.ExecutionState);
 	printStrings("program-name-m2", "ProgramNameM2");
-
-	// Remove after Haifa demo
-	//document.getElementById("controller-mode-m2").innerHTML = "&nbsp";
-	//document.getElementById("execution-state-m2").innerHTML = "&nbsp";
-	//document.getElementById("program-name-m2").innerHTML = "&nbsp";
 
 	// Prints the machine status (left green/yellow/red icon)
 	printMachineStatus("2");
