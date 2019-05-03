@@ -13,11 +13,10 @@ var StreamController =
 			{
 				// Remove this line if you want to print all the stream response lines
 				console.log(pStreamResponseLine.data)
-
-
+				
 		        // MACHINE 1
 		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_AW8HY7")) StreamController.ExecutionStateM1 = pStreamResponseLine.data.I_XXC_MBXSLL_AW8HY7;
-		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_FS38ZU")) StreamController.StreamControllerModeM1 = pStreamResponseLine.data.I_XXC_MBXSLL_FS38ZU;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_FS38ZU")) StreamController.ControllerModeM1 = pStreamResponseLine.data.I_XXC_MBXSLL_FS38ZU;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_UKZVHZ")) StreamController.ProgramNameM1 = pStreamResponseLine.data.I_XXC_MBXSLL_UKZVHZ;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_66SZ4X")) StreamController.Z1AxisTemperatureM1 = pStreamResponseLine.data.I_XXC_MBXSLL_66SZ4X;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_V3TRK1")) StreamController.Z1AxisEngineIntensityM1 = pStreamResponseLine.data.I_XXC_MBXSLL_V3TRK1;
@@ -26,7 +25,7 @@ var StreamController =
 
 		        // MACHINE 2 - TODO: Poner en las demás también que pille dle AppConfiguration
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_AW8HY7")) StreamController.ExecutionStateM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_AW8HY7;
-		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_FS38ZU")) StreamController.StreamControllerModeM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_FS38ZU;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_FS38ZU")) StreamController.ControllerModeM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_FS38ZU;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_UKZVHZ")) StreamController.ProgramNameM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_UKZVHZ;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_66SZ4X")) StreamController.Z1AxisTemperatureM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_66SZ4X;
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_V3TRK1")) StreamController.Z1AxisEngineIntensityM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_V3TRK1;
