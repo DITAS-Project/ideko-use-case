@@ -161,10 +161,14 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
 
     def StreamMachine(self, request, context):
         print('StreamMachine called')
-
+        
+        # Callback to detect client disconnections
+        # TODO test this with BloomRPC client as grpc node-red node doesn't seem to handle disconnections gracefully
+        context.add_callback(stop_stream)
+        
         # Acepted roles for this function - This roles should match the ones created on Keycloak
-        accepted_roles = ["ideko-operator", "spart-operator"]
-
+        #accepted_roles = ["ideko-operator", "spart-operator"]
+        
         # Check if the JWT token is valid before doing anything
         if self.JWT_is_valid(request, context, accepted_roles):
             machineId = request.machineId
@@ -183,12 +187,22 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             for line in result_requests.iter_lines():
                 # Remember The first line of the stream is only the status
                 #if raw_result.find("status") < 0:
+                
+                # Revisar context.is_active() aunque pareceq ue recobimos un ServerContext y esto es SharedContext.
+                # https://grpc.github.io/grpc/python/grpc.html#grpc.RpcContext.is_active
+                # Check if connection still alive
+                if not context.is_active():
+                    # TODO does this free the thread servicer?
+                    print("Context is not active. Client disconnected, shutting down this call.")
+                    return;
+                
                 print('[Machine ' + machineId + '] Sending response line (first 300 chars): ' +  line[0:300])
                 yield savvy_streaming_api_pb2.StreamResponse(responseLine=line)
         else:
             # Unauthorized, the JWT toke does not validate
             context.set_code(grpc.StatusCode.PERMISSION_DENIED)
             context.set_details('The JWT token does not validate')
+            # Revisar: https://grpc.github.io/grpc/python/grpc.html#service-side-context
             yield savvy_streaming_api_pb2.StreamResponse()
 
 def serve():
