@@ -101,13 +101,13 @@ $(document).ready(function() {
   };
 
 
-  /* ################################################################################
-  ################################  MACHINE 1 ####################################
-  ################################################################################ */
-  $('#z1-temperature-bar-m1').highcharts($.extend(baseConfig));
-  $('#z2-temperature-bar-m1').highcharts($.extend(baseConfig));
-  $('#z1-intensity-bar-m1').highcharts($.extend(baseConfig));
-  $('#z2-intensity-bar-m1').highcharts($.extend(baseConfig));
+	/* ################################################################################
+	################################  MACHINE 1 ####################################
+	################################################################################ */
+	$('#z1-temperature-bar-m1').highcharts($.extend(baseConfig));
+	$('#z2-temperature-bar-m1').highcharts($.extend(baseConfig));
+	$('#z1-intensity-bar-m1').highcharts($.extend(baseConfig));
+	$('#z2-intensity-bar-m1').highcharts($.extend(baseConfig));
 
 	// Print bars (temp/intensity)
 	printBars('z1-temperature-bar-m1', "Z1AxisTemperatureM1");
@@ -121,39 +121,43 @@ $(document).ready(function() {
 	printStrings("program-name-m1", "ProgramNameM1");
 
 	// Remove after Haifa demo
-	document.getElementById("controller-mode-m1").innerHTML = "&nbsp";
-	document.getElementById("execution-state-m1").innerHTML = "&nbsp";
-	document.getElementById("program-name-m1").innerHTML = "&nbsp";
+	//document.getElementById("controller-mode-m1").innerHTML = "&nbsp";
+	//document.getElementById("execution-state-m1").innerHTML = "&nbsp";
+	//document.getElementById("program-name-m1").innerHTML = "&nbsp";
 
+	// Prints the machine status (left green/yellow/red icon)
+	printMachineStatus("1");
 
-  /* ################################################################################
-  ################################  MACHINE 2 ####################################
-  ################################################################################ */
-  $('#z1-temperature-bar-m2').highcharts($.extend(baseConfig));
-  $('#z2-temperature-bar-m2').highcharts($.extend(baseConfig));
-  $('#z1-intensity-bar-m2').highcharts($.extend(baseConfig));
-  $('#z2-intensity-bar-m2').highcharts($.extend(baseConfig));
+	/* ################################################################################
+	################################  MACHINE 2 ####################################
+	################################################################################ */
+	$('#z1-temperature-bar-m2').highcharts($.extend(baseConfig));
+	$('#z2-temperature-bar-m2').highcharts($.extend(baseConfig));
+	$('#z1-intensity-bar-m2').highcharts($.extend(baseConfig));
+	$('#z2-intensity-bar-m2').highcharts($.extend(baseConfig));
 
-  // Print bars (temp/intensity)
-  printBars('z1-temperature-bar-m2', "Z1AxisTemperatureM2");
-  printBars('z2-temperature-bar-m2',"Z2AxisTemperatureM2");
-  printBars('z1-intensity-bar-m2',"Z1AxisEngineIntensityM2");
-  printBars('z2-intensity-bar-m2',"Z2AxisEngineIntensityM2");
+	// Print bars (temp/intensity)
+	printBars('z1-temperature-bar-m2', "Z1AxisTemperatureM2");
+	printBars('z2-temperature-bar-m2',"Z2AxisTemperatureM2");
+	printBars('z1-intensity-bar-m2',"Z1AxisEngineIntensityM2");
+	printBars('z2-intensity-bar-m2',"Z2AxisEngineIntensityM2");
 
+	// Print string (controller / execution / program)
+	printStrings("controller-mode-m2", "ControllerModeM2", AppConfiguration.ControllerMode);
+	printStrings("execution-state-m2", "ExecutionStateM2", AppConfiguration.ExecutionState);
+	printStrings("program-name-m2", "ProgramNameM2");
 
-  // Print string (controller / execution / program)
-  printStrings("controller-mode-m2", "ControllerModeM2", AppConfiguration.ControllerMode);
-  printStrings("execution-state-m2", "ExecutionStateM2", AppConfiguration.ExecutionState);
-  printStrings("program-name-m2", "ProgramNameM2");
+	// Remove after Haifa demo
+	//document.getElementById("controller-mode-m2").innerHTML = "&nbsp";
+	//document.getElementById("execution-state-m2").innerHTML = "&nbsp";
+	//document.getElementById("program-name-m2").innerHTML = "&nbsp";
 
-  // Remove after Haifa demo
-  document.getElementById("controller-mode-m2").innerHTML = "&nbsp";
-  document.getElementById("execution-state-m2").innerHTML = "&nbsp";
-  document.getElementById("program-name-m2").innerHTML = "&nbsp";
+	// Prints the machine status (left green/yellow/red icon)
+	printMachineStatus("2");
 
-  /* ################################################################################
-  ################################  MACHINE 3 ####################################
-  ################################################################################ */
+	/* ################################################################################
+	################################  MACHINE 3 ####################################
+	################################################################################ */
 	$('#z1-temperature-bar-m3').highcharts($.extend(baseConfig));
 	$('#z2-temperature-bar-m3').highcharts($.extend(baseConfig));
 	$('#z1-intensity-bar-m3').highcharts($.extend(baseConfig));
@@ -217,13 +221,13 @@ function printStrings(idName, indicatorName, dictionaryName = null)
 function printMachineStatus(machineNumber)
 {
 	setInterval(function() {
-		console.log("Getting values from variables every " + AppConfiguration.GetDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
+		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.GetDiagnosticValuesInterval + " ms ("+ AppConfiguration.GetDiagnosticValuesInterval/1000 +"sec). The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
 		// ALERT or WARNING
 		if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT" || eval("DiagnosticController.StatusM" + machineNumber) === "WARNING")
 		{
-			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById('machine-status').className = 'machine-error';
-			else document.getElementById('machine-status').className = 'machine-warning';
+			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById('machine-status-m' + machineNumber).className = 'machine-error';
+			else document.getElementById('machine-status-m' + machineNumber).className = 'machine-warning';
 			document.getElementById('machine-error-image-m' + machineNumber).src = "../images/cross.png";
 			document.getElementById('machine-error-image-m' + machineNumber).className = "machine-error-x-image";
 			if (eval("DiagnosticController.StatusM" + machineNumber)) document.getElementById("machine-error-status-m" + machineNumber).innerHTML = eval("DiagnosticController.StatusM" + machineNumber);
@@ -233,7 +237,7 @@ function printMachineStatus(machineNumber)
 			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "Date: " + dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
 		// OK
 		} else {
-			document.getElementById('machine-status').className = 'machine-ok';
+			document.getElementById('machine-status-m' + machineNumber).className = 'machine-ok';
 			document.getElementById('machine-error-image-m' + machineNumber).src = "../images/v.png";
 			document.getElementById('machine-error-image-m' + machineNumber).className = "machine-noerror-v-image";
 			document.getElementById('machine-error-status-m' + machineNumber).innerHTML = "";
@@ -255,4 +259,16 @@ function dateMStoDateYYYYMMDD(dateMs)
 	var myDate = new Date(dateMs);
 	parsedDate = myDate.getFullYear() + '-' +('0' + (myDate.getMonth()+1)).slice(-2)+ '-' +  myDate.getDate() + ' '+myDate.getHours()+ ':'+('0' + (myDate.getMinutes())).slice(-2)+ ':'+myDate.getSeconds();
 	return parsedDate;
+}
+
+/**
+* Returns the machine name for a given machine number
+* @param machineNumber: machineNumber in string format
+* @return machineName: Machine name
+*/
+function getMachineName(machineNumber)
+{
+	if (parseInt(machineNumber) == 1) return "Kelly"
+	else if (parseInt(machineNumber) == 2) return "Slater"
+	else if (parseInt(machineNumber) == 3) return "Zack"
 }

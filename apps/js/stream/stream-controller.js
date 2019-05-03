@@ -16,13 +16,13 @@ var StreamController =
 
 
 		        // MACHINE 1
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.ExecutionStateM1id)) StreamController.ExecutionStateM1 = pStreamResponseLine.data.I_XXC_MBXSLL_AW8HY7;
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.StreamControllerModeM1id)) StreamController.StreamControllerModeM1 = pStreamResponseLine.data.I_XXC_MBXSLL_FS38ZU;
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.ProgramNameM1id)) StreamController.ProgramNameM1 = pStreamResponseLine.data.I_XXC_MBXSLL_UKZVHZ;
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.Z1AxisTemperatureM1id)) StreamController.Z1AxisTemperatureM1 = pStreamResponseLine.data.I_XXC_MBXSLL_66SZ4X;
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.Z1AxisEngineIntensityM1id)) StreamController.Z1AxisEngineIntensityM1 = pStreamResponseLine.data.I_XXC_MBXSLL_V3TRK1;
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.Z2AxisTemperatureM1id)) StreamController.Z2AxisTemperatureM1 = pStreamResponseLine.data.I_XXC_MBXSLL_ARKS8V;
-		        if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.Z2AxisEngineIntensityM1id)) StreamController.Z2AxisEngineIntensityM1 = pStreamResponseLine.data.I_XXC_MBXSLL_68SBRS;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_AW8HY7")) StreamController.ExecutionStateM1 = pStreamResponseLine.data.I_XXC_MBXSLL_AW8HY7;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_FS38ZU")) StreamController.StreamControllerModeM1 = pStreamResponseLine.data.I_XXC_MBXSLL_FS38ZU;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_UKZVHZ")) StreamController.ProgramNameM1 = pStreamResponseLine.data.I_XXC_MBXSLL_UKZVHZ;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_66SZ4X")) StreamController.Z1AxisTemperatureM1 = pStreamResponseLine.data.I_XXC_MBXSLL_66SZ4X;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_V3TRK1")) StreamController.Z1AxisEngineIntensityM1 = pStreamResponseLine.data.I_XXC_MBXSLL_V3TRK1;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_ARKS8V")) StreamController.Z2AxisTemperatureM1 = pStreamResponseLine.data.I_XXC_MBXSLL_ARKS8V;
+		        if (pStreamResponseLine.data.hasOwnProperty("I_XXC_MBXSLL_68SBRS")) StreamController.Z2AxisEngineIntensityM1 = pStreamResponseLine.data.I_XXC_MBXSLL_68SBRS;
 
 		        // MACHINE 2 - TODO: Poner en las demás también que pille dle AppConfiguration
 		        if (pStreamResponseLine.data.hasOwnProperty("I_CMS_LJ3Z4P_AW8HY7")) StreamController.ExecutionStateM2 = pStreamResponseLine.data.I_CMS_LJ3Z4P_AW8HY7;

@@ -41,11 +41,23 @@
 
 	            <!-- ###########################################
 	            #################### LOGO V/X ################## -->
-	            <div class="col-md-3" style="padding-top:40px">
+	            <!--<div class="col-md-3" style="padding-top:40px">
 	                <div class="modal-content" style="background-color:#66bb6a;height: 150px!important; width:150px">
 	                    <img src="../images/v.png" style="padding-left:30px;padding-top:35px;width:80%">
 	                </div>
-	            </div>
+	            </div>-->
+				<div class="col-md-3" style="padding-top:40px">
+					<div class="modal-content" style="height: 150px!important; width:150px;background-color:#F1F1F1">
+						<div id="machine-status-m1">
+							<div id="machine-error-status-m1" class="machine-error-status"></div>
+							<img id="machine-error-image-m1" src="" >
+							<div id="machine-error-metric-m1" class="machine-error-metric"></div>
+							<div id="machine-error-message-m1" class="machine-error-message"></div>
+							<div id="machine-error-value-m1" class="machine-error-value"></div>
+							<div id="machine-error-date-m1" class="machine-error-date"></div>
+						</div>
+					</div>
+				</div>
 
 	            <!-- ###########################################
 	            ################# DIBUJO MÁQUINA ############### -->
@@ -64,15 +76,14 @@
 	                    </div>
 	                    <div class="modal-body">
 	                        <div class="modal-izq">
+								Z1 Axis Temperature:<br>
+								<div id="z1-temperature-bar-m1"></div>
+								Z2 Axis Temperature:<br>
+								<div id="z2-temperature-bar-m1"></div>
 	                            Z1 Axis Engine Intensity:<br>
 	                            <div id="z1-intensity-bar-m1"></div>
-	                            Z1 Axis Temperature:<br>
-	                            <div id="z1-temperature-bar-m1"></div>
 	                            Z2 Axis Engine Intensity:<br>
 	                            <div id="z2-intensity-bar-m1"></div>
-	                            Z2 Axis Temperature:<br>
-	                            <div id="z2-temperature-bar-m1"></div>
-
 	                        </div>
 	                        <div class="modal-dere">
 								Controller Mode:<br>
@@ -96,11 +107,25 @@
 
 	            <!-- ###########################################
 	            #################### LOGO V/X ################## -->
-	            <div class="col-md-3" style="padding-top:40px">
+	           <!-- <div class="col-md-3" style="padding-top:40px">
 					<div class="modal-content" style="background-color:#66bb6a;height: 150px!important; width:150px">
 	                    <img src="../images/v.png" style="padding-left:30px;padding-top:35px;width:80%">
 	                </div>
-	            </div>
+	            </div>-->
+				<!-- ###########################################
+				#################### LOGO V/X ################## -->
+				<div class="col-md-3" style="padding-top:40px">
+					<div class="modal-content" style="height: 150px!important; width:150px;background-color:#F1F1F1">
+						<div id="machine-status-m2">
+							<div id="machine-error-status-m2" class="machine-error-status"></div>
+							<img id="machine-error-image-m2" src="" >
+							<div id="machine-error-metric-m2" class="machine-error-metric"></div>
+							<div id="machine-error-message-m2" class="machine-error-message"></div>
+							<div id="machine-error-value-m2" class="machine-error-value"></div>
+							<div id="machine-error-date-m2" class="machine-error-date"></div>
+						</div>
+					</div>
+				</div>
 
 	            <!-- ###########################################
 	            ################# DIBUJO MÁQUINA ############### -->
@@ -119,14 +144,14 @@
 	                    </div>
 	                    <div class="modal-body">
 	                        <div class="modal-izq">
-	                          Z1 Axis Engine Intensity:<br>
-	                          <div id="z1-intensity-bar-m2"></div>
-	                          Z1 Axis Temperature:<br>
-	                          <div id="z1-temperature-bar-m2"></div>
-	                          Z2 Axis Engine Intensity:<br>
-	                          <div id="z2-intensity-bar-m2"></div>
-	                          Z2 Axis Temperature:<br>
-	                          <div id="z2-temperature-bar-m2"></div>
+								Z1 Axis Temperature:<br>
+								<div id="z1-temperature-bar-m2"></div>
+								Z2 Axis Temperature:<br>
+								<div id="z2-temperature-bar-m2"></div>
+								Z1 Axis Engine Intensity:<br>
+								<div id="z1-intensity-bar-m2"></div>
+								Z2 Axis Engine Intensity:<br>
+								<div id="z2-intensity-bar-m2"></div>
 	                        </div>
 	                        <div class="modal-dere">
 								Controller Mode:<br>
@@ -152,7 +177,7 @@
 	            #################### LOGO V/X ################## -->
 	            <div class="col-md-3" style="padding-top:40px">
 	                <div class="modal-content" style="height: 150px!important; width:150px;background-color:#F1F1F1">
-						<div id="machine-status">
+						<div id="machine-status-m3">
 							<div id="machine-error-status-m3" class="machine-error-status"></div>
 							<img id="machine-error-image-m3" src="" >
 							<div id="machine-error-metric-m3" class="machine-error-metric"></div>
@@ -226,22 +251,30 @@
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 				console.log("Starting stream for Kelly...");
 				StreamController.startStreaming(urlStream);
-                
+                /*
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Slater;
 				console.log("Starting stream for Slater...");
 				StreamController.startStreaming(urlStream);
-                
+
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
 				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
-
+*/
 				// Call the GetSimplifiedDiagnostic
 				setInterval(function() {
-					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms to get values. Actual time: " + new Date(Date.now()).toLocaleTimeString());
+					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms (" + AppConfiguration.CallDiagnosticValuesInterval/1000 + " sec) to get status of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-					// TODO: Con machines
-					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineId;
-					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic);
+					// Call Kelly (1)
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Kelly");
+
+					// Call Slater (2)
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Slater");
+
+					// Call Zack (3)
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Zack");
 				}, AppConfiguration.CallDiagnosticValuesInterval);
 			});
 		</script>
