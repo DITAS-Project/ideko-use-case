@@ -16,5 +16,7 @@ class ServerConfiguration {
   @BeanProperty var waitDuration: Int = 2 // seconds
 
   @BeanProperty var jwtServerTimeout: Int = 5000 // milliseconds
+  @BeanProperty var jwksServerEndpoint: String = null
+  @BeanProperty var jwksCheckServerCertificate: Boolean = true
 
 }

@@ -20,6 +20,7 @@ libraryDependencies ++= Seq(
   "org.yaml" % "snakeyaml" % "1.11",
   "org.scalaj" %% "scalaj-http" % "2.4.1",
   "org.slf4j" % "slf4j-api" % "1.7.25",
+  "ch.qos.logback" % "logback-classic" % "1.0.13",
   "org.apache.httpcomponents" % "httpcore" % "4.4.8",
   "org.asynchttpclient" % "async-http-client" % "2.4.9",
   "io.spray" %%  "spray-json" % "1.3.4",

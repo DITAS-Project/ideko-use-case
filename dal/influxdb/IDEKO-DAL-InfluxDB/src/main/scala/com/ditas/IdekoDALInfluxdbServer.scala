@@ -5,7 +5,7 @@ import java.util.logging.Logger
 
 import com.ditas.configuration.ServerConfiguration
 import com.ditas.ideko.QueryInfluxDBRequest.{QueryInfluxDBGrpc, QueryInfluxDBReply, QueryInfluxDBRequest}
-import com.ditas.utils.{JwtValidation, YamlConfiguration}
+import com.ditas.utils.{JwtValidator, YamlConfiguration}
 import com.paulgoldbaum.influxdbclient.InfluxDB
 import io.grpc._
 
@@ -98,6 +98,7 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
     private val influxDB = InfluxDB.connect(IdekoDALInfluxdbServer.influxdbServer, IdekoDALInfluxdbServer.influxdbPort,
       IdekoDALInfluxdbServer.influxdbUsername, IdekoDALInfluxdbServer.influxdbPassword, false, null)
     private val LOGGER = Logger.getLogger(getClass.getName)
+    private val jwtValidation = new JwtValidator(IdekoDALInfluxdbServer.serverConfigFile)
 
     override def query(request: QueryInfluxDBRequest): Future[QueryInfluxDBReply] = {
       val machineId = request.machineId
@@ -113,7 +114,7 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
       } else {
         val authorizationHeader: String = request.dalMessageProperties.get.authorization
         try {
-          JwtValidation.validateJwtToken(authorizationHeader, IdekoDALInfluxdbServer.serverConfigFile.jwtServerTimeout)
+          jwtValidation.validateJwtToken(authorizationHeader, IdekoDALInfluxdbServer.serverConfigFile.jwtServerTimeout)
         } catch {
           case e: Exception => {
             LOGGER.throwing(getClass.getName, "query", e);

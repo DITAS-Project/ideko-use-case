@@ -6,7 +6,9 @@ influxdbPort: 8086
 influxdbUsername: username
 influxdbPassword: password
 waitDuration: 2 # seconds
-jwtServerTimeout: 5 #seconds
+jwtServerTimeout: 5000 #milliseconds
+jwksServerEndpoint: https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs
+jwksCheckServerCertificate: true
 
 influxdbDBNameMap:
   CMX_LQLS26:

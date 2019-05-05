@@ -11,6 +11,7 @@ import com.auth0.jwk.{GuavaCachedJwkProvider, SigningKeyNotFoundException, UrlJw
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.RSAKeyProvider
+import com.ditas.configuration.ServerConfiguration
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import javax.net.ssl._
@@ -19,12 +20,12 @@ import org.apache.http.conn.ssl.NoopHostnameVerifier
 import pdi.jwt.Jwt
 import pdi.jwt.exceptions.JwtValidationException
 
-object JwtValidation {
-  private val LOGGER = Logger.getLogger(getClass.getName)
 
-  private val JWKS_ENDPOINT = new URL("https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs")
+class JwtValidator(serverConfigFile: ServerConfiguration) {
+  private val LOGGER = Logger.getLogger(getClass.getName)
   private val AUTH_HEADER_PATTERN = "Bearer (.*)".r
 
+  private val JWKS_ENDPOINT = new URL(serverConfigFile.jwksServerEndpoint)
   val provider = new GuavaCachedJwkProvider(new UrlJwkProvider(JWKS_ENDPOINT))
   val keyProvider = new RSAKeyProvider() {
     override def getPublicKeyById(kid: String): RSAPublicKey = {
@@ -38,9 +39,7 @@ object JwtValidation {
   }
 
   val algorithm = Algorithm.RSA256(keyProvider)
-
-
-  val checkCertificate: Boolean = false
+  val checkCertificate: Boolean = serverConfigFile.jwksCheckServerCertificate
 
   def validateJwtToken(authorizationHeader: String, jwtServerTimeout: Int) = {
     val token = for (m <- AUTH_HEADER_PATTERN.findFirstMatchIn(authorizationHeader)) yield m.group(1)
@@ -129,3 +128,5 @@ object JwtValidation {
     publicKey
   }
 }
+
+
