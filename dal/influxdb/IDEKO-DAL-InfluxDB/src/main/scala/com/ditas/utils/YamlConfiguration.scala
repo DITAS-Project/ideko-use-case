@@ -9,7 +9,7 @@ import java.io.FileInputStream
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
-object UtilFunctions {
+object YamlConfiguration {
   def loadServerConfig(filename : String): ServerConfiguration = {
     val yaml = new Yaml(new Constructor(classOf[ServerConfiguration]))
     val stream = new FileInputStream(filename)

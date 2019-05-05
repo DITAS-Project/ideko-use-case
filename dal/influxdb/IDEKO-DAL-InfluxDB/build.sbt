@@ -25,7 +25,8 @@ libraryDependencies ++= Seq(
   "io.spray" %%  "spray-json" % "1.3.4",
   "com.pauldijou" %% "jwt-core" % "2.1.0",
 //  "com.thesamet.scalapb" %% "scalapb-json4s" % "0.7.2",
-  "com.auth0" % "jwks-rsa" % "0.8.0"
+  "com.auth0" % "jwks-rsa" % "0.8.0",
+  "com.auth0" % "java-jwt" % "3.8.0"
 
 //  "com.paulgoldbaum" %% "scala-influxdb-client" % scalaInfluxdbVersion
 )
