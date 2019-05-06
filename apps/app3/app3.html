@@ -291,17 +291,33 @@
 			$(window).ready(function()
 			{
 				// Call the stream
-				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineId;
-				console.log("Starting stream...");
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
+				console.log("Starting stream for Kelly...");
+				StreamController.startStreaming(urlStream);
+
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Slater;
+				console.log("Starting stream for Slater...");
+				StreamController.startStreaming(urlStream);
+
+				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
+				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
 
 				// Call the GetSimplifiedDiagnostic
 				setInterval(function() {
-					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms to get values. Actual time: " + new Date(Date.now()).toLocaleTimeString());
+					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms (" + AppConfiguration.CallDiagnosticValuesInterval/1000 + " sec) to get values of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-					// TODO: Con machines
-					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineId;
-					DiagnosticController.startDiagnosticCall(urlFullDiagnostic);
+					// Call Kelly (1)
+					urlSimplifiedDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Kelly");
+
+					// Call Slater (2)
+					urlSimplifiedDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Slater");
+
+					// Call Zack (3)
+					urlSimplifiedDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
+					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Zack");
 				}, AppConfiguration.CallDiagnosticValuesInterval);
 			});
 		</script>

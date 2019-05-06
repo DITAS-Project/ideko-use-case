@@ -148,7 +148,8 @@ $(document).ready(function() {
  // printGraph('z1-intensity-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
  // printGraph('z2-intensity-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
 
-  if(DiagnosticController.Z1AxisTemperature === null){ //or empty or whataver
+  // TODO: No se por qué esto está aquí
+  if (DiagnosticController.Z1AxisTemperature === null) { //or empty or whataver
  	 console.log("ES NULL");
       $('#z1-temperature-graph-m1').hide();
   }
@@ -166,31 +167,40 @@ function printGraph(id, name, data)
 	var chart = $("#" + id).highcharts();
 	var series = chart.series[0];
 	series.setData(data);
+	
 	// Change series name
 	chart.series[0].update({name:name}, false);
 
 	// Removes zoom
 	chart.zoom();
 
-	// Redraws chart 
+	// Redraws chart
 	chart.redraw();
 }
 
 /**
 * Anomally has happen, we print the graphs
+* @param machineNumber: number of the machine (1, 2 or 3)
 */
-function printGraphDueToAnomaly()
+function printGraphDueToAnomaly(machineNumber)
 {
-	printGraph('z1-temperature-graph-m3', "Z1 temperature", DiagnosticController.Z1AxisTemperature);
-	printGraph('z2-temperature-graph-m3', "Z2 temperature", DiagnosticController.Z2AxisTemperature);
-	printGraph('z1-intensity-graph-m3', "Z1 intensity", DiagnosticController.Z1AxisIntensity);
-	printGraph('z2-intensity-graph-m3', "Z2 intensity", DiagnosticController.Z2AxisIntensity);
+	// For each graph (4 for each machine), we print the points
+	printGraph('z1-temperature-graph-m' + machineNumber, "Z1 temperature", eval("DiagnosticController.Z1AxisTemperatureM" + machineNumber));
+	printGraph('z2-temperature-graph-m' + machineNumber, "Z2 temperature", eval("DiagnosticController.Z2AxisTemperatureM" + machineNumber));
+	printGraph('z1-intensity-graph-m' + machineNumber, "Z1 intensity", eval("DiagnosticController.Z1AxisIntensityM" + machineNumber));
+	printGraph('z2-intensity-graph-m' + machineNumber, "Z2 intensity", eval("DiagnosticController.Z2AxisIntensityM" + machineNumber));
 }
+
 
 /**
 * Machine status is ok, we dont show any data
+* @param machineNumber: number of the machine (1, 2 or 3)
 */
-function removeGraph()
+function removeGraph(machineNumber)
 {
-	printGraph('z1-temperature-graph-m3', []);
+	// For each graph (4 for each machine), we send empty data to remove the graph content
+	printGraph('z1-temperature-graph-m' + machineNumber, []);
+	printGraph('z2-temperature-graph-m' + machineNumber, []);
+	printGraph('z1-intensity-graph-m' + machineNumber, []);
+	printGraph('z2-intensity-graph-m' + machineNumber, []);
 }
