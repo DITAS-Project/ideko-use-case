@@ -39,24 +39,24 @@ In order to run the application, you have to run the following components:
 
 ## Launching
 
-0. Create the two files as stated before.
+1. Create the **two files** as stated before.
 
-1. Run **Elasticsearch**: For testing, we took the image from the official docs.
+2. Run **Elasticsearch**: For testing, we took the image from the official docs.
 ```
 docker pull docker.elastic.co/elasticsearch/elasticsearch:7.0.1
 docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.0.1
 ```
-2. Run **DAL**: The image is taken from the IDEKO's UC private docker registry.
+3. Run **DAL**: The image is taken from the IDEKO's UC private docker registry.
 ```
 docker run -p 40001:40001 --restart always --name streaming-dal -d 153.92.30.56:5050/streaming-dal
 ```
 
-3. Run **VDC**: The image is taken from the IDEKO's UC private docker registry.
+4. Run **VDC**: The image is taken from the IDEKO's UC private docker registry.
  ```
 docker run -d -p 1888:1888 --restart always -v /opt/config:/etc/ditas 153.92.30.56:5050/computation-vdc
 ```
 
-4. Run **Request Monitor**: In the future, it should be built from the DockerHub. The *CONTAINER_ID* from the *run* command must be the ID of the VDC (step #3)
+5. Run **Request Monitor**: In the future, it should be built from the DockerHub. The *CONTAINER_ID* from the *run* command must be the ID of the VDC (step #3)
 ```
 docker build -t ditas/request-monitor -f Dockerfile.artifact .
 docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 -p 443:443 ditas/request-monitor
