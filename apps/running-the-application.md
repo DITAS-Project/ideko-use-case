@@ -8,7 +8,7 @@ In order to run the application, you have to run the following components:
 3. **VDC-CAF**: From the image taken from the private hub
 4. **Request Monitor**: Image taken from the public DITAS DockerHub
 
-... and create the following files (configuring the proper IPs) on the host machine:
+... and create the following files (configuring the proper IPs) in the path `/opt/config` of the host machines:
 
 **traffic.json**
 ```
