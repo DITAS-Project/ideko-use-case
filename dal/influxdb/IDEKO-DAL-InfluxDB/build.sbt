@@ -52,3 +52,19 @@ assemblyMergeStrategy in assembly := {
   case x => MergeStrategy.first
 }
 
+enablePlugins(sbtdocker.DockerPlugin, JavaServerAppPackaging)
+
+dockerfile in docker := {
+  // The assembly task generates a fat JAR file
+  val artifact: File = assembly.value
+  val artifactTargetPath = s"/app/${artifact.name}"
+
+  new Dockerfile {
+    from("java:8-jre-alpine")
+    copy(artifact, artifactTargetPath)
+    expose(9000)
+    entryPoint("java", "-Dplay.http.secret.key='wspl4r'", "-jar", artifactTargetPath)
+  }
+
+}
+
