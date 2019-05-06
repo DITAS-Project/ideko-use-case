@@ -1,12 +1,11 @@
 package com.ditas
 
 
-import java.util
 import java.util.logging.Logger
 
 import com.ditas.configuration.ServerConfiguration
 import com.ditas.ideko.QueryInfluxDBRequest.{QueryInfluxDBGrpc, QueryInfluxDBReply, QueryInfluxDBRequest}
-import com.ditas.utils.UtilFunctions
+import com.ditas.utils.{JwtValidator, YamlConfiguration}
 import com.paulgoldbaum.influxdbclient.InfluxDB
 import io.grpc._
 
@@ -25,7 +24,7 @@ object IdekoDALInfluxdbServer {
       System.err.println("Usage: IdekoInfluxdbServer <configFile>")
       System.exit(1)
     }
-    val configFile = UtilFunctions.loadServerConfig(args(0))
+    val configFile = YamlConfiguration.loadServerConfig(args(0))
     debugMode = configFile.debugMode
 
     serverConfigFile = configFile
@@ -99,17 +98,30 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
     private val influxDB = InfluxDB.connect(IdekoDALInfluxdbServer.influxdbServer, IdekoDALInfluxdbServer.influxdbPort,
       IdekoDALInfluxdbServer.influxdbUsername, IdekoDALInfluxdbServer.influxdbPassword, false, null)
     private val LOGGER = Logger.getLogger(getClass.getName)
+    private val jwtValidation = new JwtValidator(IdekoDALInfluxdbServer.serverConfigFile)
 
     override def query(request: QueryInfluxDBRequest): Future[QueryInfluxDBReply] = {
       val machineId = request.machineId
       val queryObject = request.query
 //      val purpose = req.dalMessageProperties.get.purpose
 
-      if (queryObject.isEmpty) {
+      if (request.dalMessageProperties.isEmpty || request.dalMessageProperties.get.authorization.isEmpty) {
+        Future.failed(Status.ABORTED.augmentDescription("Missing authorization").asRuntimeException())
+      } else if (queryObject.isEmpty) {
         Future.failed(Status.ABORTED.augmentDescription("Missing query").asRuntimeException())
       } else if (machineId.isEmpty) {
         Future.failed(Status.ABORTED.augmentDescription("Missing machine id").asRuntimeException())
       } else {
+        val authorizationHeader: String = request.dalMessageProperties.get.authorization
+        try {
+          jwtValidation.validateJwtToken(authorizationHeader, IdekoDALInfluxdbServer.serverConfigFile.jwtServerTimeout)
+        } catch {
+          case e: Exception => {
+            LOGGER.throwing(getClass.getName, "query", e);
+            return Future.failed(Status.ABORTED.augmentDescription(e.getMessage).asRuntimeException())
+          }
+        }
+
         val (dbName, policy) = chooseMachine(machineId)
         (dbName, policy) match {
           case (Some(dbName), Some(policy)) => {
@@ -118,11 +130,13 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
             return Future.successful(reply)
           }
           case (None, None) => {
-            return Future.failed(Status.ABORTED.augmentDescription("Machine id didn't match any dbName").asRuntimeException())
+            return Future.failed(Status.ABORTED.augmentDescription("Machine id didn't match any dbName and policy").asRuntimeException())
           }
         }
       }
     }
+
+
 
     private def queryInfluxDB(query: String, machineId: String, dbName: String, policy: String): String = {
       LOGGER.info(s"Query: {${query}}\nmachineId=${machineId}, dbName=${dbName}")
@@ -156,6 +170,7 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
   }
 
 }
+
 
 
 

@@ -56,5 +56,5 @@ Running the server:
 bin/IdekoInfluxdbServer <ServerConfigFile>
 ```
 
-The src/test/scala/resources/ directory contains examples of config files for the server. 
+The src/test/resources/ directory contains examples of config files for the server.
 

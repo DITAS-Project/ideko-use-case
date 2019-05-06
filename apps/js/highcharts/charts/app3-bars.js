@@ -121,9 +121,13 @@ $(document).ready(function() {
     z1IntensitySeriesm1.setData([{y: 5}]);
     */
 
-	document.getElementById("controller-mode-m1").innerHTML = "&nbsp";
-	document.getElementById("execution-state-m1").innerHTML = "&nbsp";
-	document.getElementById("program-name-m1").innerHTML = "&nbsp";
+	// Print string (controller / execution / program)
+	printStrings("controller-mode-m1", "ControllerModeM1", AppConfiguration.ControllerMode);
+	printStrings("execution-state-m1", "ExecutionStateM1", AppConfiguration.ExecutionState);
+	printStrings("program-name-m1", "ProgramNameM1");
+
+	// Prints the machine status (left green/yellow/red icon)
+	printMachineStatus(1);
 
     /* #############################################################################
     ################################  MACHINE 2 ####################################
@@ -139,9 +143,13 @@ $(document).ready(function() {
 	printBars('z1-intensity-bar-m2',"Z1AxisEngineIntensityM2");
 	printBars('z2-intensity-bar-m2',"Z2AxisEngineIntensityM2");
 
-	document.getElementById("controller-mode-m2").innerHTML = "&nbsp";
-	document.getElementById("execution-state-m2").innerHTML = "&nbsp";
-	document.getElementById("program-name-m2").innerHTML = "&nbsp";
+	// Print string (controller / execution / program)
+	printStrings("controller-mode-m2", "ControllerModeM2", AppConfiguration.ControllerMode);
+	printStrings("execution-state-m2", "ExecutionStateM2", AppConfiguration.ExecutionState);
+	printStrings("program-name-m2", "ProgramNameM2");
+
+	// Prints the machine status (left green/yellow/red icon)
+	printMachineStatus(2);
 
     /* #############################################################################
     ################################  MACHINE 3 ####################################
@@ -210,11 +218,9 @@ function printStrings(idName, indicatorName, dictionaryName = null)
 */
 function printMachineStatus(machineNumber)
 {
-DiagnosticController.StatusM3 = "ALERT";
-
 	setInterval(function() {
+		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.GetDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-	console.log("Getting values from variables every " + AppConfiguration.GetDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
 		if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT" || eval("DiagnosticController.StatusM" + machineNumber) === "WARNING")
 		{
 			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById("machine-status-m" + machineNumber).className = "machine-error";
@@ -231,7 +237,7 @@ DiagnosticController.StatusM3 = "ALERT";
 			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "Date: " + dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
 
 			// There's an anomaly! We print the graph
-			printGraphDueToAnomaly();
+			printGraphDueToAnomaly(machineNumber);
 		} else {
 			document.getElementById("machine-status-m" + machineNumber).className = "machine-ok";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");
@@ -247,7 +253,7 @@ DiagnosticController.StatusM3 = "ALERT";
 			document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "";
 
 			// There's no anomaly, we remove the graph
-			removeGraph();
+			removeGraph(machineNumber);
 		}
 	}, AppConfiguration.GetDiagnosticValuesInterval);
 }
@@ -261,4 +267,16 @@ function dateMStoDateYYYYMMDD(dateMs) {
 	var myDate = new Date(dateMs);
 	parsedDate = myDate.getFullYear() + '-' +('0' + (myDate.getMonth()+1)).slice(-2)+ '-' +  myDate.getDate() + ' '+myDate.getHours()+ ':'+('0' + (myDate.getMinutes())).slice(-2)+ ':'+myDate.getSeconds();
 	return parsedDate;
+}
+
+/**
+* Returns the machine name for a given machine number
+* @param machineNumber: machineNumber in string format
+* @return machineName: Machine name
+*/
+function getMachineName(machineNumber)
+{
+	if (parseInt(machineNumber) == 1) return "Kelly"
+	else if (parseInt(machineNumber) == 2) return "Slater"
+	else if (parseInt(machineNumber) == 3) return "Zack"
 }

@@ -9,19 +9,19 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+   
     <appender name="FILE-AUDIT"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${DEV_HOME}/debug.log</file>
+        <file>${DEV_HOME}/idekoDAL.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{10} [%file:%line] %msg%n
             </Pattern>
         </encoder>
-        <level>debug</level>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
+            <fileNamePattern>${DEV_HOME}/archived/idekoDAL.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -31,31 +31,12 @@
 
     </appender>
 
-    <appender name="FILE-ERROR"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${DEV_HOME}/error.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} - %msg%n
-            </Pattern>
-        </encoder>
-        <level>debug</level>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
-            <fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-
-    </appender>
-
-
-    <root level="debug" additivity="false">
+    <logger name="com.ditas.IdekoDALInfluxdbServer" level="debug" />
+    <logger name="com.ditas.utils.JwtValidator" level="debug" />
+    
+    <root level="warn" additivity="true">
         <appender-ref ref="console"/>
-        <appender-ref ref="FILE-ERROR" />
+        <appender-ref ref="FILE-AUDIT" />
     </root>
 
 </configuration>

@@ -21,7 +21,7 @@ message QueryInfluxDBRequest {
 
 
 message QueryInfluxDBReply {
-    // Measurements that
-    repeated string measurement = 1;
+    // InfluxDB Measurements that match a query
+    repeated string measurements = 1;
 }
 
