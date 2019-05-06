@@ -33,7 +33,7 @@ In order to run the application, you have to run the following components:
     "ForwardTraffic":false,
     "verbose":true,
     "Authentication": true,
-    "jwkURL": "[https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs](https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs)"
+    "jwkURL": "https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs"
 }
 ```
 
