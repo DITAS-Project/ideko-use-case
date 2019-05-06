@@ -39,6 +39,8 @@ In order to run the application, you have to run the following components:
 
 ## Launching
 
+0. Create the two files as stated before.
+
 1. Run **Elasticsearch**: For testing, we took the image from the official docs.
 ```
 docker pull docker.elastic.co/elasticsearch/elasticsearch:7.0.1
