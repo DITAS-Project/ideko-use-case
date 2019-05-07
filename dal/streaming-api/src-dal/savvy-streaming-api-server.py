@@ -204,7 +204,7 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                     context.abort(grpc.StatusCode.CANCELLED, 'Context not active, client gone')
                     return
                 
-                print('[Machine ' + machineId + '] Sending response line (first 300 chars): ' +  line[0:300])
+                print('[Machine ' + machineId + '] Sending response line (first 100 chars): ' +  str(line)[0:100])
                 yield savvy_streaming_api_pb2.StreamResponse(responseLine=line)
         else:
             # Unauthorized, the JWT toke does not validate
