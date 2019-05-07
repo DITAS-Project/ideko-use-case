@@ -40,19 +40,11 @@
 							</div>
 							<input id="password" type="password" name="" class="form-control input_pass" value="" placeholder="password">
 						</div>
-						<!--
-						<div class="form-group">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
-							</div>
-						</div>
-						-->
 					</form>
 				</div>
 				<div class="d-flex justify-content-center mt-3 login_container">
 					<!-- 2 refers to the app number, in this case, app2 -->
-					<button onclick="DitasLogin.checkLogin(2)" type="button" name="button" class="btn login_btn" style="margin-top: 11px;">Login</button>
+					<button id="login-button" onclick="DitasLogin.checkLogin(2)" type="button" name="button" class="btn login_btn" style="margin-top: 11px;">Login</button>
 				</div>
 				<div class="feedback-icon" style="margin-top:10px;">
 					<center><img src="../images/warning-login-ditas.png" width="7%"></center>

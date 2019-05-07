@@ -1,30 +1,35 @@
-// Check on load if the app login has made beforehand, otherwise, redirect
 $(window).ready(function()
-	{
+{
+		// Check on load if the app login has made beforehand, otherwise, redirect
 		var appStorageValue = window.localStorage.getItem('appStorage');
 		if (!appStorageValue)
 		{
 			window.location.href = "app-login.html";
 			return;
 		}
+
+		// Enables to use the key "enter" to login
+		$('#password').keypress(function(e) {
+		  if (e.keyCode==13) $('#login-button').click();
+		});
 });
 
 // Checks the login and returns the Keycloak token
 var DitasLogin = {
 	checkLogin: function (appNumber)
-	{		
-		// Get input values		
+	{
+		// Get input values
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
-		
+
 		// Create the request and set the proper header
-		var req = new XMLHttpRequest();  
-		req.open("POST", AppConfiguration.KeycloakURL + "/auth/realms/" + AppConfiguration. KeycloakRealm + "/protocol/openid-connect/token");  
+		var req = new XMLHttpRequest();
+		req.open("POST", AppConfiguration.KeycloakURL + "/auth/realms/" + AppConfiguration. KeycloakRealm + "/protocol/openid-connect/token");
 		req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		
+
 		// Set the params and send the request
 		var params = 'username=' + username + '&password=' + password + '&client_id=' + AppConfiguration.KeycloackClientID + '&grant_type=password';
-		req.send(params); 
+		req.send(params);
 
 		// Get response
 		req.onreadystatechange = function() {

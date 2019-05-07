@@ -1,19 +1,27 @@
-// Checks the login is ok, and redirects to the 
+$(document).ready(function()
+{
+	// Enables to use the key "enter" to login
+    $('#password').keypress(function(e) {
+      if (e.keyCode==13) $('#login-button').click();
+    });
+});
+
+// Checks the login is ok, and redirects to the
 var AppLogin = {
 	checkLogin: function (appNumber)
 	{
 		// Get input values
 		var inputUser = document.getElementById('username').value;
 		var inputPassword = document.getElementById('password').value;
-		
+
 		// Get saved user and password
 		var savedUser = AppConfiguration.AppUser;
 		var savedPassword = AppConfiguration.AppPassword;
-		
+
 		// Hash input values
 		var hashedInputUser = CryptoJS.SHA512(inputUser).toString(CryptoJS.enc.Hex);
 		var hashedInputPassword = CryptoJS.SHA512(inputPassword).toString(CryptoJS.enc.Hex);
-		
+
 		// Check if match
 		if (hashedInputPassword == savedPassword && hashedInputUser == savedUser)
 		{
