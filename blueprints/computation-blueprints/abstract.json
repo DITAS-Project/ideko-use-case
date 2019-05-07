@@ -337,14 +337,14 @@
 			"streaming-api": {
 				"internalPort": 40001,
 				"externalPort": 40001,
-				"image": "aitorf/streaming-api-dal:1.0"
+				"image": "153.92.30.56:5050/streaming-dal:latest"
 			}
 		},
 		"VDC_Images": {
 			"caf": {
 				"internalPort": 1888,
 				"externalPort": 1888,
-				"image": "aitorf/computation-bp-node-red-caf:1.0"
+				"image": "153.92.30.56:5050/computation-vdc:latest"
 			}
 		},
 		"Identity_Access_Management": {
