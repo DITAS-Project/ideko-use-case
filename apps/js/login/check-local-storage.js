@@ -1,5 +1,6 @@
 $(window).ready(function()
 {
+
 	// Checks if the app local storage exist, otherwise, redirected to the login page
 	var appStorageValue = window.localStorage.getItem('appStorage');
 	if (!appStorageValue)
@@ -19,5 +20,4 @@ $(window).ready(function()
 	// Everything's ok, hide the loader, show the div
 	$(".loading-div").hide();
 	$(".general-div").show();
-
 });

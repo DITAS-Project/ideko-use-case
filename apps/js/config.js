@@ -1,26 +1,13 @@
 var AppConfiguration = {
 
-  // URLS to call (including "http" and endpoints)
-  /*
-  GetSimplifiedDiagnosticURL: "http://172.16.35.63:1880/caf/GetSimplifiedDiagnostic",
-  GetFullDiagnosticURL: "http://172.16.35.63:1880/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://172.16.35.63:1880/caf/GetStreamingData",
-  */
-
   // admin - ditas
   AppUser: "c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec",
   AppPassword: "260179d083fc875f132b1be295913e26070c76f677609796b73f09ae3f0dc7f8073a999e26a189a87e362a960b6b1288817a452b4ae697d3971327a589615bfb",
 
-/*
-  GetSimplifiedDiagnosticURL: "http://52.50.248.116:1888/caf/GetSimplifiedDiagnostic",
-  GetFullDiagnosticURL: "http://52.50.248.116:1888/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://52.50.248.116:1888/caf/GetStreamingData",
-*/
-
-  // DAL:
+  // DAL endpoints:
   GetSimplifiedDiagnosticURL: "http://172.16.33.89/caf/GetSimplifiedDiagnostic",
   GetFullDiagnosticURL: "http://172.16.33.89/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://172.16.33.89:1888/caf/GetStreamingData",
+  GetStreamingDataURL: "http://172.16.33.89/caf/GetStreamingData",
 
   // Keycloak
   KeycloakURL: "https://153.92.30.56:58080",

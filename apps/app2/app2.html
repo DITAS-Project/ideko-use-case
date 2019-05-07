@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Staatliches">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800">
+
 </head>
 <body>
 
@@ -29,6 +30,12 @@
 	<div class="general-div">
 
 	    <div class="top-horizontal"></div>
+
+		<div class="logout-button">
+			<button type="button" class="btn btn-default btn-sm" onclick="Logout.logout()">
+			  <img src="../images/logout.png"> Logout
+			</button>
+		</div>
 
 	    <div class="modal-dialog" style="width:1020px;margin-top: -25px;height:60%">
 
@@ -243,36 +250,38 @@
 		<script src="../js/diagnostic/diagnostic.js"></script>
 		<script src="../js/diagnostic/diagnostic-controller.js"></script>
 		<script src="../js/login/check-local-storage.js"></script>
+		<script src="../js/login/logout.js"></script>
 
 		<script>
 			$(window).ready(function()
 			{
-				// Call the stream
+				// Kelly (1) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 				console.log("Starting stream for Kelly...");
 				StreamController.startStreaming(urlStream);
 
+				// Slater (2) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Slater;
 				console.log("Starting stream for Slater...");
 				StreamController.startStreaming(urlStream);
 
+				// Zack (3) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
 				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
 
-				// Call the GetSimplifiedDiagnostic
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms (" + AppConfiguration.CallDiagnosticValuesInterval/1000 + " sec) to get status of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-					// Call Kelly (1)
+					// Kelly (1) - GetSimplifiedDiagnostic
 					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Kelly");
 
-					// Call Slater (2)
+					// Slater (2) - GetSimplifiedDiagnostic
 					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Slater");
 
-					// Call Zack (3)
+					// Zack (3) - GetSimplifiedDiagnostic
 					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Zack");
 				}, AppConfiguration.CallDiagnosticValuesInterval);
