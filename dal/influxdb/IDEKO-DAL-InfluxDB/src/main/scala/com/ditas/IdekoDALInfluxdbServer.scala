@@ -3,14 +3,15 @@ package com.ditas
 
 import java.util.logging.Logger
 
-import com.ditas.configuration.ServerConfiguration
+import com.ditas.configuration.{PrivacyConfiguration, ServerConfiguration}
 import com.ditas.ideko.QueryInfluxDBRequest.{QueryInfluxDBGrpc, QueryInfluxDBReply, QueryInfluxDBRequest}
 import com.ditas.utils.{JwtValidator, YamlConfiguration}
 import com.paulgoldbaum.influxdbclient.InfluxDB
 import io.grpc._
 
 import scala.collection.JavaConverters._
-import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
+import scala.collection.{JavaConverters, mutable}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
@@ -21,10 +22,13 @@ object IdekoDALInfluxdbServer {
 
   def main(args: Array[String]): Unit = {
     if (args.length < 1) {
-      System.err.println("Usage: IdekoInfluxdbServer <configFile>")
+      System.err.println("Usage: IdekoInfluxdbServer <serverConfigFile> [privacyConfigFile]")
       System.exit(1)
     }
-    val configFile = YamlConfiguration.loadServerConfig(args(0))
+    val configFile = YamlConfiguration.loadConfiguration[ServerConfiguration](args(0))
+    if (args.length > 1) {
+      validRoles = JavaConverters.asScalaBuffer(YamlConfiguration.loadConfiguration[PrivacyConfiguration](args(1)).validRoles)
+    }
     debugMode = configFile.debugMode
 
     serverConfigFile = configFile
@@ -50,6 +54,8 @@ object IdekoDALInfluxdbServer {
   private var influxdbDBNameMap = mutable.Map.empty[String, java.util.ArrayList[String]]
   private var waitDuration = 2.seconds // seconds
   private var serverConfigFile: ServerConfiguration = null
+
+  private var validRoles: mutable.Buffer[String] = ArrayBuffer("*")
 }
 
 
@@ -114,7 +120,7 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
       } else {
         val authorizationHeader: String = request.dalMessageProperties.get.authorization
         try {
-          jwtValidation.validateJwtToken(authorizationHeader, IdekoDALInfluxdbServer.serverConfigFile.jwtServerTimeout)
+          jwtValidation.validateJwtToken(authorizationHeader, IdekoDALInfluxdbServer.serverConfigFile.jwtServerTimeout, IdekoDALInfluxdbServer.validRoles)
         } catch {
           case e: Exception => {
             LOGGER.throwing(getClass.getName, "query", e);

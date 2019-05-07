@@ -5,12 +5,13 @@ import java.net.URL
 import java.security.interfaces.{RSAPrivateKey, RSAPublicKey}
 import java.security.spec.RSAPublicKeySpec
 import java.security.{PublicKey, SecureRandom, cert}
+import java.util
 import java.util.logging.Logger
 
 import com.auth0.jwk.{GuavaCachedJwkProvider, SigningKeyNotFoundException, UrlJwkProvider}
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.interfaces.RSAKeyProvider
+import com.auth0.jwt.interfaces.{DecodedJWT, RSAKeyProvider}
 import com.ditas.configuration.ServerConfiguration
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
@@ -19,6 +20,9 @@ import org.apache.commons.codec.binary.Base64
 import org.apache.http.conn.ssl.NoopHostnameVerifier
 import pdi.jwt.Jwt
 import pdi.jwt.exceptions.JwtValidationException
+
+import scala.collection.JavaConverters._
+import scala.collection.{JavaConverters, mutable}
 
 
 class JwtValidator(serverConfigFile: ServerConfiguration) {
@@ -41,20 +45,48 @@ class JwtValidator(serverConfigFile: ServerConfiguration) {
   val algorithm = Algorithm.RSA256(keyProvider)
   val checkCertificate: Boolean = serverConfigFile.jwksCheckServerCertificate
 
-  def validateJwtToken(authorizationHeader: String, jwtServerTimeout: Int) = {
+  def validateJwtToken(authorizationHeader: String, jwtServerTimeout: Int, validRoles: mutable.Buffer[String]): String = {
     val token = for (m <- AUTH_HEADER_PATTERN.findFirstMatchIn(authorizationHeader)) yield m.group(1)
 
+    val tokenStr = token.getOrElse("")
+
+    var decodedJWT :DecodedJWT = null
     if (checkCertificate) {
-      JWT.require(algorithm).build().verify(token.getOrElse(""))
+      decodedJWT = JWT.require(algorithm).build().verify(tokenStr)
     } else {
       val signingKey = getSigningKeys(jwtServerTimeout)
       val kid = signingKey._1
       LOGGER.info("Using Keycloak public key: " + kid)
       val publicKey = signingKey._2
-      Jwt.validate(token.getOrElse(""), publicKey)
+      Jwt.validate(tokenStr, publicKey)
+      decodedJWT = new JWT().decodeJwt(tokenStr)
     }
+    validateRoles(validRoles, decodedJWT)
+    decodedJWT.getPayload
   }
 
+
+  private def validateRoles(validRoles: mutable.Buffer[String], decodedJWT: DecodedJWT): Unit = {
+    val roles = decodedJWT.getClaim("realm_access")
+    if (roles.isNull) {
+      throw new JwtValidationException("realm_access and roles not found in token");
+    }
+    if (validRoles.contains("*")) {
+      LOGGER.warning("Not doing role checking. All Roles are acceptable.")
+      return
+    }
+    val rolesList = roles.asMap().get("roles")
+    if (null == rolesList) {
+      throw new JwtValidationException("realm_access and roles not found in token");
+    }
+    val rolesArrayList = rolesList.asInstanceOf[util.ArrayList[String]]
+    LOGGER.info("client roles: " + rolesList)
+    val matchingRoles = validRoles.intersect(rolesArrayList.asScala)
+    if (matchingRoles.isEmpty) {
+      throw new JwtValidationException("Role not valid")
+    }
+    LOGGER.info("Matching roles: " + matchingRoles.mkString(","))
+  }
 
   private def getSigningKeys(jwtServerTimeout: Int): (String, PublicKey) = {
     val jwks = getJwks(JWKS_ENDPOINT, false, "myKeystore", jwtServerTimeout)
