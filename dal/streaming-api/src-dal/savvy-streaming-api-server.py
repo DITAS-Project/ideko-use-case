@@ -9,6 +9,7 @@ import traceback
 import grpc
 import jwt
 
+import configparser
 from helpers.config import Config
 
 import savvy_streaming_api_pb2
@@ -174,7 +175,12 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
             machineId = request.machineId
 
             # TODO gestionar errores, grpc tiene una forma propia
-            machine_box_ip = Config.read('MACHINES', machineId)
+            try:
+                machine_box_ip = Config.read('MACHINES', machineId)
+            except configparser.NoOptionError as e:
+                context.abort(grpc.StatusCode.NOT_FOUND, 'Te given machine id doesn\'t exist')
+                return
+
             print('Requested machine: ' + machineId)
             print('Box IP from config: ' + machine_box_ip)
 
@@ -194,12 +200,16 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                 if not context.is_active():
                     # TODO does this free the thread servicer?
                     print("Context is not active. Client disconnected, shutting down this call.")
-                    return;
+                    # This may make no sense as we have no client
+                    context.abort(grpc.StatusCode.CANCELLED, 'Context not active, client gone')
+                    return
                 
                 print('[Machine ' + machineId + '] Sending response line (first 300 chars): ' +  line[0:300])
                 yield savvy_streaming_api_pb2.StreamResponse(responseLine=line)
         else:
             # Unauthorized, the JWT toke does not validate
+            context.abort(grpc.StatusCode.PERMISSION_DENIED, 'The JWT token does not validate')
+            return
             context.set_code(grpc.StatusCode.PERMISSION_DENIED)
             context.set_details('The JWT token does not validate')
             # Revisar: https://grpc.github.io/grpc/python/grpc.html#service-side-context
