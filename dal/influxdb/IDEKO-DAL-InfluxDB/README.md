@@ -24,23 +24,23 @@ An implementation of a DAL that exposes data for medical doctor and researcher f
 
 ## Installation
 
-1) clone git@github.ibm.com:cloud-platforms/DITAS-VDC-DAL-grpc.git
+1) clone git@github.com:DITAS-Project/ideko-use-case.git
 
-2) build vdc-dal-grpc-assembly-0.1.jar library:
-
-```
-sbt assembly
+2) build ideko-dal-influxdb-grpc-assembly-0.1.jar library:
 
 ```
-3) Clone DITAS-DAL repository
+cd IDEKO-DAL-InfluxDB-grpc && sbt clean assembly
 
-4) cp vdc-dal-grpc-assembly-0.1.jar to lib directory
+```
+3) Create IDEKO-DAL-InfluxDB/lib directory inside IDEKO-DAL-InfluxDB
+
+4) cp ideko-dal-influxdb-grpc-assembly-0.1.jar to the lib directory
 
 5) Build and copy to lib directory scala-influxdb-client jar
 
-6) Create distribution with:
+6) Create a IDEKO-DAL-InfluxDB distribution with:
 ```
-sbt universal:packageZipTarball
+cd IDEKO-DAL-InfluxDB && sbt universal:packageZipTarball
 ```
 7) Unzip the archive in target/universal/:
 ```
@@ -53,7 +53,7 @@ tar xvfz ideko-dal-influxdb-0.1.tgz
 Running the server:
 
 ```
-bin/IdekoInfluxdbServer <ServerConfigFile>
+bin/IdekoInfluxdbServer <ServerConfigFile> [PrivacyConfigFile]
 ```
 
 The src/test/resources/ directory contains examples of config files for the server.
