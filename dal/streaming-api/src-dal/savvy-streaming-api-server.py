@@ -221,12 +221,16 @@ def serve():
     server.add_insecure_port('[::]:40001')
     server.start()
     print('Server started on port 40001')
+    
     try:
-        # Supongo que esto es un truco para que el server este corriendo maximo un dia
         while True:
             time.sleep(3600)
-    except KeyboardInterrupt:
-        server.stop(0)
+    finally:
+        print('Stopping')
+        event = server.stop(grace=0)
+        print('Waiting stop: %s', event)
+        event.wait()
+        print('Stopped')
 
 if __name__ == '__main__':
     #logging.basicConfig()
