@@ -207,10 +207,10 @@ function addDataToGraph (id, name, serie_number, value, timestamp)
 	// Get the proper serie for the given serie_number
 	var series = chart.series[serie_number];
 
-	// Dots
+	// Dots - Are printed with format [x,y]
 	if (serie_number = 0) {
 		series.addPoint([timestamp, value]);
-	// Bars
+	// Bars - Are printed with format {x,y}
 	} else {
 		series.addPoint({timestamp, value});
 	}
@@ -219,6 +219,27 @@ function addDataToGraph (id, name, serie_number, value, timestamp)
 	// TODO: Check if this works with the new chart configuration
 	chart.series[serie_number].update({name:name}, false);
 
+	// Removes zoom
+	chart.zoom();
+
+	// TODO: I think this is not neccesary
+	//chart.redraw();
+}
+
+// TODO: setData([]) to each machine
+function cleanGraph(id, machineNumber)
+{
+	var chart = $("#" + id).highcharts();
+	var series = chart.series[0];
+	series.setData(data);
+
+	// 0, 1, 2, 3, 4, 5, 6, 7
+	for (number in [...Array(8).keys()])
+	{
+		var series = chart.series[number];
+		series.setData([parseInt(number)]);
+	}
+	
 	// Removes zoom
 	chart.zoom();
 
