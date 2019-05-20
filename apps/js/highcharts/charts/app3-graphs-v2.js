@@ -28,7 +28,7 @@ $(document).ready(function() {
   			##################### 0 - PUNTITOS ###################
   			###################################################### */
   			type: 'scatter',
-  			name: 'Observations',
+  			name: 'Aggregated value',
   			data: [],
   			color: '#000000',
   			marker: {
@@ -115,12 +115,6 @@ $(document).ready(function() {
   $('#z1-intensity-graph-m1').highcharts($.extend(baseConfig));
   $('#z2-intensity-graph-m1').highcharts($.extend(baseConfig));
 
-  //printGraph('z1-temperature-graph-m1',[{x: 1550051320298, y: 5}, {x: 1550051462000, y: 10}]);
-  //printGraph('z2-temperature-graph-m1',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: -5}]);
-  //printGraph('z1-intensity-graph-m1',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z2-intensity-graph-m1',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-
-
   /* #############################################################################
   ################################  MACHINE 2 ####################################
   ################################################################################ */
@@ -128,11 +122,6 @@ $(document).ready(function() {
   $('#z2-temperature-graph-m2').highcharts($.extend(baseConfig));
   $('#z1-intensity-graph-m2').highcharts($.extend(baseConfig));
   $('#z2-intensity-graph-m2').highcharts($.extend(baseConfig));
-
-  //printGraph('z1-temperature-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z2-temperature-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z1-intensity-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z2-intensity-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
 
 /*
   ################################################################################
@@ -142,17 +131,6 @@ $(document).ready(function() {
   $('#z2-temperature-graph-m3').highcharts($.extend(baseConfig));
   $('#z1-intensity-graph-m3').highcharts($.extend(baseConfig));
   $('#z2-intensity-graph-m3').highcharts($.extend(baseConfig));
-
- // printGraph('z1-temperature-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
- // printGraph('z2-temperature-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
- // printGraph('z1-intensity-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
- // printGraph('z2-intensity-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-
-  // TODO: No se por qué esto está aquí
-  if (DiagnosticController.Z1AxisTemperature === null) { //or empty or whataver
- 	 console.log("ES NULL");
-      $('#z1-temperature-graph-m1').hide();
-  }
 
 });
 
@@ -204,3 +182,114 @@ function removeGraph(machineNumber)
 	printGraph('z1-intensity-graph-m' + machineNumber, []);
 	printGraph('z2-intensity-graph-m' + machineNumber, []);
 }
+
+/*
+################################################################################################################################################
+################################################################################################################################################
+######################################################## NEW CODE WITH NEW GRAPHS ##############################################################
+################################################################################################################################################
+################################################################################################################################################
+*/
+
+/**
+* Prints graphs and change the data name for a given name
+* @param id: div id to print the graph
+* @param name: name of the variable
+* @param serie_number: graph serie number
+* @param value: value to add to the serie
+* @param timestamp: timestamp to add to the serie
+
+*/
+function addDataToGraph (id, name, serie_number, value, timestamp)
+{
+	var chart = $("#" + id).highcharts();
+
+	// Get the proper serie for the given serie_number
+	var series = chart.series[serie_number];
+
+	// Dots
+	if (serie_number = 0) {
+		series.addPoint([timestamp, value]);
+	// Bars
+	} else {
+		series.addPoint({timestamp, value});
+	}
+
+	// Change series name
+	// TODO: Check if this works with the new chart configuration
+	chart.series[serie_number].update({name:name}, false);
+
+	// Removes zoom
+	chart.zoom();
+
+	// TODO: I think this is not neccesary
+	//chart.redraw();
+}
+
+// TODO: Still check how to do this - machineNumber?
+setInterval(function(){
+
+	// Get values from parameters
+	timestamp = eval("DiagnosticController.TIMESTAMP_M" + machineNumber)
+	indicator = eval("DiagnosticController.INDICATOR_M" + machineNumber)
+	aggregated = eval("DiagnosticController.AGGREGATED_M" + machineNumber)
+	plus_sqrt20 = eval("DiagnosticController.PLUS_SQRT20_M" + machineNumber)
+	minus_sqrt20 = eval("DiagnosticController.MINUS_SQRT20_M" + machineNumber)
+	plus_sqrt10 = eval("DiagnosticController.PLUS_SQRT10_M" + machineNumber)
+	minus_sqrt10 = eval("DiagnosticController.MINUS_SQRT10_M" + machineNumber)
+	plus_two = eval("DiagnosticController.PLUS_TWO_M" + machineNumber)
+	minus_two = eval("DiagnosticController.MINUS_TWO_M" + machineNumber)
+	mean = eval("DiagnosticController.MEAN_M" + machineNumber)
+
+	// Z1 Temperature
+	if (indicator === "Z1AxisTemperature")
+	{
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 0, aggregated, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 5, plus_two, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 6, minus_two, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 7, mean, timestamp);
+	}
+
+	// Z2 Temperature
+	else if (indicator === "Z2AxisTemperature")
+	{
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 0, aggregated, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 5, plus_two, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 6, minus_two, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 7, mean, timestamp);
+	}
+
+	// Z1 intensity
+	else if (indicator === "Z1AxisIntensity")
+	{
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 0, aggregated, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 5, plus_two, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 6, minus_two, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 7, mean, timestamp);
+	}
+
+	// Z2 intensity
+	else if (indicator === "Z2AxisIntensity")
+	{
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 0, aggregated, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 5, plus_two, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 6, minus_two, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 7, mean, timestamp);
+	}
+}, 1000);
