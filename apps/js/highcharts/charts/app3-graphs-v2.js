@@ -1,119 +1,119 @@
 $(document).ready(function() {
 
-  var baseConfig = {
-	  chart: {
-  	  zoomType: 'x'
-    },
-      xAxis: {
-          min: -0.5,
-          max: 5.5
-      },
-  	xAxis: {
-          type: 'datetime'
-      },
-  	time: {
-  		useUTC: false
-  	},
-  	tooltip: {
-  		headerFormat: '<b>{series.name}</b><br/>',
-  		pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
-  	},
-      title: {
-          text: 'Gráfico combinado'
-      },
-      series: [
-  		{
-  			/*
-  			######################################################
-  			##################### 0 - PUNTITOS ###################
-  			###################################################### */
-  			type: 'scatter',
-  			name: 'Aggregated value',
-  			data: [],
-  			color: '#000000',
-  			marker: {
-  				radius: 4
-  			}
-  		},
-  		{
-  			/*
-  			######################################################
-  			########### 1 - ROJO ARRIBA - PLUS_SQRT20 ############
-  			###################################################### */
-  			type: 'line',
-  			name: '(rojo-arriba) avg + sqrt(20)*stdev',
-  			data: [],
-  			color: '#FF3333',
-  		},
-  		{
-  			/*
-  			######################################################
-  			############ 2 - ROJO ABAJO - MINUS_SQRT20 ###########
-  			###################################################### */
-  			type: 'line',
-  			name: '(rojo-abajo) avg - sqrt(20)*stdev ',
-  			data: [],
-  			color: '#FF3333',
-  		},
-  		{
-  			/*
-  			######################################################
-  			########## 3 - AMARILLO ARRIBA - PLUS_SQRT10 #########
-  			###################################################### */
-  			type: 'line',
-  			name: '(amarillo-arriba) avg + sqrt(10)*stdev',
-  			data: [],
-  			color: '#FFC805',
-  		},
-  		{
-  			/*
-  			######################################################
-  			######### 4 - AMARILLO ABAJO - MINUS_SQRT10 ##########
-  			###################################################### */
-  			type: 'line',
-  			name: '(amarillo-abajo) avg - sqrt(10)*stdev',
-  			data: [],
-  			color: '#FFC805',
-  		},
-  		{
-  			/*
-  			######################################################
-  			############# 5 - VERDE ARRIBA - PLUS_TWO ############
-  			###################################################### */
-  			type: 'line',
-  			name: '(verde-arriba) avg + 2*stdev',
-  			data: [],
-  			color: '#4CA64C',
-  		},
-  		{
-  			/*
-  			######################################################
-  			############ 6 - VERDE ABAJO - MINUS_TWO #############
-  			###################################################### */
-  			type: 'line',
-  			name: '(verde-abajo) avg - 2*stdev',
-  			data: [],
-  			color: '#4CA64C',
-  		},
-  		{
-  			/*
-  			######################################################
-  			################### 7 - AZUL - MEAN ##################
-  			###################################################### */
-  	        type: 'line',
-  	        name: '(azul) - avg)',
-  			data: [],
-  			color: '#2E2EFF',
-  	    }]
-}
+	var baseConfig = {
+		chart: {
+			zoomType: 'x'
+		},
+		xAxis: {
+			min: -0.5,
+			max: 5.5
+		},
+		xAxis: {
+			type: 'datetime'
+		},
+		time: {
+			useUTC: false
+		},
+		tooltip: {
+			headerFormat: '<b>{series.name}</b><br/>',
+			pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+		},
+		title: {
+			text: 'Gráfico combinado'
+		},
+		series: [
+			{
+				/*
+				######################################################
+				##################### 0 - PUNTITOS ###################
+				###################################################### */
+				type: 'scatter',
+				name: 'Aggregated value',
+				data: [],
+				color: '#000000',
+				marker: {
+					radius: 4
+				}
+			},
+			{
+				/*
+				######################################################
+				########### 1 - ROJO ARRIBA - PLUS_SQRT20 ############
+				###################################################### */
+				type: 'line',
+				name: '(rojo-arriba) avg + sqrt(20)*stdev',
+				data: [],
+				color: '#FF3333',
+			},
+			{
+				/*
+				######################################################
+				############ 2 - ROJO ABAJO - MINUS_SQRT20 ###########
+				###################################################### */
+				type: 'line',
+				name: '(rojo-abajo) avg - sqrt(20)*stdev ',
+				data: [],
+				color: '#FF3333',
+			},
+			{
+				/*
+				######################################################
+				########## 3 - AMARILLO ARRIBA - PLUS_SQRT10 #########
+				###################################################### */
+				type: 'line',
+				name: '(amarillo-arriba) avg + sqrt(10)*stdev',
+				data: [],
+				color: '#FFC805',
+			},
+			{
+				/*
+				######################################################
+				######### 4 - AMARILLO ABAJO - MINUS_SQRT10 ##########
+				###################################################### */
+				type: 'line',
+				name: '(amarillo-abajo) avg - sqrt(10)*stdev',
+				data: [],
+				color: '#FFC805',
+			},
+			{
+				/*
+				######################################################
+				############# 5 - VERDE ARRIBA - PLUS_TWO ############
+				###################################################### */
+				type: 'line',
+				name: '(verde-arriba) avg + 2*stdev',
+				data: [],
+				color: '#4CA64C',
+			},
+			{
+				/*
+				######################################################
+				############ 6 - VERDE ABAJO - MINUS_TWO #############
+				###################################################### */
+				type: 'line',
+				name: '(verde-abajo) avg - 2*stdev',
+				data: [],
+				color: '#4CA64C',
+			},
+			{
+				/*
+				######################################################
+				################### 7 - AZUL - MEAN ##################
+				###################################################### */
+		        type: 'line',
+		        name: '(azul) - avg)',
+				data: [],
+				color: '#2E2EFF',
+		    }]
+		}
 
-  /* #############################################################################
-  ################################  MACHINE 1 ####################################
-  ################################################################################ */
-  $('#z1-temperature-graph-m1').highcharts($.extend(baseConfig));
-  $('#z2-temperature-graph-m1').highcharts($.extend(baseConfig));
-  $('#z1-intensity-graph-m1').highcharts($.extend(baseConfig));
-  $('#z2-intensity-graph-m1').highcharts($.extend(baseConfig));
+	/* #############################################################################
+	################################  MACHINE 1 ####################################
+	################################################################################ */
+	$('#z1-temperature-graph-m1').highcharts($.extend(baseConfig));
+	$('#z2-temperature-graph-m1').highcharts($.extend(baseConfig));
+	$('#z1-intensity-graph-m1').highcharts($.extend(baseConfig));
+	$('#z2-intensity-graph-m1').highcharts($.extend(baseConfig));
 
 	/*
 	// New 2019
@@ -123,13 +123,13 @@ $(document).ready(function() {
 	}, 1000);
 	*/
 
-  /* #############################################################################
-  ################################  MACHINE 2 ####################################
-  ################################################################################ */
-  $('#z1-temperature-graph-m2').highcharts($.extend(baseConfig));
-  $('#z2-temperature-graph-m2').highcharts($.extend(baseConfig));
-  $('#z1-intensity-graph-m2').highcharts($.extend(baseConfig));
-  $('#z2-intensity-graph-m2').highcharts($.extend(baseConfig));
+	/* #############################################################################
+	################################  MACHINE 2 ####################################
+	################################################################################ */
+	$('#z1-temperature-graph-m2').highcharts($.extend(baseConfig));
+	$('#z2-temperature-graph-m2').highcharts($.extend(baseConfig));
+	$('#z1-intensity-graph-m2').highcharts($.extend(baseConfig));
+	$('#z2-intensity-graph-m2').highcharts($.extend(baseConfig));
 
 	/*
 	// New 2019
@@ -138,13 +138,13 @@ $(document).ready(function() {
 	}, 1000);
 	*/
 
-  /* #############################################################################
-  ################################  MACHINE 3 ####################################
-  ################################################################################ */
-  $('#z1-temperature-graph-m3').highcharts($.extend(baseConfig));
-  $('#z2-temperature-graph-m3').highcharts($.extend(baseConfig));
-  $('#z1-intensity-graph-m3').highcharts($.extend(baseConfig));
-  $('#z2-intensity-graph-m3').highcharts($.extend(baseConfig));
+	/* #############################################################################
+	################################  MACHINE 3 ####################################
+	################################################################################ */
+	$('#z1-temperature-graph-m3').highcharts($.extend(baseConfig));
+	$('#z2-temperature-graph-m3').highcharts($.extend(baseConfig));
+	$('#z1-intensity-graph-m3').highcharts($.extend(baseConfig));
+	$('#z2-intensity-graph-m3').highcharts($.extend(baseConfig));
 
 	/*
 	// New 2019
