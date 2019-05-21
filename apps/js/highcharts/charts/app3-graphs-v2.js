@@ -115,6 +115,13 @@ $(document).ready(function() {
   $('#z1-intensity-graph-m1').highcharts($.extend(baseConfig));
   $('#z2-intensity-graph-m1').highcharts($.extend(baseConfig));
 
+	/*
+	// New 2019
+	// Si se quiere controlar el printaje de aquí, cada segundo printar los resultados
+	setInterval(function(){
+		printMachineNewGraph(1)
+	}, 1000);
+	*/
   /* #############################################################################
   ################################  MACHINE 2 ####################################
   ################################################################################ */
@@ -123,8 +130,14 @@ $(document).ready(function() {
   $('#z1-intensity-graph-m2').highcharts($.extend(baseConfig));
   $('#z2-intensity-graph-m2').highcharts($.extend(baseConfig));
 
-/*
-  ################################################################################
+	/*
+	// New 2019
+	setInterval(function(){
+		printMachineNewGraph(2)
+	}, 1000);
+	*/
+
+  /* #############################################################################
   ################################  MACHINE 3 ####################################
   ################################################################################ */
   $('#z1-temperature-graph-m3').highcharts($.extend(baseConfig));
@@ -132,6 +145,12 @@ $(document).ready(function() {
   $('#z1-intensity-graph-m3').highcharts($.extend(baseConfig));
   $('#z2-intensity-graph-m3').highcharts($.extend(baseConfig));
 
+	/*
+	// New 2019
+	setInterval(function(){
+		printMachineNewGraph(3)
+	}, 1000);
+	*/
 });
 
 /**
@@ -239,7 +258,7 @@ function cleanGraph(id, machineNumber)
 		var series = chart.series[number];
 		series.setData([parseInt(number)]);
 	}
-	
+
 	// Removes zoom
 	chart.zoom();
 
@@ -248,6 +267,7 @@ function cleanGraph(id, machineNumber)
 }
 
 // TODO: Still check how to do this - machineNumber?
+// Renombar esta funcón a 'printMachineNewGraph(machineNumner)', el timer iría arriba
 setInterval(function(){
 
 	// Get values from parameters

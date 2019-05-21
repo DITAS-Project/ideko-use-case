@@ -27,6 +27,9 @@ var DiagnosticController =
 				}
 				/*
 				// TODO: Set proper name for "CALCULATIONS"
+				// NOTA: Si cada vez que se llama se tiene que pintar, se puede poner el pintar aquí.
+				// 		 Sería trasladar aquí el código de "setInterval(function(){" del fichero 'app3-graphs-v2.js'
+				//       Si no se hace así, se tendría que controlar el número de máquina en 'app3-grapgs-v2.js'
 				if (pDiagnosticResponse.hasOwnProperty("CALCULATIONS"))
 				{
 					DiagnosticController.TIMESTAMP_M1 = pDiagnosticResponse.timestamp;
