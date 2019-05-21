@@ -122,6 +122,7 @@ $(document).ready(function() {
 		printMachineNewGraph(1)
 	}, 1000);
 	*/
+
   /* #############################################################################
   ################################  MACHINE 2 ####################################
   ################################################################################ */
@@ -267,7 +268,9 @@ function cleanGraph(id, machineNumber)
 }
 
 // TODO: Still check how to do this - machineNumber?
-// Renombar esta funcón a 'printMachineNewGraph(machineNumner)', el timer iría arriba
+// Renombar esta funcón a 'printMachineNewGraph(machineNumner)'.
+// El timer de aquí abajo iría arriba por cada máquina
+// 		function printMachineNewGraph(machineNumner) {
 setInterval(function(){
 
 	// Get values from parameters
