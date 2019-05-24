@@ -305,17 +305,17 @@
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms (" + AppConfiguration.CallDiagnosticValuesInterval/1000 + " sec) to get values of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
-					// Kelly (1) - GetSimplifiedDiagnostic
-					urlSimplifiedDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
-					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Kelly");
+					// Kelly (1) - GetFullDiagnostic
+					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
+					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Kelly");
 
-					// Slater (2) - GetSimplifiedDiagnostic
-					urlSimplifiedDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
-					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Slater");
+					// Slater (2) - GetFullDiagnostic
+					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
+					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Slater");
 
-					// Zack (3) - GetSimplifiedDiagnostic
-					urlSimplifiedDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
-					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Zack");
+					// Zack (3) - GetFullDiagnostic
+					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
+					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Zack");
 				}, AppConfiguration.CallDiagnosticValuesInterval);
 			});
 		</script>

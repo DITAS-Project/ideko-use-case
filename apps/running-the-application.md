@@ -13,7 +13,7 @@ In order to run the application, you have to run the following components:
 **traffic.json**
 ```
 {
-    "ElasticSearchURL":"http://172.16.33.89:9200",
+    "ElasticSearchURL":"http://127.0.0.1:9200",
     "VDCName":"computation-vdc",
     "windowTime":10,
     "ignore":[".*:9200","127.0.0.1:8484"],
@@ -24,8 +24,8 @@ In order to run the application, you have to run the following components:
 **monitor.json**
 ```
 {
-    "Endpoint":"http://172.16.33.89:1888",
-    "ElasticSearchURL":"http://172.16.33.89:9200",
+    "Endpoint":"http://127.0.0.1:1888",
+    "ElasticSearchURL":"http://127.0.0.1:9200",
     "VDCName":"computation-vdc",
     "ZipkinEndpoint": "http://localhost:9411",
     "Opentracing":false,
@@ -33,7 +33,7 @@ In order to run the application, you have to run the following components:
     "ForwardTraffic":false,
     "verbose":true,
     "Authentication": true,
-    "jwkURL": "https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs"
+    "jwkURL": "https://127.0.0.1:58080/auth/realms/288/protocol/openid-connect/certs"
 }
 ```
 
@@ -48,12 +48,12 @@ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elas
 ```
 3. Run **DAL**: The image is taken from the IDEKO's UC private docker registry.
 ```
-docker run -p 40001:40001 --restart always --name streaming-dal -d 153.92.30.56:5050/streaming-dal
+docker run -p 40001:40001 --restart always --name streaming-dal -d 127.0.0.1:5050/streaming-dal
 ```
 
 4. Run **VDC**: The image is taken from the IDEKO's UC private docker registry.
  ```
-docker run -d -p 1888:1888 --restart always -v /opt/config:/etc/ditas 153.92.30.56:5050/computation-vdc
+docker run -d -p 1888:1888 --restart always -v /opt/config:/etc/ditas 127.0.0.1:5050/computation-vdc
 ```
 
 5. Run **Request Monitor**: In the future, it should be built from the DockerHub. The *CONTAINER_ID* from the *run* command must be the ID of the VDC (step #3)
