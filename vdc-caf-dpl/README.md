@@ -8,6 +8,8 @@ The _Dockerfile_ downloads the Throughput Agent from the [official repository](h
 
 It runs the Throughput Agent as _root_, then installs the neccesary flows to install the IDEKO VDC, copies the `flows.json` and `settings.json` files to Node-RED `/data` directory and installs `R`. Finally, runs Node-red as _node-red_ user.
 
+It also pulls the anomaly detection algorithm from IDEKO's Bitbucket repository, so providing credentials is mandatory on build time.
+
 Requirements
 ===
 
@@ -18,7 +20,11 @@ To run properly, some requirements must be met:
 
 How to run the container
 ===
-Build using `docker build -t computation-vdc .` from the folder where the Dockerfile is.
+Build using 
+```
+docker build -t computation-vdc --build-arg bbuser=<bitbucket-user> --build-arg bbpass=<bitbucket-pass> .
+```
+from the folder where the Dockerfile is.
 
 
 This info is for the Deployment Engine. 
