@@ -6,18 +6,6 @@ CGO_ENABLED=0 go build -a --installsuffix cgo --ldflags="-w -s -X main.Build=$(g
 # Start from a Node-red Alpine image
 FROM nodered/node-red-docker:slim
 
-# For the anom-det algorithm
-# TODO Improve this using FROM ubuntu and so we don't end up with git and deps installed in the final image
-USER root
-RUN mkdir -p /opt/ditas/input
-RUN mkdir -p /opt/ditas/output
-ARG bbuser
-ARG bbpass
-RUN apk add git
-RUN git clone --single-branch --branch ditas https://$bbuser:$bbpass@bitbucket.org/idekotics/python-teda-framework.git /opt/ditas
-RUN apk add libc-dev alpine-sdk
-RUN pip install -r /opt/ditas/python-teda-framework/requirements.txt
-
 # Install MySQL and InfluxDB
 USER node-red
 RUN npm install node-red-node-mysql
@@ -206,6 +194,20 @@ RUN set -ex; \
 	rm -f get-pip.py
 # ===================================
 # --- END of python INSTALL
+
+# For the anom-det algorithm
+# TODO Improve this using FROM ubuntu and so we don't end up with git and deps installed in the final image
+USER root
+RUN mkdir -p /opt/ditas
+ARG bbuser
+ARG bbpass
+RUN apk add git
+RUN git clone --single-branch --branch ditas https://$bbuser:$bbpass@bitbucket.org/idekotics/python-teda-framework.git /opt/ditas
+RUN apk add libc-dev alpine-sdk
+RUN pip install -r /opt/ditas/python-teda-framework/requirements.txt
+RUN mkdir -p /opt/ditas/input
+RUN mkdir -p /opt/ditas/output
+RUN chown -R node-red /opt/ditas
 
 EXPOSE 1888
 
