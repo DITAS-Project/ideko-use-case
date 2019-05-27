@@ -205,8 +205,8 @@ RUN apk add git
 RUN git clone --single-branch --branch ditas https://$bbuser:$bbpass@bitbucket.org/idekotics/python-teda-framework.git /opt/ditas/python-teda-framework
 RUN apk add libc-dev alpine-sdk
 RUN pip install -r /opt/ditas/python-teda-framework/requirements.txt
-RUN mkdir -p /opt/ditas/input
-RUN mkdir -p /opt/ditas/output
+RUN mkdir -p /opt/ditas/data/input
+RUN mkdir -p /opt/ditas/data/output
 RUN chown -R node-red /opt/ditas
 
 EXPOSE 1888
