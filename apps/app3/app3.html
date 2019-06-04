@@ -96,19 +96,19 @@
 
 	                        <div class="tab-content">
 	                            <!-- Pestaña 1 - Z1 temperature -->
-	                            <div id="z1-temperature-m1" class="tab-pane fade in active">
+								<div id="z1-temperature-m1" class="tab-pane fade in active">
 	                                <div id="z1-temperature-graph-m1"></div>
 	                            </div>
 	                            <!-- Pestaña 2 - Z2 temperature -->
-	                            <div id="z2-temperature-m1" class="tab-pane fade">
+								<div id="z2-temperature-m1" class="tab-pane fade">
 	                              <div id="z2-temperature-graph-m1"></div>
 	                            </div>
 	                            <!-- Pestaña 1 - Z1 intensity -->
-	                            <div id="z1-intensity-m1" class="tab-pane fade">
+								<div id="z1-intensity-m1" class="tab-pane fade">
 	                              <div id="z1-intensity-graph-m1"></div>
 	                            </div>
 	                            <!-- Pestaña 2 - Z2 temperature -->
-	                            <div id="z2-intensity-m1" class="tab-pane fade">
+								<div id="z2-intensity-m1" class="tab-pane fade">
 	                              <div id="z2-intensity-graph-m1"></div>
 	                            </div>
 	                        </div>
@@ -272,7 +272,8 @@
 	    <!--<script src="js/highcharts/highcharts.js"></script>-->
 	    <!--<script src="js/highcharts/highcharts-more.js"></script>-->
 	    <script src="../js/highcharts/charts/app3-bars.js"></script>
-	    <script src="../js/highcharts/charts/app3-graphs.js"></script>
+	    <!-- NEW MAYO <script src="../js/highcharts/charts/app3-graphs.js"></script>-->
+		<script src="../js/highcharts/charts/app3-graphs-v2.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		<script src="../js/stream/stream.js"></script>
 		<script src="../js/stream/stream-controller.js"></script>
@@ -287,6 +288,7 @@
 		<script>
 			$(window).ready(function()
 			{
+	/*
 				// Kelly (1) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 				console.log("Starting stream for Kelly...");
@@ -301,10 +303,10 @@
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
 				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
-
+*/
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms (" + AppConfiguration.CallDiagnosticValuesInterval/1000 + " sec) to get values of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
-
+/*
 					// Kelly (1) - GetFullDiagnostic
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Kelly");
@@ -312,11 +314,13 @@
 					// Slater (2) - GetFullDiagnostic
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Slater");
-
+*/
 					// Zack (3) - GetFullDiagnostic
-					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
+
+					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Zack;
+					console.log(urlFullDiagnostic);
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Zack");
-				}, AppConfiguration.CallDiagnosticValuesInterval);
+				}, AppConfiguration.CallAndPrintFullDiagnosticValuesInterval);
 			});
 		</script>
 	</div>
