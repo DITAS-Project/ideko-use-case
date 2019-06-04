@@ -209,7 +209,7 @@ module.exports = {
     //    context.global.os
 
     functionGlobalContext: {
-        // os:require('os'),
+        fs:require('fs'),
         // jfive:require("johnny-five"),
         // j5board:require("johnny-five").Board({repl:false})
     },
