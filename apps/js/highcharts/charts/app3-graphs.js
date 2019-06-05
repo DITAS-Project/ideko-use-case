@@ -1,206 +1,270 @@
 $(document).ready(function() {
 
-  var baseConfig = {
-      chart: {
-          type: 'area',
-		  zoomType: 'x',
-          animation: Highcharts.svg, // don't animate in old IE
-          marginRight: 10,
-          events: {
-              load: function () {
-                  var ind1serie = this.series[0];
-              }
-          }
-      },
-	  boost: {
-	      useGPUTranslations: true
-	    },
-      time: {
-          useUTC: false
-      },
-
-      title: {
-  		// Titulo de arriba
-          text: ''
-      },
-      xAxis: {
-          type: 'datetime',
-          tickPixelInterval: 150
-      },
-      yAxis: {
-          title: {
-  			// Titulo del eje vertical
-              text: ''
-          },
-		  max: 220,
-          plotLines: [{
-              value: 0,
-              width: 1,
-              color: '#808080'
-          }]
-      },
-      tooltip: {
-          headerFormat: '<b>{series.name}</b><br/>',
-          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}',
-      },
-      legend: {
-          enabled: true
-      },
-      exporting: {
-          enabled: false
-      },
-  	credits: {
-  		enabled: false
-  	},
-	plotOptions:{
-		series:{
-			 //turboThreshold:50000,
-			 lineWidth: 0.2,
-			 fillOpacity: 0.5,
+	var baseConfig = {
+		chart: {
+			zoomType: 'x',
+			    animation: false
 		},
-		area: {
-			marker: {
-				enabled: false
-			}
-		}
-	},
-	lang: {
-		noData: "Machine with no anomalies"
-	},
-	noData: {
-		style: {
-			fontWeight: 'bold',
-			 fontFamily: 'Helvetica',
-			fontSize: '35px',
-			color: '#6AC259'
-		}
-	},
-
-	series: [
-
-  		{
-          showInLegend: false,
-		  states: {
-			hover: {
-				enabled: false
+		xAxis: {
+			type: 'datetime'
+		},
+		yAxis:{
+			// Quitar rayas horizontales del eje y
+			gridLineWidth: 0,
+			title: {
+				text: null
 			}
 		},
-		data: []
-			/*
-		  (function () {
-              var data = [],
-                  time = (new Date()).getTime(),
-                  i;
-              for (i = -10; i <= 0; i += 1) {
-                  data.push({
-                      x: time + i * 1000,
-                      y: Math.random()
-                  });
-              }
-              console.log(data);
-              return data;
-          }())
-*/
-  		}
+		boost: {
+  	      useGPUTranslations: true
+  	    },
+		time: {
+			useUTC: false
+		},
+		tooltip: {
+			// Probar esto bien
+			enabled: false,
+			headerFormat: '<b>{series.name}</b><br/>',
+			pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+		},
+		lang: {
+			noData: "Machine with no data"
+		},
+		noData: {
+			style: {
+				fontWeight: 'bold',
+				fontFamily: 'Helvetica',
+				fontSize: '35px',
+				color: '#6AC259'
+			}
+		},
+		plotOptions: {
+			series: {
+				lineWidth: 1,
+					states: {
+						inactive: {
+							opacity: 1
+					}
+				}
+			},
+		},
+		series: [
+			{
+				/*
+				######################################################
+				##################### 0 - PUNTITOS ###################
+				###################################################### */
+				type: 'scatter',
+				name: 'aggregated value',
+				data: [],
+				color: '#000000',
+				marker: {radius: 3},
+				lineWidth: 0,
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				########### 1 - ROJO ARRIBA - PLUS_SQRT20 ############
+				###################################################### */
+				type: 'line',
+				name: 'avg + sqrt(20)*stdev',
+				data: [],
+				color: '#FF3333',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				############ 2 - ROJO ABAJO - MINUS_SQRT20 ###########
+				###################################################### */
+				type: 'line',
+				name: 'avg - sqrt(20)*stdev ',
+				data: [],
+				color: '#FF3333',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				########## 3 - AMARILLO ARRIBA - PLUS_SQRT10 #########
+				###################################################### */
+				type: 'line',
+				name: 'avg + sqrt(10)*stdev',
+				data: [],
+				color: '#FFC805',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				######### 4 - AMARILLO ABAJO - MINUS_SQRT10 ##########
+				###################################################### */
+				type: 'line',
+				name: 'avg - sqrt(10)*stdev',
+				data: [],
+				color: '#FFC805',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				############# 5 - VERDE ARRIBA - PLUS_TWO ############
+				###################################################### */
+				type: 'line',
+				name: 'avg + 2*stdev',
+				data: [],
+				color: '#4CA64C',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				############ 6 - VERDE ABAJO - MINUS_TWO #############
+				###################################################### */
+				type: 'line',
+				name: 'avg - 2*stdev',
+				data: [],
+				color: '#4CA64C',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+			},
+			{
+				/*
+				######################################################
+				################### 7 - AZUL - MEAN ##################
+				###################################################### */
+		        type: 'line',
+		        name: 'avg',
+				data: [],
+				color: '#2E2EFF',
+				marker: {enabled: false},
+				states: { hover: { enabled: false } }
+		    }]
+		}
 
-  	]
+	/* ########################  MACHINE 1 ######################## */
+	$('#z1-temperature-graph-m1').highcharts($.extend(baseConfig));
+	$('#z2-temperature-graph-m1').highcharts($.extend(baseConfig));
+	$('#z1-intensity-graph-m1').highcharts($.extend(baseConfig));
+	$('#z2-intensity-graph-m1').highcharts($.extend(baseConfig));
 
-}
+	/* ########################  MACHINE 2 ######################## */
+	$('#z1-temperature-graph-m2').highcharts($.extend(baseConfig));
+	$('#z2-temperature-graph-m2').highcharts($.extend(baseConfig));
+	$('#z1-intensity-graph-m2').highcharts($.extend(baseConfig));
+	$('#z2-intensity-graph-m2').highcharts($.extend(baseConfig));
 
-  /* #############################################################################
-  ################################  MACHINE 1 ####################################
-  ################################################################################ */
-  $('#z1-temperature-graph-m1').highcharts($.extend(baseConfig));
-  $('#z2-temperature-graph-m1').highcharts($.extend(baseConfig));
-  $('#z1-intensity-graph-m1').highcharts($.extend(baseConfig));
-  $('#z2-intensity-graph-m1').highcharts($.extend(baseConfig));
-
-  //printGraph('z1-temperature-graph-m1',[{x: 1550051320298, y: 5}, {x: 1550051462000, y: 10}]);
-  //printGraph('z2-temperature-graph-m1',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: -5}]);
-  //printGraph('z1-intensity-graph-m1',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z2-intensity-graph-m1',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-
-
-  /* #############################################################################
-  ################################  MACHINE 2 ####################################
-  ################################################################################ */
-  $('#z1-temperature-graph-m2').highcharts($.extend(baseConfig));
-  $('#z2-temperature-graph-m2').highcharts($.extend(baseConfig));
-  $('#z1-intensity-graph-m2').highcharts($.extend(baseConfig));
-  $('#z2-intensity-graph-m2').highcharts($.extend(baseConfig));
-
-  //printGraph('z1-temperature-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z2-temperature-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z1-intensity-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-  //printGraph('z2-intensity-graph-m2',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-
-/*
-  ################################################################################
-  ################################  MACHINE 3 ####################################
-  ################################################################################ */
-  $('#z1-temperature-graph-m3').highcharts($.extend(baseConfig));
-  $('#z2-temperature-graph-m3').highcharts($.extend(baseConfig));
-  $('#z1-intensity-graph-m3').highcharts($.extend(baseConfig));
-  $('#z2-intensity-graph-m3').highcharts($.extend(baseConfig));
-
- // printGraph('z1-temperature-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
- // printGraph('z2-temperature-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
- // printGraph('z1-intensity-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
- // printGraph('z2-intensity-graph-m3',[{x: 1550051320298, y: 10}, {x: 1550051462000, y: 20}]);
-
-  // TODO: No se por qué esto está aquí
-  if (DiagnosticController.Z1AxisTemperature === null) { //or empty or whataver
- 	 console.log("ES NULL");
-      $('#z1-temperature-graph-m1').hide();
-  }
-
+	/* ########################  MACHINE 3 ######################## */
+	$('#z1-temperature-graph-m3').highcharts($.extend(baseConfig));
+	$('#z2-temperature-graph-m3').highcharts($.extend(baseConfig));
+	$('#z1-intensity-graph-m3').highcharts($.extend(baseConfig));
+	$('#z2-intensity-graph-m3').highcharts($.extend(baseConfig));
 });
 
 /**
-* Prints graphs and change the data name for a given name
+* Adds data to an already existing graph
 * @param id: div id to print the graph
 * @param name: name of the variable
-* @param data: data to post
+* @param serie_number: graph serie number
+* @param value: value to add to the serie
+* @param timestamp: timestamp to add to the serie
 */
-function printGraph(id, name, data)
+function addDataToGraph (id, name, serie_number, value, timestamp)
 {
-	var chart = $("#" + id).highcharts();
-	var series = chart.series[0];
-	series.setData(data);
-	
-	// Change series name
-	chart.series[0].update({name:name}, false);
+	// It has to be x and y
+	x = timestamp
+	y = value
 
+	var chart = $("#" + id).highcharts();
+
+	// Get the proper serie for the given serie_number
+	var series = chart.series[serie_number];
+
+	// Dots - Are printed with format [x,y]
+	if (serie_number = 0) {
+		series.addPoint([x, y]);
+	// Bars - Are printed with format {x,y}
+	} else {
+		series.addPoint({x, y});
+	}
 	// Removes zoom
 	chart.zoom();
-
-	// Redraws chart
-	chart.redraw();
 }
 
 /**
-* Anomally has happen, we print the graphs
-* @param machineNumber: number of the machine (1, 2 or 3)
+* Prints graphs and change the data name for a given name
+* @param indicator_name: Indicator name
+* @param timestamp: Timestamp
+* @param avg: Average value
+* @param std_dev: Standard derivation value
+* @param observation: Observation value
+* @param machineNumber: Machine number
 */
-function printGraphDueToAnomaly(machineNumber)
+function calculateValue(indicator_name, timestamp, avg, std_dev, observation, machineNumber)
 {
-	// For each graph (4 for each machine), we print the points
-	printGraph('z1-temperature-graph-m' + machineNumber, "Z1 temperature", eval("DiagnosticController.Z1AxisTemperatureM" + machineNumber));
-	printGraph('z2-temperature-graph-m' + machineNumber, "Z2 temperature", eval("DiagnosticController.Z2AxisTemperatureM" + machineNumber));
-	printGraph('z1-intensity-graph-m' + machineNumber, "Z1 intensity", eval("DiagnosticController.Z1AxisIntensityM" + machineNumber));
-	printGraph('z2-intensity-graph-m' + machineNumber, "Z2 intensity", eval("DiagnosticController.Z2AxisIntensityM" + machineNumber));
-}
+	// Make the proper calculations
+	plus_sqrt20 = avg + (Math.sqrt(20) * std_dev);
+	minus_sqrt20 = avg - (Math.sqrt(20) * std_dev);
+	plus_sqrt10 = avg + (Math.sqrt(10) * std_dev);
+	minus_sqrt10 = avg - (Math.sqrt(10) * std_dev);
+	plus_two = avg + (2 * std_dev);
+	minus_two = avg - (2 * std_dev);
+	mean = avg;
+	aggregated = observation;
 
-
-/**
-* Machine status is ok, we dont show any data
-* @param machineNumber: number of the machine (1, 2 or 3)
-*/
-function removeGraph(machineNumber)
-{
-	// For each graph (4 for each machine), we send empty data to remove the graph content
-	printGraph('z1-temperature-graph-m' + machineNumber, []);
-	printGraph('z2-temperature-graph-m' + machineNumber, []);
-	printGraph('z1-intensity-graph-m' + machineNumber, []);
-	printGraph('z2-intensity-graph-m' + machineNumber, []);
+	// Add data to the current graph
+	// Z1 Temperature
+	if (indicator_name === "Z1AxisTemperature_mean")
+	{
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 0, aggregated, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 5, plus_two, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 6, minus_two, timestamp);
+		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 7, mean, timestamp);
+	}
+	// Z2 Temperature
+	else if (indicator_name === "Z2AxisTemperature_mean")
+	{
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 0, aggregated, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 5, plus_two, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 6, minus_two, timestamp);
+		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 7, mean, timestamp);
+	}
+	// Z1 intensity
+	else if (indicator_name === "Z1AxisEngineIntensity_mean")
+	{
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 0, aggregated, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 5, plus_two, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 6, minus_two, timestamp);
+		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 7, mean, timestamp);
+	}
+	// Z2 intensity
+	else if (indicator_name === "Z2AxisEngineIntensity_mean")
+	{
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 0, aggregated, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 1, plus_sqrt20, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 2, minus_sqrt20, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 3, plus_sqrt10, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 4, minus_sqrt10, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 5, plus_two, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 6, minus_two, timestamp);
+		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 7, mean, timestamp);
+	}
 }

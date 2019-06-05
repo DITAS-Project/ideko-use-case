@@ -211,7 +211,7 @@ function printStrings(idName, indicatorName, dictionaryName = null)
 function printMachineStatus(machineNumber)
 {
 	setInterval(function() {
-		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.GetDiagnosticValuesInterval + " ms ("+ AppConfiguration.GetDiagnosticValuesInterval/1000 +"sec). The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
+		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms ("+ AppConfiguration.CallAndPrintDiagnosticValuesInterval/1000 +"sec). The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
 		// ALERT or WARNING
 		if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT" || eval("DiagnosticController.StatusM" + machineNumber) === "WARNING")
@@ -236,7 +236,7 @@ function printMachineStatus(machineNumber)
 			document.getElementById('machine-error-value-m' + machineNumber).innerHTML = "";
 			document.getElementById('machine-error-date-m' + machineNumber).innerHTML = "";
 		}
-	}, AppConfiguration.GetDiagnosticValuesInterval);
+	}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
 }
 
 /**

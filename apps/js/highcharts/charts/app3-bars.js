@@ -114,13 +114,6 @@ $(document).ready(function() {
 	printBars('z1-intensity-bar-m1',"Z1AxisEngineIntensityM1");
 	printBars('z2-intensity-bar-m1',"Z2AxisEngineIntensityM1");
 
-    /*
-    // Set Z1 intensity bar data
-    var z1IntensityChartm1 = $("#z1-intensity-bar-m1").highcharts();
-    var z1IntensitySeriesm1 = z1IntensityChartm1.series[1];
-    z1IntensitySeriesm1.setData([{y: 5}]);
-    */
-
 	// Print string (controller / execution / program)
 	printStrings("controller-mode-m1", "ControllerModeM1", AppConfiguration.ControllerMode);
 	printStrings("execution-state-m1", "ExecutionStateM1", AppConfiguration.ExecutionState);
@@ -219,7 +212,7 @@ function printStrings(idName, indicatorName, dictionaryName = null)
 function printMachineStatus(machineNumber)
 {
 	setInterval(function() {
-		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.GetDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
+		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
 
 		if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT" || eval("DiagnosticController.StatusM" + machineNumber) === "WARNING")
 		{
@@ -237,7 +230,7 @@ function printMachineStatus(machineNumber)
 			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "Date: " + dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
 
 			// There's an anomaly! We print the graph
-			printGraphDueToAnomaly(machineNumber);
+			//printGraphDueToAnomaly(machineNumber);
 		} else {
 			document.getElementById("machine-status-m" + machineNumber).className = "machine-ok";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");
@@ -253,9 +246,9 @@ function printMachineStatus(machineNumber)
 			document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "";
 
 			// There's no anomaly, we remove the graph
-			removeGraph(machineNumber);
+			//removeGraph(machineNumber);
 		}
-	}, AppConfiguration.GetDiagnosticValuesInterval);
+	}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
 }
 
 /**
@@ -263,7 +256,8 @@ function printMachineStatus(machineNumber)
 * @param dateMs: date in ts millisecond
 * @return parsedDate: Date in yyyy-mm-dd HH:mm:ss format
 */
-function dateMStoDateYYYYMMDD(dateMs) {
+function dateMStoDateYYYYMMDD(dateMs)
+{
 	var myDate = new Date(dateMs);
 	parsedDate = myDate.getFullYear() + '-' +('0' + (myDate.getMonth()+1)).slice(-2)+ '-' +  myDate.getDate() + ' '+myDate.getHours()+ ':'+('0' + (myDate.getMinutes())).slice(-2)+ ':'+myDate.getSeconds();
 	return parsedDate;

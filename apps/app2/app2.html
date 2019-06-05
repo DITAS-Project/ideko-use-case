@@ -59,8 +59,8 @@
 							<div id="machine-error-status-m1" class="machine-error-status"></div>
 							<img id="machine-error-image-m1" src="" >
 							<div id="machine-error-metric-m1" class="machine-error-metric"></div>
-							<div id="machine-error-message-m1" class="machine-error-message"></div>
-							<div id="machine-error-value-m1" class="machine-error-value"></div>
+							<div id="machine-error-message-m1" class="machine-error-message" style="font-size:8.5px"></div>
+							<div id="machine-error-value-m1" class="machine-error-value" style="font-size:18px"></div>
 							<div id="machine-error-date-m1" class="machine-error-date"></div>
 						</div>
 					</div>
@@ -127,8 +127,8 @@
 							<div id="machine-error-status-m2" class="machine-error-status"></div>
 							<img id="machine-error-image-m2" src="" >
 							<div id="machine-error-metric-m2" class="machine-error-metric"></div>
-							<div id="machine-error-message-m2" class="machine-error-message"></div>
-							<div id="machine-error-value-m2" class="machine-error-value"></div>
+							<div id="machine-error-message-m2" class="machine-error-message" style="font-size:8.5px"></div>
+							<div id="machine-error-value-m2" class="machine-error-value" style="font-size:18px"></div>
 							<div id="machine-error-date-m2" class="machine-error-date"></div>
 						</div>
 					</div>
@@ -188,8 +188,8 @@
 							<div id="machine-error-status-m3" class="machine-error-status"></div>
 							<img id="machine-error-image-m3" src="" >
 							<div id="machine-error-metric-m3" class="machine-error-metric"></div>
-							<div id="machine-error-message-m3" class="machine-error-message"></div>
-							<div id="machine-error-value-m3" class="machine-error-value"></div>
+							<div id="machine-error-message-m3" class="machine-error-message" style="font-size:8.5px"></div>
+							<div id="machine-error-value-m3" class="machine-error-value" style="font-size:18px"></div>
 							<div id="machine-error-date-m3" class="machine-error-date"></div>
 						</div>
 	                </div>
@@ -255,6 +255,7 @@
 		<script>
 			$(window).ready(function()
 			{
+/*
 				// Kelly (1) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 				console.log("Starting stream for Kelly...");
@@ -269,10 +270,10 @@
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
 				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
-
+*/
 				setInterval(function() {
-					console.log("Calling CAF every " + AppConfiguration.CallDiagnosticValuesInterval + " ms (" + AppConfiguration.CallDiagnosticValuesInterval/1000 + " sec) to get status of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
-
+					console.log("Calling CAF every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms (" + AppConfiguration.CallAndPrintDiagnosticValuesInterval/1000 + " sec) to get status of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
+/*
 					// Kelly (1) - GetSimplifiedDiagnostic
 					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Kelly");
@@ -280,11 +281,11 @@
 					// Slater (2) - GetSimplifiedDiagnostic
 					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Slater");
-
+*/
 					// Zack (3) - GetSimplifiedDiagnostic
 					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Zack");
-				}, AppConfiguration.CallDiagnosticValuesInterval);
+				}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
 			});
 		</script>
 	</div>

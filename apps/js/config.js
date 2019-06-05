@@ -6,8 +6,7 @@ var AppConfiguration = {
 
   // DAL endpoints:
   GetSimplifiedDiagnosticURL: "http://172.16.33.89/caf/GetSimplifiedDiagnostic",
-  //GetFullDiagnosticURL: "http://172.16.33.89/caf/GetFullDiagnostic",
-  GetFullDiagnosticURL: "http://172.16.35.63:1888/caf/GetFullDiagnostic",
+  GetFullDiagnosticURL: "http://172.16.33.89/caf/GetFullDiagnostic",
   GetStreamingDataURL: "http://172.16.33.89/caf/GetStreamingData",
 
   // Keycloak
@@ -22,15 +21,8 @@ var AppConfiguration = {
       Zack: 'CMX_LQLS26'
   },
 
-  // TODO: Only for app3? Check this.
   // Call and print GetFullDiagnostic
-  CallAndPrintFullDiagnosticValuesInterval: 4000,
-
-  // Interval to call the Diagnostic values fom the CAF. Launched from the HTML
-  CallDiagnosticValuesInterval: 20000,
-
-  // Interval to get the values for the GetSimplifiedDiagnostic / GetFullDiagonistic function
-  GetDiagnosticValuesInterval: 30000,
+  CallAndPrintDiagnosticValuesInterval: 4000,
 
   // Interval to get the values from the GetStreamingData function
   GetStreamValuesInterval: 2000,
