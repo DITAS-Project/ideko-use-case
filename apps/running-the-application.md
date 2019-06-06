@@ -64,4 +64,4 @@ docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 
 
 ## Notes
 
-- If the **VDC** container stops, the **Request Monitor** container will be stopped too. So both container must be launched together.
+- If the **VDC** container stops, the **Request Monitor** container will be stopped too. Both container must be launched together.
