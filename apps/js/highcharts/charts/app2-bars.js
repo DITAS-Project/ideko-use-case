@@ -246,7 +246,7 @@ function printMachineStatus(machineNumber)
 */
 function dateMStoDateYYYYMMDD(dateMs)
 {
-	vaar myDate = new Date(dateMs)
+	var myDate = new Date(dateMs)
 	//parsedDate = myDate.getFullYear() + '-' +('0' + (myDate.getMonth()+1)).slice(-2)+ '-' +  myDate.getDate() + ' '+myDate.getHours()+ ':'+('0' + (myDate.getMinutes())).slice(-2)+ ':'+myDate.getSeconds();
     parsedDate = myDate.getFullYear() + '-' +('0' + (myDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + myDate.getDate()).slice(-2) + ' '+myDate.getHours()+ ':'+('0' + (myDate.getMinutes())).slice(-2)+ ':'+myDate.getSeconds();
 	//var myDate = new Date(dateMs).toJSON();
