@@ -56,10 +56,14 @@ docker run -p 40001:40001 --restart always --name streaming-dal -d 127.0.0.1:505
 docker run -d -p 1888:1888 --restart always -v /opt/config:/etc/ditas 127.0.0.1:5050/computation-vdc
 ```
 
-5. Run **Request Monitor**: In the future, it should be built from the DockerHub. The *CONTAINER_ID* from the *run* command must be the ID of the VDC (step #3)
+5. Run **Request Monitor**: The *CONTAINER_ID* from the *run* command must be the ID of the VDC (step #3).
 ```
+# Option 1: Using local build
 docker build -t ditas/request-monitor -f Dockerfile.artifact .
 docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 -p 443:443 ditas/request-monitor
+
+# Option2 2: Using DITAS DockerHub
+docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 -p 443:443 ditas/vdc-request-monitor
 ```
 
 ## Notes
