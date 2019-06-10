@@ -297,12 +297,12 @@
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Slater;
 				console.log("Starting stream for Slater...");
 				StreamController.startStreaming(urlStream);
-
+*/
 				// Zack (3) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
 				console.log("Starting stream for Zack...");
 				StreamController.startStreaming(urlStream);
-*/
+
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms (" + AppConfiguration.CallAndPrintDiagnosticValuesInterval/1000 + " sec) to get values of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
 /*
