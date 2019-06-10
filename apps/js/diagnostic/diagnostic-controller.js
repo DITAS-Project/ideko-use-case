@@ -1,6 +1,5 @@
 /**
- * Controladora para recoger las variables del RestStreaming
- * Añadir aquí las variables que se quieran leer.
+ * Controladora para recoger las variables de las llamadas GetSimplifiedDiagnostic y GetFullDiagnostic
  */
 
 var DiagnosticController =
