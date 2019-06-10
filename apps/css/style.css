@@ -1,3 +1,15 @@
+/* Changes tab color to red due to anomaly */
+.tab-with-anomaly {
+	color:#F44336!important;
+	font-weight: bold!important;
+}
+
+/* Changes tab color to default color due to no anomaly */
+.tab-without-anomaly {
+	color:#337AB7!important;
+	font-weight: normal!important;
+}
+
 .logout-button {
 	float: right;
 	margin-top: 3px;

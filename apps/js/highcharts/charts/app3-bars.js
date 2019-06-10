@@ -229,8 +229,8 @@ function printMachineStatus(machineNumber)
 			if (eval("DiagnosticController.ValueM" + machineNumber)) document.getElementById("machine-error-value-m" + machineNumber).innerHTML = eval("DiagnosticController.ValueM" + machineNumber);
 			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "Date: " + dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
 
-			// There's an anomaly! We print the graph
-			//printGraphDueToAnomaly(machineNumber);
+			// There's an anomaly: change the tab color to red
+			changeTabColorDueToAnomaly(eval("DiagnosticController.MetricM" + machineNumber), machineNumber);
 		} else {
 			document.getElementById("machine-status-m" + machineNumber).className = "machine-ok";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");
@@ -245,10 +245,35 @@ function printMachineStatus(machineNumber)
 			document.getElementById("machine-error-value-m" + machineNumber).innerHTML = "";
 			document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "";
 
-			// There's no anomaly, we remove the graph
-			//removeGraph(machineNumber);
+			// There's no anomaly: change the tab color to default color
+			changeTabColorDueToNoAnomaly(machineNumber);
 		}
 	}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
+}
+
+/**
+* Changes the tab color to red due to an anomaly
+* @param metric: Metric name
+* @param machineNumber: Machine number
+*/
+function changeTabColorDueToAnomaly(metric, machineNumber)
+{
+	if (metric == "Z1AxisTemperature_mean")	document.getElementById("z1-temperature-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+	if (metric == "Z2AxisTemperature_mean")	document.getElementById("z2-temperature-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+	if (metric == "Z1AxisEngineIntensity_mean")	document.getElementById("z1-intensity-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+	if (metric == "Z2AxisEngineIntensity_mean")	document.getElementById("z2-intensity-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+}
+
+/**
+* Changes the tab color to default style due to no anomaly
+* @param machineNumber: Machine number
+*/
+function changeTabColorDueToNoAnomaly(machineNumber)
+{
+	document.getElementById("z1-temperature-m" + machineNumber + "-tab").className = "tab-without-anomaly";
+	document.getElementById("z2-temperature-m" + machineNumber + "-tab").className = "tab-without-anomaly";
+	document.getElementById("z1-intensity-m" + machineNumber + "-tab").className = "tab-without-anomaly";
+	document.getElementById("z2-intensity-m" + machineNumber + "-tab").className = "tab-without-anomaly";
 }
 
 /**

@@ -6,7 +6,8 @@ $(document).ready(function() {
 			    animation: false
 		},
 		xAxis: {
-			type: 'datetime'
+			type: 'datetime',
+			visible: false
 		},
 		yAxis:{
 			// Quitar rayas horizontales del eje y
@@ -33,7 +34,7 @@ $(document).ready(function() {
 		noData: {
 			style: {
 				fontWeight: 'bold',
-				fontFamily: 'Helvetica',
+				fontFamily: 'Calibri',
 				fontSize: '35px',
 				color: '#6AC259'
 			}
@@ -60,6 +61,7 @@ $(document).ready(function() {
 				color: '#000000',
 				marker: {radius: 3},
 				lineWidth: 0,
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -72,6 +74,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FF3333',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -84,6 +87,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FF3333',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -96,6 +100,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FFC805',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -108,6 +113,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FFC805',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -120,6 +126,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#4CA64C',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -132,6 +139,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#4CA64C',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -140,10 +148,11 @@ $(document).ready(function() {
 				################### 7 - AZUL - MEAN ##################
 				###################################################### */
 		        type: 'line',
-		        name: 'avg',
+		        name: 'average',
 				data: [],
 				color: '#2E2EFF',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 		    }]
 		}
@@ -181,10 +190,15 @@ function addDataToGraph (id, name, serie_number, value, timestamp)
 	x = timestamp
 	y = value
 
+	// Get the chart via id of the chart
 	var chart = $("#" + id).highcharts();
 
 	// Get the proper serie for the given serie_number
 	var series = chart.series[serie_number];
+
+	// As it has value, we show the legend and the x axis line
+	series.update({showInLegend: true,});
+	chart.xAxis[0].update({visible: true});
 
 	// Dots - Are printed with format [x,y]
 	if (serie_number = 0) {
