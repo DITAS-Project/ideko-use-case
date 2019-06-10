@@ -23,7 +23,6 @@ $(document).ready(function() {
 			useUTC: false
 		},
 		tooltip: {
-			// Probar esto bien
 			enabled: false,
 			headerFormat: '<b>{series.name}</b><br/>',
 			pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
@@ -45,6 +44,12 @@ $(document).ready(function() {
 					states: {
 						inactive: {
 							opacity: 1
+					}
+				},
+				// Quitar el clic en la leyenda para ocultar 
+				events: {
+					legendItemClick: function() {
+					  return false;
 					}
 				}
 			},
