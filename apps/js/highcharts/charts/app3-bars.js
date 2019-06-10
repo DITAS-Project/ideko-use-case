@@ -212,8 +212,9 @@ function printStrings(idName, indicatorName, dictionaryName = null)
 function printMachineStatus(machineNumber)
 {
 	setInterval(function() {
-		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
+		console.log(" [x] " + getMachineName(machineNumber) + " - Status is: " + eval("DiagnosticController.StatusM" + machineNumber) + " (" + new Date(Date.now()).toLocaleTimeString() + ")");
 
+		// There's an anomaly
 		if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT" || eval("DiagnosticController.StatusM" + machineNumber) === "WARNING")
 		{
 			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById("machine-status-m" + machineNumber).className = "machine-error";
@@ -224,13 +225,14 @@ function printMachineStatus(machineNumber)
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("width", "18%");
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("margin-top", "-27px");
 			if (eval("DiagnosticController.StatusM" + machineNumber)) document.getElementById("machine-error-status-m" + machineNumber).innerHTML = eval("DiagnosticController.StatusM" + machineNumber);
-			if (eval("DiagnosticController.MetricM" + machineNumber)) document.getElementById("machine-error-metric-m" + machineNumber).innerHTML = eval("DiagnosticController.MetricM" + machineNumber);
+			if (eval("DiagnosticController.MetricM" + machineNumber)) document.getElementById("machine-error-metric-m" + machineNumber).innerHTML = eval("DiagnosticController.MetricM" + machineNumber).split("_")[0];
 			if (eval("DiagnosticController.CauseM" + machineNumber)) document.getElementById("machine-error-message-m" + machineNumber).innerHTML = eval("DiagnosticController.CauseM" + machineNumber);
 			if (eval("DiagnosticController.ValueM" + machineNumber)) document.getElementById("machine-error-value-m" + machineNumber).innerHTML = eval("DiagnosticController.ValueM" + machineNumber);
-			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "Date: " + dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
+			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
 
 			// There's an anomaly: change the tab color to red
 			changeTabColorDueToAnomaly(eval("DiagnosticController.MetricM" + machineNumber), machineNumber);
+		// No anomaly
 		} else {
 			document.getElementById("machine-status-m" + machineNumber).className = "machine-ok";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");

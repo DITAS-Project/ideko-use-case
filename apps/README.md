@@ -27,13 +27,13 @@ When _app2_ launches:
 
 - Calls to `/GetStreamingData`.
 - Every 2 seconds (_GetStreamValuesInterval_) the values are read and printed.
-- Every 4 seconds (_CallAndPrintDiagnosticValuesInterval_) calls to `/GetSimplifiedDiagnostic` and values are printed.
+- Every 10 seconds (_CallAndPrintDiagnosticValuesInterval_) calls to `/GetSimplifiedDiagnostic` and values are printed.
 
 When _app3_ launches:
 
 - Calls to `/GetStreamingData`.
 - Every 2 seconds (_GetStreamValuesInterval_) the values are read and printed.
-- Every 4 seconds (_CallAndPrintDiagnosticValuesInterval_) calls to `/GetFullDiagnostic` and values are printed.
+- Every 10 seconds (_CallAndPrintDiagnosticValuesInterval_) calls to `/GetFullDiagnostic` and values are printed.
 
 ### Access control
 After logging on the _DITAS framework_, a JWT token is received and added to every method call. This means that when the application calls to the  `/GetSimplifiedDiagnostic` method for example, the request header `Authorization: Beaber JWT` will be added, being `JWT` the token received after the _DITAS framework_ login.

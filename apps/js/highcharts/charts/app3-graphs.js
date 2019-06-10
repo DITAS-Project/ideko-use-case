@@ -2,8 +2,8 @@ $(document).ready(function() {
 
 	var baseConfig = {
 		chart: {
-			zoomType: 'x',
-			    animation: false
+			zoomType: false,
+			animation: false
 		},
 		xAxis: {
 			type: 'datetime',
@@ -46,7 +46,7 @@ $(document).ready(function() {
 							opacity: 1
 					}
 				},
-				// Quitar el clic en la leyenda para ocultar 
+				// Quitar el clic en la leyenda para ocultar
 				events: {
 					legendItemClick: function() {
 					  return false;
