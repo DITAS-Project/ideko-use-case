@@ -2,11 +2,12 @@ $(document).ready(function() {
 
 	var baseConfig = {
 		chart: {
-			zoomType: 'x',
-			    animation: false
+			zoomType: false,
+			animation: false
 		},
 		xAxis: {
-			type: 'datetime'
+			type: 'datetime',
+			visible: false
 		},
 		yAxis:{
 			// Quitar rayas horizontales del eje y
@@ -22,7 +23,6 @@ $(document).ready(function() {
 			useUTC: false
 		},
 		tooltip: {
-			// Probar esto bien
 			enabled: false,
 			headerFormat: '<b>{series.name}</b><br/>',
 			pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
@@ -33,7 +33,7 @@ $(document).ready(function() {
 		noData: {
 			style: {
 				fontWeight: 'bold',
-				fontFamily: 'Helvetica',
+				fontFamily: 'Calibri',
 				fontSize: '35px',
 				color: '#6AC259'
 			}
@@ -44,6 +44,12 @@ $(document).ready(function() {
 					states: {
 						inactive: {
 							opacity: 1
+					}
+				},
+				// Quitar el clic en la leyenda para ocultar 
+				events: {
+					legendItemClick: function() {
+					  return false;
 					}
 				}
 			},
@@ -60,6 +66,7 @@ $(document).ready(function() {
 				color: '#000000',
 				marker: {radius: 3},
 				lineWidth: 0,
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -72,6 +79,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FF3333',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -84,6 +92,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FF3333',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -96,6 +105,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FFC805',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -108,6 +118,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#FFC805',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -120,6 +131,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#4CA64C',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -132,6 +144,7 @@ $(document).ready(function() {
 				data: [],
 				color: '#4CA64C',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 			},
 			{
@@ -140,10 +153,11 @@ $(document).ready(function() {
 				################### 7 - AZUL - MEAN ##################
 				###################################################### */
 		        type: 'line',
-		        name: 'avg',
+		        name: 'average',
 				data: [],
 				color: '#2E2EFF',
 				marker: {enabled: false},
+				showInLegend: false,
 				states: { hover: { enabled: false } }
 		    }]
 		}
@@ -181,10 +195,15 @@ function addDataToGraph (id, name, serie_number, value, timestamp)
 	x = timestamp
 	y = value
 
+	// Get the chart via id of the chart
 	var chart = $("#" + id).highcharts();
 
 	// Get the proper serie for the given serie_number
 	var series = chart.series[serie_number];
+
+	// As it has value, we show the legend and the x axis line
+	series.update({showInLegend: true,});
+	chart.xAxis[0].update({visible: true});
 
 	// Dots - Are printed with format [x,y]
 	if (serie_number = 0) {
@@ -218,53 +237,17 @@ function calculateValue(indicator_name, timestamp, avg, std_dev, observation, ma
 	mean = avg;
 	aggregated = observation;
 
+	// Set an array with all the calculations to ease the manipulation
+	var calc_array = []
+	calc_array.push(aggregated, plus_sqrt20, minus_sqrt20, plus_sqrt10, minus_sqrt10, plus_two, minus_two, mean)
+
 	// Add data to the current graph
-	// Z1 Temperature
 	if (indicator_name === "Z1AxisTemperature_mean")
-	{
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 0, aggregated, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 1, plus_sqrt20, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 2, minus_sqrt20, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 3, plus_sqrt10, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 4, minus_sqrt10, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 5, plus_two, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 6, minus_two, timestamp);
-		addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', 7, mean, timestamp);
-	}
-	// Z2 Temperature
+		for (var i = 0; i < calc_array.length; i++) addDataToGraph('z1-temperature-graph-m' + machineNumber, 'Z1 temperature', i, calc_array[i], timestamp);
 	else if (indicator_name === "Z2AxisTemperature_mean")
-	{
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 0, aggregated, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 1, plus_sqrt20, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 2, minus_sqrt20, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 3, plus_sqrt10, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 4, minus_sqrt10, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 5, plus_two, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 6, minus_two, timestamp);
-		addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', 7, mean, timestamp);
-	}
-	// Z1 intensity
+		for (var i = 0; i < calc_array.length; i++) addDataToGraph('z2-temperature-graph-m' + machineNumber, 'Z2 temperature', i, calc_array[i], timestamp);
 	else if (indicator_name === "Z1AxisEngineIntensity_mean")
-	{
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 0, aggregated, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 1, plus_sqrt20, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 2, minus_sqrt20, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 3, plus_sqrt10, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 4, minus_sqrt10, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 5, plus_two, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 6, minus_two, timestamp);
-		addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', 7, mean, timestamp);
-	}
-	// Z2 intensity
+		for (var i = 0; i < calc_array.length; i++) addDataToGraph('z1-intensity-graph-m' + machineNumber, 'Z1 intensity', i, calc_array[i], timestamp);
 	else if (indicator_name === "Z2AxisEngineIntensity_mean")
-	{
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 0, aggregated, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 1, plus_sqrt20, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 2, minus_sqrt20, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 3, plus_sqrt10, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 4, minus_sqrt10, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 5, plus_two, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 6, minus_two, timestamp);
-		addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', 7, mean, timestamp);
-	}
+		for (var i = 0; i < calc_array.length; i++) addDataToGraph('z2-intensity-graph-m' + machineNumber, 'Z2 intensity', i, calc_array[i], timestamp);
 }

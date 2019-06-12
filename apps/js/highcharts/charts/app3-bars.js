@@ -212,8 +212,9 @@ function printStrings(idName, indicatorName, dictionaryName = null)
 function printMachineStatus(machineNumber)
 {
 	setInterval(function() {
-		console.log(getMachineName(machineNumber) + " - Getting values from variables every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms. The status is: " + eval("DiagnosticController.StatusM" + machineNumber) + ". Actual time: " + new Date(Date.now()).toLocaleTimeString());
+		console.log(" [x] " + getMachineName(machineNumber) + " - Status is: " + eval("DiagnosticController.StatusM" + machineNumber) + " (" + new Date(Date.now()).toLocaleTimeString() + ")");
 
+		// There's an anomaly
 		if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT" || eval("DiagnosticController.StatusM" + machineNumber) === "WARNING")
 		{
 			if (eval("DiagnosticController.StatusM" + machineNumber) === "ALERT") document.getElementById("machine-status-m" + machineNumber).className = "machine-error";
@@ -224,13 +225,14 @@ function printMachineStatus(machineNumber)
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("width", "18%");
 			document.getElementById("machine-error-image-m" + machineNumber).style.setProperty("margin-top", "-27px");
 			if (eval("DiagnosticController.StatusM" + machineNumber)) document.getElementById("machine-error-status-m" + machineNumber).innerHTML = eval("DiagnosticController.StatusM" + machineNumber);
-			if (eval("DiagnosticController.MetricM" + machineNumber)) document.getElementById("machine-error-metric-m" + machineNumber).innerHTML = eval("DiagnosticController.MetricM" + machineNumber);
+			if (eval("DiagnosticController.MetricM" + machineNumber)) document.getElementById("machine-error-metric-m" + machineNumber).innerHTML = eval("DiagnosticController.MetricM" + machineNumber).split("_")[0];
 			if (eval("DiagnosticController.CauseM" + machineNumber)) document.getElementById("machine-error-message-m" + machineNumber).innerHTML = eval("DiagnosticController.CauseM" + machineNumber);
 			if (eval("DiagnosticController.ValueM" + machineNumber)) document.getElementById("machine-error-value-m" + machineNumber).innerHTML = eval("DiagnosticController.ValueM" + machineNumber);
-			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "Date: " + dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
+			if (eval("DiagnosticController.DateM" + machineNumber)) document.getElementById("machine-error-date-m" + machineNumber).innerHTML = dateMStoDateYYYYMMDD(eval("DiagnosticController.DateM" + machineNumber));
 
-			// There's an anomaly! We print the graph
-			//printGraphDueToAnomaly(machineNumber);
+			// There's an anomaly: change the tab color to red
+			changeTabColorDueToAnomaly(eval("DiagnosticController.MetricM" + machineNumber), machineNumber);
+		// No anomaly
 		} else {
 			document.getElementById("machine-status-m" + machineNumber).className = "machine-ok";
 			document.getElementById("machine-status-m" + machineNumber).style.setProperty("margin-top", "-27px");
@@ -245,10 +247,35 @@ function printMachineStatus(machineNumber)
 			document.getElementById("machine-error-value-m" + machineNumber).innerHTML = "";
 			document.getElementById("machine-error-date-m" + machineNumber).innerHTML = "";
 
-			// There's no anomaly, we remove the graph
-			//removeGraph(machineNumber);
+			// There's no anomaly: change the tab color to default color
+			changeTabColorDueToNoAnomaly(machineNumber);
 		}
 	}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
+}
+
+/**
+* Changes the tab color to red due to an anomaly
+* @param metric: Metric name
+* @param machineNumber: Machine number
+*/
+function changeTabColorDueToAnomaly(metric, machineNumber)
+{
+	if (metric == "Z1AxisTemperature_mean")	document.getElementById("z1-temperature-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+	if (metric == "Z2AxisTemperature_mean")	document.getElementById("z2-temperature-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+	if (metric == "Z1AxisEngineIntensity_mean")	document.getElementById("z1-intensity-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+	if (metric == "Z2AxisEngineIntensity_mean")	document.getElementById("z2-intensity-m" + machineNumber + "-tab").className = "tab-with-anomaly";
+}
+
+/**
+* Changes the tab color to default style due to no anomaly
+* @param machineNumber: Machine number
+*/
+function changeTabColorDueToNoAnomaly(machineNumber)
+{
+	document.getElementById("z1-temperature-m" + machineNumber + "-tab").className = "tab-without-anomaly";
+	document.getElementById("z2-temperature-m" + machineNumber + "-tab").className = "tab-without-anomaly";
+	document.getElementById("z1-intensity-m" + machineNumber + "-tab").className = "tab-without-anomaly";
+	document.getElementById("z2-intensity-m" + machineNumber + "-tab").className = "tab-without-anomaly";
 }
 
 /**

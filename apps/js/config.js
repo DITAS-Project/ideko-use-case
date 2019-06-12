@@ -22,9 +22,9 @@ var AppConfiguration = {
   },
 
   // Call and print GetFullDiagnostic
-  CallAndPrintDiagnosticValuesInterval: 4000,
+  CallAndPrintDiagnosticValuesInterval: 10000,
 
-  // Interval to get the values from the GetStreamingData function
+  // Interval to get the values from GetStreamingData
   GetStreamValuesInterval: 2000,
 
   // Execution state ID mapping
