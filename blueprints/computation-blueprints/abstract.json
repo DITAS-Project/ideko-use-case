@@ -104,7 +104,7 @@
             "Methods": [
                 {
                     "method_id": "GetStreamingData",
-                    "data_sources": [
+                    "dataSources": [
                         {
                             "dataSource_id": "InboxStreamingAPI - Kelly",
                             "tables": [
@@ -128,113 +128,120 @@
                         {
                             "dataSource_id": "MachineTimeseriesDatabase - Kelly",
                             "dataSource_type": "time-series",
-                            "database": {
+                            "database": [{
                                 "database_id": "influxdb-kelly",
                                 "tables": [
                                     {
                                         "table_id": "I_XXC_MBXSLL_AW8HY7",
-                                        "columns": ["time", "value"]
+                                        "columns": [{
+                                                "column_id": "time",
+                                                "computeDataUtility": false
+                                            },{
+                                                "column_id": "value",
+                                                "computeDataUtility": false
+                                            }
+                                        ]
                                     },
                                     {
                                         "table_id": "I_XXC_MBXSLL_FS38ZU",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },								
                                     {
                                         "table_id": "I_XXC_MBXSLL_UKZVHZ",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },								
                                     {
                                         "table_id": "I_XXC_MBXSLL_66SZ4X",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_XXC_MBXSLL_V3TRK1",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_XXC_MBXSLL_ARKS8V",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_XXC_MBXSLL_68SBRS",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     }
                                 ]          
-                            }                  
+                            }]               
                         },
                         {
                             "dataSource_id": "MachineTimeseriesDatabase - Slater",
                             "dataSource_type": "time-series",
-                            "database": {
+                            "database": [{
                                 "database_id": "influxdb-slater",
                                 "tables": [
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_AW8HY7",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_FS38ZU",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },								
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_UKZVHZ",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },								
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_66SZ4X",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_V3TRK1",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_ARKS8V",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMS_LJ3Z4P_68SBRS",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     }
                                 ]
-                            }
+                            }]
                        },
                         {
                             "dataSource_id": "MachineTimeseriesDatabase - Zack",
                             "dataSource_type": "time-series",
-                            "database": {
+                            "database": [{
                                 "database_id": "influxdb-zack",
                                 "tables": [
                                     {
                                         "table_id": "I_CMX_LQLS26_AW8HY7",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMX_LQLS26_FS38ZU",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },								
                                     {
                                         "table_id": "I_CMX_LQLS26_UKZVHZ",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },								
                                     {
                                         "table_id": "I_CMX_LQLS26_66SZ4X",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMX_LQLS26_V3TRK1",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMX_LQLS26_ARKS8V",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     },
                                     {
                                         "table_id": "I_CMX_LQLS26_68SBRS",
-                                        "columns": ["time", "value"]
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
                                     }
                                 ]
-                            }
+                            }]
                         }
                     ]
                 },
@@ -243,102 +250,114 @@
                     "dataSources": [
                         {
                             "dataSource_id": "MachineTimeseriesDatabase - Kelly",
-                            "tables": [
-                                {
-                                    "table_id": "I_XXC_MBXSLL_AW8HY7",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_XXC_MBXSLL_FS38ZU",
-                                    "columns": ["time", "value"]
-                                },								
-                                {
-                                    "table_id": "I_XXC_MBXSLL_UKZVHZ",
-                                    "columns": ["time", "value"]
-                                },								
-                                {
-                                    "table_id": "I_XXC_MBXSLL_66SZ4X",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_XXC_MBXSLL_V3TRK1",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_XXC_MBXSLL_ARKS8V",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_XXC_MBXSLL_68SBRS",
-                                    "columns": ["time", "value"]
-                                }
-                            ]
+                            "dataSource_type": "time-series",
+                            "database": [{
+                                "database_id": "influxdb-kelly",
+                                "tables": [
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_AW8HY7",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_FS38ZU",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },								
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_UKZVHZ",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },								
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_66SZ4X",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_V3TRK1",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_ARKS8V",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_XXC_MBXSLL_68SBRS",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    }
+                                ]          
+                            }]               
                         },
                         {
                             "dataSource_id": "MachineTimeseriesDatabase - Slater",
-                            "tables": [
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_AW8HY7",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_FS38ZU",
-                                    "columns": ["time", "value"]
-                                },								
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_UKZVHZ",
-                                    "columns": ["time", "value"]
-                                },								
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_66SZ4X",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_V3TRK1",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_ARKS8V",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMS_LJ3Z4P_68SBRS",
-                                    "columns": ["time", "value"]
-                                }
-                            ]
-                        },
+                            "dataSource_type": "time-series",
+                            "database": [{
+                                "database_id": "influxdb-slater",
+                                "tables": [
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_AW8HY7",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_FS38ZU",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },								
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_UKZVHZ",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },								
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_66SZ4X",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_V3TRK1",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_ARKS8V",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMS_LJ3Z4P_68SBRS",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    }
+                                ]
+                            }]
+                       },
                         {
                             "dataSource_id": "MachineTimeseriesDatabase - Zack",
-                            "tables": [
-                                {
-                                    "table_id": "I_CMX_LQLS26_AW8HY7",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMX_LQLS26_FS38ZU",
-                                    "columns": ["time", "value"]
-                                },								
-                                {
-                                    "table_id": "I_CMX_LQLS26_UKZVHZ",
-                                    "columns": ["time", "value"]
-                                },								
-                                {
-                                    "table_id": "I_CMX_LQLS26_66SZ4X",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMX_LQLS26_V3TRK1",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMX_LQLS26_ARKS8V",
-                                    "columns": ["time", "value"]
-                                },
-                                {
-                                    "table_id": "I_CMX_LQLS26_68SBRS",
-                                    "columns": ["time", "value"]
-                                }
-                            ]
+                            "dataSource_type": "time-series",
+                            "database": [{
+                                "database_id": "influxdb-zack",
+                                "tables": [
+                                    {
+                                        "table_id": "I_CMX_LQLS26_AW8HY7",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMX_LQLS26_FS38ZU",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },								
+                                    {
+                                        "table_id": "I_CMX_LQLS26_UKZVHZ",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },								
+                                    {
+                                        "table_id": "I_CMX_LQLS26_66SZ4X",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMX_LQLS26_V3TRK1",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMX_LQLS26_ARKS8V",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    },
+                                    {
+                                        "table_id": "I_CMX_LQLS26_68SBRS",
+                                        "columns": [{"column_id": "time","computeDataUtility": false},{"column_id": "value","computeDataUtility": false}]
+                                    }
+                                ]
+                            }]
                         }
                     ]
                 }
@@ -349,7 +368,8 @@
             "streaming-api": {
                 "internalPort": 40001,
                 "externalPort": 40001,
-                "image": "153.92.30.56:5050/streaming-dal:latest"
+                "image": "153.92.30.56:5050/streaming-dal:latest",
+                "original_ip": "TODO - set the IP of the running DAL"
             }
         },
         "VDC_Images": {
@@ -681,7 +701,7 @@
 
     },	
     "COOKBOOK_APPENDIX": {
-
+        
     },	
     "EXPOSED_API": {
         "openapi": "3.0.0",
