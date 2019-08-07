@@ -436,7 +436,7 @@
                         "type": "throughtput",
                         "properties": 
                         {
-                            "precision": 
+                            "throughtput": 
                             {
                                 "minimum": 0.5,
                                 "unit": "MB/s"
