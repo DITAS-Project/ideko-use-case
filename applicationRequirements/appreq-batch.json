@@ -1,0 +1,183 @@
+{
+	"applicationType": "streaming",
+	"functionalRequirements": {
+		
+        "methodTags": ["machine", "diagnostic", "anomaly detection"],
+        
+		"vdcTags": ["ask_iccs"],
+		"schema": {
+			"attributes": ["ask_iccs"]
+		}
+
+	},
+	"attributes": 
+{
+            "dataUtility": 
+            [
+                {
+                    "id": "availability_90",
+                    "description":"Availability 90",
+                    "type":"Availability",
+                    "properties": 
+                    {
+                        "availability": 
+                        {
+                            "unit": "percentage",
+                            "minimum":90
+                        }				
+                    }						
+                },
+                {
+                    "id": "responseTime_2",
+                    "description": "ResponseTime 2",
+                    "type": "ResponseTime",
+                    "properties": {
+                        "responseTime": {
+                            "maximum": 2,
+                            "unit": "second"
+                        }
+                    }
+                },
+
+                {
+                    "id": "timeliness",
+                    "description": "Timeliness",
+                    "type": "Timeliness",
+                    "properties": 
+                    {
+                        "timeliness": 
+                        {
+                            "maximum":99,
+                            "unit": "percentage"
+                        }
+                    }
+                },
+                {
+                    "id": "volume_1200",
+                    "description": "volume 1200",
+                    "type": "Volume",
+                    "properties": {
+                        "volume": {
+                            "minimum": 1200,
+                            "unit": "tuple"
+                        }
+                    }
+                }
+            ],
+            "security": [
+
+                {
+                    "id": "encryption_AES128",
+                    "description": "Encryption AES 128",
+                    "type": "TransportEncryption",
+                    "properties": {
+                        "protocol": {
+                            "unit": "enum",
+                            "value": "TLS"
+                        },
+                        "algorithm": {
+                            "unit": "list",
+                            "value": ["TLS_AES_256_GCM_SHA384", "TLS_AES_128_GCM_SHA256", "TLS_AES_128_CCM_8_SHA256", "TLS_AES_128_CCM_SHA256"]
+                        },
+                        "keyLength": {
+                            "unit": "number",
+                            "value": 128
+                        }
+                    }
+                },
+                {
+                    "id": "accessControl_direct",
+                    "description": "Access control Direct",
+                    "type": "AccessControl",
+                    "properties": {
+                        "Protocol": {
+                            "value": "Direct, OAuth"
+                        }
+                    }
+                }  
+            ],
+			"privacy": []
+        }
+    ,
+	"goalTrees": {
+		"dataUtility": {
+            "description": "Requirements achieved",
+			"type": "AND",
+			"children": [{
+                    "description": "High QoS",
+					"type": "AND",
+                    "leaves": [{
+									"id": "serviceAvailable",
+									"description": "Service available",
+									"weight": 1,
+									"attributes": [
+										"availability_90"
+									]
+								},
+								{
+									"id": "fastProcess",
+									"description": "Fast process",
+									"weight": 1,
+									"attributes": [
+										"responseTime_2"
+									]
+								}
+							]
+					
+				},
+				{
+                    "description": "High Data Quality",
+					"type": "AND",
+					"leaves": [
+						{
+							"id": "freshData",
+							"description": "Fresh data",
+							"weight": 1,
+							"attributes": [
+								"timeliness"
+							]
+						},
+						{
+							"id": "EnoughData",
+							"description": "Enough amount of Data",
+							"weight": 1,
+							"attributes": [
+								"volume_1200"
+							]
+						}
+					]
+				}
+			]
+		},
+		"security": {
+			"type": "AND",
+            "description": "High security",
+			"leaves": [{
+					"id": "TrasportEncryption",
+					"description": "Secure data trasport",
+					"weight": 1,
+					"attributes": [
+						"encryption_AES128"
+					]
+				},
+				{
+					"id": "AccessControl",
+					"description": "Secure access",
+					"weight": 1,
+					"attributes": [
+						"accessControl_direct"
+					]
+				}
+			]
+		}
+	}
+	,
+	"methodsOutput": {
+        "methods": [
+            {
+                "method_id": "GetSimplifiedDiagnostic",
+                "attributes": [ "status", "timestamp", "cause"]
+            }
+        ]
+    }
+}
