@@ -1,5 +1,5 @@
 # InfluxDB DAL
-DAL for the InfluxDB.
+Containerized version of the InfluxDB DAL.
 
 ## Configuration file
 The InfluxDB configuration files can be found on the `config` folder.
