@@ -1,14 +1,14 @@
 debugMode: true
 port: 50052
 
-influxdbServer: 153.92.30.130
-influxdbPort: 8086
-influxdbUsername: read_user_1ylL4yvzarV0MfwJOJXJ
-influxdbPassword: BpSPcGTSfT261rl7w47o
+influxdbServer: 
+influxdbPort: 
+influxdbUsername: 
+influxdbPassword: 
 waitDuration: 2 # seconds
 
 jwtServerTimeout: 5000 #milliseconds
-jwksServerEndpoint: https://153.92.30.56:58080/auth/realms/288/protocol/openid-connect/certs
+jwksServerEndpoint: 
 jwksCheckServerCertificate: false
 
 influxdbDBNameMap:
