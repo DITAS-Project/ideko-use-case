@@ -5,6 +5,7 @@ DAL for the InfluxDB.
 The InfluxDB configuration files can be found on the `config` folder.
 
 ## Running with Docker
+- Set the credentials on the `config/idekoDalGrpcServerConfig.yml` file.
 - Copy the content of this repository to the system.
 - Run `docker build -t influxdb-dal-ideko .` from the folder where the Dockerfile is.
 - Run `docker run -p 50052:50052 --restart always --name influxdb-dal-ideko -d influxdb-dal-ideko`.
