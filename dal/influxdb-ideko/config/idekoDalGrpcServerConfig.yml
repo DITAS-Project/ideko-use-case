@@ -1,14 +1,14 @@
 debugMode: true
 port: 50052
 
-influxdbServer: 
-influxdbPort: 
-influxdbUsername: 
-influxdbPassword: 
+influxdbServer: PUT_SERVER_IP_HERE
+influxdbPort: PUT_SERVER_PORT_HERE
+influxdbUsername: PUT_DB_USER_HERE
+influxdbPassword: PUT_DB_USER_PASSWORD_HERE
 waitDuration: 2 # seconds
 
 jwtServerTimeout: 5000 #milliseconds
-jwksServerEndpoint: 
+jwksServerEndpoint: PUT_JWKS_URL_HERE
 jwksCheckServerCertificate: false
 
 influxdbDBNameMap:
