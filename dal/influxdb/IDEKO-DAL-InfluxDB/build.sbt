@@ -48,6 +48,7 @@ assemblyMergeStrategy in assembly := {
   case n if n.contains("services") => MergeStrategy.concat
   case n if n.startsWith("reference.conf") => MergeStrategy.concat
   case n if n.endsWith(".conf") => MergeStrategy.concat
+  case n if n.endsWith(".yml") => MergeStrategy.concat
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
   case x => MergeStrategy.first
 }
