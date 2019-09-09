@@ -62,43 +62,7 @@ pipeline {
                 echo "Done"
             }
         }
-        stage('Push image') {
-            agent any
-            options {
-                // Already compiled the assembly, so don't checkout againg (checkout also cleans the workspace, removing any generated artifact)
-                skipDefaultCheckout true
-            }
-            steps {
-                echo 'Retrieving Docker Hub password from /opt/ditas-docker-hub.passwd...'
-                // Get the password from a file. This reads the file from the host, not the container. Slaves already have the password in there.
-                script {
-                    password = readFile '/opt/ditas-docker-hub.passwd'
-                }
-                echo "Done"
-                // Login to DockerHub with the ditas generic Docker Hub user
-                echo 'Login to Docker Hub as ditasgeneric...'
-                sh "docker login -u ditasgeneric -p ${password}"
-                echo "Done"
-                echo "Pushing the image ditas/ideko-dal-influxdb:latest..."
-                // Push the image to DockerHub
-                sh "docker push ditas/ideko-dal-influxdb:latest"
-                echo "Done"
-            }
-        }
-	stage('Image deploy') {
-	    agent any
-            options {
-                // skip checking out code again 
-                skipDefaultCheckout true
-            }
-	    steps {
-	       // Staging environment: 31.171.247.162
-    	       // Private key for ssh: /opt/keypairs/ditas-testbed-keypair.pem
-	 	// Call the deployment script
-		echo "Deploying..."
-		sh 'IDEKO-DAL-InfluxDB/jenkins/deploy/deploy-staging.sh'
-		echo "Deploy done!"
-	   }
+
 	}
     }
 }
