@@ -1,9 +1,0 @@
-FROM java:8-jre-alpine
-COPY target/universal/ideko-dal-influxdb-0.1.tgz app/ideko-dal-influxdb-0.1.tgz
-COPY src/main/resources/conf/*.yml app/conf/
-EXPOSE 50052
-RUN /bin/sh -c "apk add --no-cache bash"
-RUN apk --update add tar
-RUN ["apk", "add", "--update", "bash", "libc6-compat", "curl"]
-RUN ["tar", "xvzf", "/app/ideko-dal-influxdb-0.1.tgz", "-C", "/app"]
-ENTRYPOINT ["/app/ideko-dal-influxdb-0.1/bin/ideko-dal-influxdb",  "/app/conf/idekoDalGrpcServerConfig.yml", "/app/conf/idekoDalPrivacyConfig.yml"]

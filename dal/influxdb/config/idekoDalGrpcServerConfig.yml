@@ -1,0 +1,31 @@
+debugMode: true
+port: 50052
+
+waitDuration: 2 # seconds
+
+jwtServerTimeout: 5000 #milliseconds
+jwksServerEndpoint: PUT_JWKS_URL_HERE
+jwksCheckServerCertificate: false
+
+influxdbDBNameMap:
+  CMX_LQLS26:
+  - Zack_CMX_LQLS26
+  - autogen
+  - PUT_INFLUXDB_SERVER_IP_HERE
+  - PUT_INFLUXDB_PORT_HERE
+  - PUT_INFLUXDB_USER_HERE
+  - PUT_INFLUXDB_PASSWORD_HERE
+  XXC_MBXSLL:
+  - Kelly_XXC_MBXSLL
+  - autogen
+  - PUT_INFLUXDB_SERVER_IP_HERE
+  - PUT_INFLUXDB_PORT_HERE
+  - PUT_INFLUXDB_USER_HERE
+  - PUT_INFLUXDB_PASSWORD_HERE
+  CMS_LJ3Z4P:
+  - Slater_CMS_LJ3Z4P
+  - autogen
+  - PUT_INFLUXDB_SERVER_IP_HERE
+  - PUT_INFLUXDB_PORT_HERE
+  - PUT_INFLUXDB_USER_HERE
+  - PUT_INFLUXDB_PASSWORD_HERE
