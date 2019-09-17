@@ -9,7 +9,7 @@ The InfluxDB configuration files can be found on the `config` folder.
 - Set the valid role on the `config/idekoDalPrivacyConfig.yml` file
 - Copy the content of this repository to the system
 - Run `docker build -t influxdb-dal-ideko .` from the folder where the Dockerfile is
-- Run `docker run -p 50052:50052 --restart always --name influxdb-dal-ideko -d influxdb-dal-ideko`
+- Run `docker run -p 30200:30200 --restart always --name influxdb-dal-ideko -d influxdb-dal-ideko`
 
 ## Testing
 Testing can easily done with [BloomRPC](https://github.com/uw-labs/bloomrpc/releases), installing and running the software, adding the endpoint (`ip:50052`) to the interface, loading the Proto files that can be found on the `src\IDEKO-DAL-InfluxDB-grpc\src\main\protobuf` folder and completing the following JSON, by adding a valid token on the `authorization` field.
