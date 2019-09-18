@@ -43,7 +43,7 @@ COPY config/idekoDalPrivacyConfig.yml /app/ideko-dal-influxdb-0.1/conf/idekoDalP
 COPY config/idekoDalGrpcServerConfig.yml /app/ideko-dal-influxdb-0.1/conf/idekoDalGrpcServerConfig.yml
 
 # Expose the port
-EXPOSE 50052
+EXPOSE 30200
 
 # Install libraries
 RUN apt-get install curl
