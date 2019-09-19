@@ -2,13 +2,18 @@
 
 Every development related with IDEKO's Industry 4.0 use case. Here you can find:
 
+
+## applicationRequirements
+
+The application requirements for the use case.
+
 ## apps
 
 The applications used to demonstrate the use case.
 
 ## blueprints
 
-The raw blueprints created by the Data Adminsuitrator to publish the data sources. This blueprints should be created using the interface provided by DITAS, but here, the manually created raw version can be found. This is a WIP and some of the fields are subject to change.
+The raw blueprints created by the Data Administrator to publish the data sources. This blueprints should be created using the interface provided by DITAS, but here, the manually created raw version can be found. This is a WIP and some of the fields are subject to change.
 
 ## dal
 

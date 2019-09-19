@@ -26,7 +26,7 @@ RUN python3 -m pip install cryptography
 WORKDIR /opt/dal
 COPY ./src-dal .
 
-EXPOSE 40001
+EXPOSE 30100
 
 # Execute the server 
 CMD ["python3", "-u", "/opt/dal/savvy-streaming-api-server.py"]

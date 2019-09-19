@@ -62,8 +62,8 @@ docker run -d -p 1888:1888 --restart always -v /opt/config:/etc/ditas 127.0.0.1:
 docker build -t ditas/request-monitor -f Dockerfile.artifact .
 docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 -p 443:443 ditas/request-monitor
 
-# Option2 2: Using DITAS DockerHub
-docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 -p 443:443 ditas/vdc-request-monitor
+# Option 2: Using DITAS DockerHub
+docker run -d -v /opt/config:/etc/ditas --pid=container:[CONTAINER_ID] -p 80:80 -p 443:443 ditas/vdc-request-monitor:production
 ```
 
 ## Notes

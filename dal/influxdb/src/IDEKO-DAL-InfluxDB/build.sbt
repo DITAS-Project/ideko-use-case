@@ -17,7 +17,7 @@ libraryDependencies ++= Seq(
   "joda-time" % "joda-time" % "2.9.9",
   "com.fasterxml.jackson.core" % "jackson-core" % "2.9.8",
   "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.8",
-  "org.yaml" % "snakeyaml" % "1.11",
+  "org.yaml" % "snakeyaml" % "1.25",
   "org.scalaj" %% "scalaj-http" % "2.4.1",
   "org.slf4j" % "slf4j-api" % "1.7.25",
   "ch.qos.logback" % "logback-classic" % "1.0.13",
@@ -48,6 +48,7 @@ assemblyMergeStrategy in assembly := {
   case n if n.contains("services") => MergeStrategy.concat
   case n if n.startsWith("reference.conf") => MergeStrategy.concat
   case n if n.endsWith(".conf") => MergeStrategy.concat
+  case n if n.endsWith(".yml") => MergeStrategy.concat
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
   case x => MergeStrategy.first
 }

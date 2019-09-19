@@ -151,6 +151,8 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                             # He has access for this method!
                             print('Found role ' + accepted_role + '. Role validation ok')
                             return True
+                    print('No valid role provided')
+                    return false
                 except Exception as e:
                     print ("Exception decoding the token " + str(e))
                     traceback.print_exc()
@@ -218,9 +220,9 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     savvy_streaming_api_pb2_grpc.add_SavvyStreamingAPIServicer_to_server(SavvyStreamingAPI(), server)
-    server.add_insecure_port('[::]:40001')
+    server.add_insecure_port('[::]:30100')
     server.start()
-    print('Server started on port 40001')
+    print('Server started on port 30100')
     
     try:
         while True:

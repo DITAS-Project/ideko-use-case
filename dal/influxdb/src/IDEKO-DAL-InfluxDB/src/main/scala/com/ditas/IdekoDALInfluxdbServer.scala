@@ -20,6 +20,18 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 object IdekoDALInfluxdbServer {
   private val LOGGER = Logger.getLogger(getClass.getName)
 
+  def initializeDBNameMap(configDbNameMap: mutable.Map[String, java.util.ArrayList[Any]]): mutable.Map[String, Machine] = {
+    configDbNameMap.map({
+      case (machineId, machineConfig) =>
+        machineId -> Machine(machineConfig.get(0).asInstanceOf[String]/*dbName*/,
+          machineConfig.get(1).asInstanceOf[String]/*dbPolicy*/,
+          machineConfig.get(2).asInstanceOf[String]/*influxdbServer*/,
+          machineConfig.get(3).asInstanceOf[Integer]/*influxdbPort*/,
+          machineConfig.get(4).asInstanceOf[String]/*influxdbUsername*/,
+          machineConfig.get(5).asInstanceOf[String]/*influxdbPassword*/
+        )})
+  }
+
   def main(args: Array[String]): Unit = {
     if (args.length < 1) {
       System.err.println("Usage: IdekoInfluxdbServer <serverConfigFile> [privacyConfigFile]")
@@ -33,11 +45,8 @@ object IdekoDALInfluxdbServer {
 
     serverConfigFile = configFile
     port = configFile.port
-    influxdbServer = configFile.influxdbServer
-    influxdbPort = configFile.influxdbPort
-    influxdbUsername = configFile.influxdbUsername
-    influxdbPassword = configFile.influxdbPassword
-    influxdbDBNameMap = configFile.influxdbDBNameMap.asScala
+    influxdbDBNameConfigMap = initializeDBNameMap(configFile.influxdbDBNameMap.asScala)
+    influxDBConnection = new InfluxDBConnection(influxdbDBNameConfigMap)
     waitDuration = configFile.waitDuration.seconds
 
     val server = new IdekoDALInfluxdbServer(ExecutionContext.global)
@@ -45,13 +54,27 @@ object IdekoDALInfluxdbServer {
     server.blockUntilShutdown()
   }
 
+
+  class InfluxDBConnection(influxdbDBNameConfigMap: mutable.Map[String, Machine]) {
+    var connectionMap: mutable.Map[String, InfluxDB] =
+      influxdbDBNameConfigMap.map({
+        case (machineId, machineConfig) =>
+          machineId -> InfluxDB.connect(machineConfig.influxdbServer, machineConfig.influxdbPort, machineConfig.influxdbUsername,
+            machineConfig.influxdbPassword, false, null)
+      })
+
+    def getInstance(machineId: String): Option[InfluxDB] = {
+      connectionMap.get(machineId)
+    }
+
+    def closeAll() = {
+      for ((machineId, influxDB) <- connectionMap) influxDB.close()
+    }
+  }
   private var port = 50052 //default port
   private var debugMode = false
-  private var influxdbServer = "localhost"
-  private var influxdbPort = 8086
-  private var influxdbUsername = "username"
-  private var influxdbPassword = "password"
-  private var influxdbDBNameMap = mutable.Map.empty[String, java.util.ArrayList[String]]
+  private var influxdbDBNameConfigMap: mutable.Map[String, Machine] = _
+  private var influxDBConnection: InfluxDBConnection = _
   private var waitDuration = 2.seconds // seconds
   private var serverConfigFile: ServerConfiguration = null
 
@@ -101,8 +124,6 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
 
 
   private class QueryInfluxDBImpl extends QueryInfluxDBGrpc.QueryInfluxDB {
-    private val influxDB = InfluxDB.connect(IdekoDALInfluxdbServer.influxdbServer, IdekoDALInfluxdbServer.influxdbPort,
-      IdekoDALInfluxdbServer.influxdbUsername, IdekoDALInfluxdbServer.influxdbPassword, false, null)
     private val LOGGER = Logger.getLogger(getClass.getName)
     private val jwtValidation = new JwtValidator(IdekoDALInfluxdbServer.serverConfigFile)
 
@@ -128,14 +149,14 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
           }
         }
 
-        val (dbName, policy) = chooseMachine(machineId)
-        (dbName, policy) match {
-          case (Some(dbName), Some(policy)) => {
-            val resultRecords = queryInfluxDB(queryObject, machineId, dbName, policy)
+        val dbMachine = chooseMachine(machineId)
+        dbMachine match {
+          case Some(dbMachine) => {
+            val resultRecords = queryInfluxDB(queryObject, machineId, dbMachine)
             val reply = new QueryInfluxDBReply(Seq(resultRecords))
             return Future.successful(reply)
           }
-          case (None, None) => {
+          case None => {
             return Future.failed(Status.ABORTED.augmentDescription("Machine id didn't match any dbName and policy").asRuntimeException())
           }
         }
@@ -144,40 +165,43 @@ class IdekoDALInfluxdbServer(executionContext: ExecutionContext) {
 
 
 
-    private def queryInfluxDB(query: String, machineId: String, dbName: String, policy: String): String = {
+    private def queryInfluxDB(query: String, machineId: String, dbMachine: Machine): String = {
+      val dbName = dbMachine.dbName
       LOGGER.info(s"Query: {${query}}\nmachineId=${machineId}, dbName=${dbName}")
 //      val databases = Await.result(influxDB.showDatabases(), IdekoDALInfluxdbServer.waitDuration)
 //      println(databases.toList)
-      val database = influxDB.selectDatabase(dbName)
-      val dbExists = Await.result(database.exists(), IdekoDALInfluxdbServer.waitDuration) // => Future[Boolean]
-      LOGGER.info(s"Does DB $dbName exist? $dbExists")
+      val influxDB = IdekoDALInfluxdbServer.influxDBConnection.getInstance(machineId)
+      influxDB match {
+        case None => LOGGER.warning("Trying to query non-existent machine: " + machineId); throw new Exception("No connection for machineId: " + machineId)
+        case Some(influxDBConn) =>
+          val database = influxDBConn.selectDatabase(dbName)
+          val dbExists = Await.result(database.exists(), IdekoDALInfluxdbServer.waitDuration) // => Future[Boolean]
+          LOGGER.info(s"Does DB $dbName exist? $dbExists")
 
-      val queryDBResolved = QueryInfluxDBImpl.DB_REGEX.replaceAllIn(query, dbName)
-      LOGGER.info(s"Query with DB name resolved: ${queryDBResolved}")
-      val queryPolicyResolved = QueryInfluxDBImpl.POLICY_REGEX.replaceAllIn(queryDBResolved, policy)
-      LOGGER.info(s"Query with policy resolved: ${queryPolicyResolved}")
-      val queryResult = Await.result(database.queryToJson(queryPolicyResolved), IdekoDALInfluxdbServer.waitDuration)
-      LOGGER.info(s"Query result: ${queryResult}")
-      queryResult
+          val queryDBResolved = QueryInfluxDBImpl.DB_REGEX.replaceAllIn(query, dbName)
+          LOGGER.info(s"Query with DB name resolved: ${queryDBResolved}")
+          val queryPolicyResolved = QueryInfluxDBImpl.POLICY_REGEX.replaceAllIn(queryDBResolved, dbMachine.dbPolicy)
+          LOGGER.info(s"Query with policy resolved: ${queryPolicyResolved}")
+          val queryResult = Await.result(database.queryToJson(queryPolicyResolved), IdekoDALInfluxdbServer.waitDuration)
+          LOGGER.info(s"Query result: ${queryResult}")
+          queryResult
+      }
     }
 
     def close() = {
-      influxDB.close()
+      IdekoDALInfluxdbServer.influxDBConnection.closeAll()
     }
 
-    private def chooseMachine(machineId: String): (Option[String], Option[String]) = {
-      val dbNameMap = IdekoDALInfluxdbServer.influxdbDBNameMap
-      val dbPair = dbNameMap get machineId
-      dbPair match {
-        case Some(dbPair) => return (Some(dbPair.get(0)), Some(dbPair.get(1)))
-        case None => return (None, None)
-      }
+    private def chooseMachine(machineId: String): (Option[Machine]) = {
+      val dbNameMap = IdekoDALInfluxdbServer.influxdbDBNameConfigMap
+      val dbMachine = dbNameMap get machineId
+      dbMachine
     }
   }
 
 }
 
-
+case class Machine (dbName: String, dbPolicy: String, influxdbServer: String, influxdbPort: Integer, influxdbUsername: String, influxdbPassword: String)
 
 
 

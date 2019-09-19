@@ -1,0 +1,201 @@
+{
+	"applicationType": "streaming",
+	"functionalRequirements": {
+		
+        "methodTags": ["machine", "data", "json", "stream", "streaming"],
+        
+		"vdcTags": ["ask_iccs"],
+		"schema": {
+			"attributes": ["ask_iccs"]
+		}
+
+	},
+	"attributes": 
+	{
+		"dataUtility": 
+		[
+			{
+				"id": "availability_95",
+				"description":"Availability 95",
+				"type":"Availability",
+				"properties": 
+				{
+					"availability": 
+					{
+						"unit": "percentage",
+						"minimum":95
+					}				
+				}						
+			},
+			{
+				"id": "timeliness_065",
+				"description": "Timeliness 0.65",
+				"type": "Timeliness",
+				"properties": 
+				{
+					"timeliness": 
+					{
+						"maximum":65,
+						"unit": "percentage"
+					}
+				}
+			},
+			{
+				"id": "throughtput_05",
+				"description": "throughtput",
+				"type": "throughtput",
+				"properties": 
+				{
+					"throughtput": 
+					{
+						"minimum":0.5,
+						"unit": "MB/s"
+					}
+				}
+			},
+			{
+				"id": "precision_08",
+				"description": "Precision 0.8",
+				"type": "Precision",
+				"properties": 
+				{
+					"precision": 
+					{
+						"minimum":0.8,
+						"unit": "none"
+					}
+				}
+			},
+			{
+				"id": "accuracy_09",
+				"description": "Accuracy 0.9",
+				"type": "Accuracy",
+				"properties": 
+				{
+					"accuracy": 
+					{
+						"minimum":90,
+						"unit": "percentage"
+					}
+				}
+			}
+		],
+		"security": [
+			{
+				"id": "encryption_AES128",
+				"description": "Encryption AES 128",
+				"type": "TransportEncryption",
+				"properties": {
+					"protocol": {
+						"unit": "enum",
+						"value": "TLS"
+					},
+					"algorithm": {
+						"unit": "list",
+						"value": ["TLS_AES_256_GCM_SHA384", "TLS_AES_128_GCM_SHA256", "TLS_AES_128_CCM_8_SHA256", "TLS_AES_128_CCM_SHA256"]
+					},
+					"keyLength": {
+						"unit": "number",
+						"value": 128
+					}
+				}
+			},
+			{
+				"id": "accessControl_direct",
+				"description": "Access Control Direct",
+				"type": "AccessControl",
+				"properties": {
+					"Protocol": {
+						"value": "Direct, OAuth"
+					}
+				}
+			}
+		],
+		"privacy": [
+
+		]
+    }
+    ,
+	"goalTrees": {
+		"dataUtility": {
+            "description": "Requirements achieved",
+			"type": "AND",
+			"children": [
+				{
+                    "description": "High QoS",
+					"type": "AND",
+                    "leaves": [{
+									"id": "serviceAvailable",
+									"description": "Service available",
+									"weight": 1,
+									"attributes": [
+										"availability_95"
+									]
+								},
+								{
+									"id": "FastDataStreaming",
+									"description": "Fast data streaming",
+									"weight": 1,
+									"attributes": [
+										"throughtput_05"
+									]
+								}
+							]
+					
+				},
+				{
+                    "description": "High Data Quality",
+					"type": "AND",
+					"leaves": [
+						{
+							"id": "timeliness",
+							"description": "Timeliness",
+							"weight": 1,
+							"attributes": [
+								"timeliness_065"
+							]
+						},
+						{
+							"id": "consistency",
+							"description": "consistency",
+							"weight": 1,
+							"attributes": [
+								"precision_08", "accuracy_09"
+							]
+						}
+					]
+				}
+			]
+		},
+		"security": {
+			"type": "AND",
+            "description": "High security",
+			"leaves": [{
+					"id": "TrasportEncryption",
+					"description": "Secure data trasport",
+					"weight": 1,
+					"attributes": [
+						"encryption_AES128"
+					]
+				},
+				{
+					"id": "AccessControl",
+					"description": "Secure access",
+					"weight": 1,
+					"attributes": [
+						"accessControl_direct"
+					]
+				}
+			]
+		}
+	}
+	,
+	"methodsOutput": {
+        "methods": [
+            {
+                "method_id": "GetStreamingData",
+                "attributes": [ "machine", "group", "data"]
+            }
+        ]
+    }
+}
