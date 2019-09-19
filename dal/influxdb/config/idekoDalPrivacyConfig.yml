@@ -1,2 +1,3 @@
 validRoles:
-  - PUT_ROLE_NAME_HERE
+  - ideko-operator
+  - ditas-operator
