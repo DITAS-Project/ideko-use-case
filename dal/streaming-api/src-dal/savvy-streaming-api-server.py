@@ -151,6 +151,8 @@ class SavvyStreamingAPI(savvy_streaming_api_pb2_grpc.SavvyStreamingAPIServicer):
                             # He has access for this method!
                             print('Found role ' + accepted_role + '. Role validation ok')
                             return True
+                    print('No valid role provided')
+                    return false
                 except Exception as e:
                     print ("Exception decoding the token " + str(e))
                     traceback.print_exc()
