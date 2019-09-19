@@ -371,10 +371,25 @@
 		"Flow": {},
 		"DAL_Images": {
 			"streaming-api": {
-				"internalPort": 40001,
-				"externalPort": 40001,
-				"image": "153.92.30.56:5050/streaming-dal:latest"
-			}
+                "ip": "192.168.x.x"
+                "images": {
+                    "processing": {
+                        "internalPort": 30100,
+                        "externalPort": 30100,
+                        "image": "153.92.30.56:5050/streaming-dal:latest"
+                    }
+                }
+            },
+			"influxdb": {
+                "ip": "192.168.x.x"
+                "images": {
+                    "processing": {
+                        "internalPort": 30200,
+                        "externalPort": 30200,
+                        "image": "153.92.30.56:5050/influxdb-dal:latest"
+                    }
+                }
+            }
 		},
 		"VDC_Images": {
 			"caf": {
