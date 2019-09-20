@@ -702,71 +702,74 @@
     },    
     "COOKBOOK_APPENDIX": {
         "Resources": {
-        "name": "ideko-resources-cloudsigma",
-        "description": "IDEKO resources at Cloudsigma available to our clients",
-        "infrastructures": [
-            {
-            "name": "infr-cloudsigma",
-            "type": "cloud",
-            "provider": {
-                "api_endpoint": "https://fra.cloudsigma.com/api/2.0",
-                "apy_tpye": "Cloudsigma",
-                "credentials": {
-                    "username": "apps@ideko.es",
-                    "password": "ASK-FOR-IT"
-                },
-                "secret_id": ""
-            },
-            "resources": [
+            "name": "ideko-resources-cloudsigma",
+            "description": "IDEKO resources at Cloudsigma available to our clients",
+            "infrastructures": [
                 {
-                    "name": "ideko-c1",
-                    "cpu": 4000,
-                    "ram": 4000,
-                    "disk":  40000,
-                    "drives": [
+                    "name": "infr-cloudsigma",
+                    "type": "cloud",
+                    "provider": {
+                        "api_endpoint": "https://fra.cloudsigma.com/api/2.0",
+                        "apy_tpye": "Cloudsigma",
+                        "credentials": {
+                            "username": "apps@ideko.es",
+                            "password": "ASK-FOR-IT"
+                        },
+                        "secret_id": ""
+                    },
+                    "extra_properties": {
+                        "owner": "DataAdministrator"
+                    },
+                    "resources": [
                         {
-                        "name": "ideko-c1-d1",
-                        "size": 10000,
-                        "type": "SSD"
-                        }
-                    ],
-                    "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
-                    "role": "master"
-                },
-                {
-                    "name": "ideko-c2",
-                    "cpu": 8000,
-                    "ram": 4000,
-                    "disk":  40000,
-                    "drives": [
+                            "name": "ideko-c1",
+                            "cpu": 4000,
+                            "ram": 4000,
+                            "disk":  40000,
+                            "drives": [
+                                {
+                                    "name": "ideko-c1-d1",
+                                    "size": 10000,
+                                    "type": "SSD"
+                                }
+                            ],
+                            "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
+                            "role": "master"
+                        },
                         {
-                        "name": "ideko-c2-d1",
-                        "size": 70000,
-                        "type": "SSD"
-                        }
-                    ],
-                    "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
-                    "role": "slave"
-                },
-                {
-                    "name": "ideko-c3",
-                    "cpu": 8000,
-                    "ram": 12000,
-                    "disk":  40000,
-                    "drives": [
+                            "name": "ideko-c2",
+                            "cpu": 8000,
+                            "ram": 4000,
+                            "disk":  40000,
+                            "drives": [
+                                {
+                                    "name": "ideko-c2-d1",
+                                    "size": 70000,
+                                    "type": "SSD"
+                                }
+                            ],
+                            "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
+                            "role": "slave"
+                        },
                         {
-                        "name": "ideko-c3-d1",
-                        "size": 70000,
-                        "type": "SSD"
+                            "name": "ideko-c3",
+                            "cpu": 8000,
+                            "ram": 12000,
+                            "disk":  40000,
+                            "drives": [
+                                {
+                                    "name": "ideko-c3-d1",
+                                    "size": 70000,
+                                    "type": "SSD"
+                                }
+                            ],
+                            "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
+                            "role": "slave"
                         }
-                    ],
-                    "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
-                    "role": "slave"
-                }]
-            }
-        ]
+                    ]
+                }
+            ]
         }
-        
     },    
     "EXPOSED_API": {
         "openapi": "3.0.0",
