@@ -376,12 +376,6 @@
                 "externalPort": 30200,
                 "image": "153.92.30.56:5050/influxdb-dal-local:latest",
                 "original_ip": "212.8.121.134"
-            },
-            "influxdb-dal-cloud": {
-                "internalPort": 30200,
-                "externalPort": 30200,
-                "image": "153.92.30.56:5050/influxdb-dal-cloud:latest",
-                "original_ip": "153.92.30.130"
             }
         },
         "VDC_Images": {
