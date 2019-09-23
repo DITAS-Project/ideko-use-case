@@ -177,6 +177,10 @@
             {
                 "method_id": "GetSimplifiedDiagnostic",
                 "attributes": [ "status", "timestamp", "cause"]
+            },
+			{
+                "method_id": "GetFullDiagnostic",
+                "attributes": [ "status", "timestamp", "cause"]
             }
         ]
     }
