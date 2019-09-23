@@ -553,14 +553,15 @@
 		},
 		"Testing_Output_Data": [{
 			"method_id": "GetStreamingData",
-			"zip_data": "TO-DO URL to a zip file with data samples",
-			"attributes": ["machine", "group", "data"]
+			"zip_data": "TO-DO URL to a zip file with data samples"
 		}, {
 			"method_id": "GetSimplifiedDiagnostic",
-			"zip_data": "TO-DO URL to a zip file with data samples"
+			"zip_data": "TO-DO URL to a zip file with data samples",
+			"attributes": ["status", "timestamp", "cause"]
 		}, {
 			"method_id": "GetFullDiagnostic",
-			"zip_data": "TO-DO URL to a zip file with data samples"
+			"zip_data": "TO-DO URL to a zip file with data samples",
+			"attributes": ["status", "timestamp", "cause"]
 		}]
 	},
 	"DATA_MANAGEMENT": [{
@@ -577,8 +578,8 @@
 					}
 				}
 			}, {
-				"id": "timeliness_065",
-				"description": "Timeliness 0.65",
+				"id": "timeliness_65",
+				"description": "Timeliness 65",
 				"type": "Timeliness",
 				"properties": {
 					"timeliness": {
@@ -608,7 +609,7 @@
 				}
 			}, {
 				"id": "accuracy_09",
-				"description": "Accuracy 0.9",
+				"description": "Accuracy 90",
 				"type": "Accuracy",
 				"properties": {
 					"accuracy": {
@@ -637,7 +638,7 @@
 				}
 			}, {
 				"id": "accessControl_direct",
-				"description": "Access Control Direct",
+				"description": "Access control Direct",
 				"type": "AccessControl",
 				"properties": {
 					"Protocol": {
@@ -666,27 +667,27 @@
 				"type": "ResponseTime",
 				"properties": {
 					"responseTime": {
-						"maximum": 2,
+						"maximum": 4,
 						"unit": "second"
 					}
 				}
 			}, {
-				"id": "timeliness_99",
+				"id": "timeliness",
 				"description": "Timeliness",
 				"type": "Timeliness",
 				"properties": {
 					"timeliness": {
-						"minimum": 99,
+						"minimum": 90,
 						"unit": "percentage"
 					}
 				}
 			}, {
 				"id": "volume_1200",
-				"description": "volume 10000",
+				"description": "volume 1200",
 				"type": "Volume",
 				"properties": {
 					"volume": {
-						"value": "10000",
+						"minimum": 1200,
 						"unit": "tuple"
 					}
 				}
@@ -725,18 +726,28 @@
 		"method_id": "GetFullDiagnostic",
 		"attributes": {
 			"dataUtility": [{
-				"id": "availability_99",
-				"description": "Availability 99",
+				"id": "availability_90",
+				"description": "Availability 90",
 				"type": "Availability",
 				"properties": {
 					"availability": {
 						"unit": "percentage",
-						"minimum": 99
+						"minimum": 90
 					}
 				}
 			}, {
-				"id": "timeliness_90",
-				"description": "Timeliness 90",
+				"id": "responseTime_2",
+				"description": "ResponseTime 2",
+				"type": "ResponseTime",
+				"properties": {
+					"responseTime": {
+						"maximum": 4,
+						"unit": "second"
+					}
+				}
+			}, {
+				"id": "timeliness",
+				"description": "Timeliness",
 				"type": "Timeliness",
 				"properties": {
 					"timeliness": {
@@ -745,23 +756,13 @@
 					}
 				}
 			}, {
-				"id": "volume_7776000",
-				"description": "volume 7776000",
+				"id": "volume_1200",
+				"description": "volume 1200",
 				"type": "Volume",
 				"properties": {
 					"volume": {
-						"value": "7776000",
-						"unit": "none"
-					}
-				}
-			}, {
-				"id": "responseTime_4",
-				"description": "ResponseTime 4",
-				"type": "ResponseTime",
-				"properties": {
-					"responseTime": {
-						"maximum": 4,
-						"unit": "second"
+						"minimum": 1200,
+						"unit": "tuple"
 					}
 				}
 			}],
@@ -797,7 +798,7 @@
 		}
 	}],
 	"ABSTRACT_PROPERTIES": [{
-		"method_id": "GetStreamingData",
+		"method_id": "GetSimplifiedDiagnostic",
 		"goalTrees": {
 			"dataUtility": {
 				"type": "AND",
@@ -807,25 +808,74 @@
 						"id": "serviceAvailable",
 						"description": "Service available",
 						"weight": 1,
-						"attributes": ["availability_95"]
+						"attributes": ["availability_90"]
 					}, {
-						"id": "FastDataStreaming",
-						"description": "Fast data streaming",
+						"id": "fastProcess",
+						"description": "Fast process",
 						"weight": 1,
-						"attributes": ["throughtput_05"]
+						"attributes": ["responseTime_2"]
 					}]
 				}, {
 					"type": "AND",
 					"leaves": [{
-						"id": "timeliness",
-						"description": "Timeliness",
+						"id": "freshData",
+						"description": "Fresh data",
 						"weight": 1,
-						"attributes": ["timeliness_065"]
+						"attributes": ["timeliness"]
 					}, {
-						"id": "consistency",
-						"description": "consistency",
+						"id": "EnoughData",
+						"description": "Enough amount of Data",
 						"weight": 1,
-						"attributes": ["precision_08", "accuracy_09"]
+						"attributes": ["volume_1200"]
+					}]
+				}]
+			},
+			"security": {
+				"type": "AND",
+				"leaves": [{
+					"id": "TrasportEncryption",
+					"description": "Secure data trasport",
+					"weight": 1,
+					"attributes": ["encryption_AES128"]
+				}, {
+					"id": "AccessControl",
+					"description": "Secure access",
+					"weight": 1,
+					"attributes": ["accessControl_direct"]
+				}]
+			},
+			"privacy": {}
+		}
+	}, {
+		"method_id": "GetFullDiagnostic",
+		"goalTrees": {
+			"dataUtility": {
+				"type": "AND",
+				"children": [{
+					"type": "AND",
+					"leaves": [{
+						"id": "serviceAvailable",
+						"description": "Service available",
+						"weight": 1,
+						"attributes": ["availability_90"]
+					}, {
+						"id": "fastProcess",
+						"description": "Fast process",
+						"weight": 1,
+						"attributes": ["responseTime_2"]
+					}]
+				}, {
+					"type": "AND",
+					"leaves": [{
+						"id": "freshData",
+						"description": "Fresh data",
+						"weight": 1,
+						"attributes": ["timeliness"]
+					}, {
+						"id": "EnoughData",
+						"description": "Enough amount of Data",
+						"weight": 1,
+						"attributes": ["volume_1200"]
 					}]
 				}]
 			},

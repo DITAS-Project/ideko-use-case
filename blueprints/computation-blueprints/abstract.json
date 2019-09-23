@@ -545,7 +545,7 @@
                         {
                             "timeliness": 
                             {
-                                "maximum":99,
+                                "minimum":99,
                                 "unit": "percentage"
                             }
                         }
