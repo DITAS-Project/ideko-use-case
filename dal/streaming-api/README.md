@@ -37,14 +37,14 @@ The server listens in the port 40001.
 # Running with Docker
 
 * Run `docker build -t streaming-dal-ideko .` from the folder where the Dockerfile is.
-* Run `docker run -p 40001:40001 --restart always --name streaming-dal-ideko -d 153.92.30.56:5050/streaming-dal-ideko`. The server will be automatically started.
+* Run `docker run -p 40001:40001 --restart unless-stopped --name streaming-dal-ideko -d 153.92.30.56:5050/streaming-dal-ideko`. The server will be automatically started.
 * Run any _grpc_ client or use the included cliente by `docker exec -it ID /bin/bash` and then running the client as detailed in the previus section.
 
 ## Running the DAL in test mode
 
 In test mode, the authorization is not parsed so any request goes on:
 
-`docker run -p 40001:40001 --restart always --name streaming-dal-ideko 153.92.30.56:5050/streaming-dal-ideko python3 -u /opt/dal/savvy-streaming-api-server.py --testing`
+`docker run -p 40001:40001 --restart unless-stopped --name streaming-dal-ideko 153.92.30.56:5050/streaming-dal-ideko python3 -u /opt/dal/savvy-streaming-api-server.py --testing`
 
 # TODO
 

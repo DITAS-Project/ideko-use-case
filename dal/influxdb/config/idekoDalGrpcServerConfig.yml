@@ -1,5 +1,5 @@
 debugMode: true
-port: 50052
+port: 30200
 
 waitDuration: 2 # seconds
 

@@ -255,7 +255,7 @@
 		<script>
 			$(window).ready(function()
 			{
-/*
+
 				// Kelly (1) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 				console.log("Starting stream for Kelly (1)");
@@ -265,7 +265,7 @@
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Slater;
 				console.log("Starting stream for Slater (2)");
 				StreamController.startStreaming(urlStream);
-*/
+
 				// Zack (3) - GetStreamingData
 				urlStream = AppConfiguration.GetStreamingDataURL + "?machine=" + AppConfiguration.machineIds.Zack;
 				console.log("Starting stream for Zack (3)");
@@ -273,17 +273,17 @@
 
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms (" + AppConfiguration.CallAndPrintDiagnosticValuesInterval/1000 + " sec) to get status of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
-/*
+
 					// Kelly (1) - GetSimplifiedDiagnostic
-					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Kelly;
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Kelly");
 
 					// Slater (2) - GetSimplifiedDiagnostic
-					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Slater;
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Slater;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Slater");
-*/
+
 					// Zack (3) - GetSimplifiedDiagnostic
-					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machines=" + AppConfiguration.machineIds.Zack;
+					urlSimplifiedDiagnostic = AppConfiguration.GetSimplifiedDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Zack;
 					DiagnosticController.startDiagnosticCall(urlSimplifiedDiagnostic, "Zack");
 				}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
 			});
