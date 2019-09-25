@@ -183,5 +183,124 @@
                 "attributes": [ "status", "timestamp", "cause"]
             }
         ]
-    }
+    },
+	"providedResources": {
+		"infrastructures": [
+			{
+				"name": "spart-fog-infrastructure",
+				"type": "fog",
+				"provider": {
+					"api_endpoint": "ip_removed",
+					"apy_tpye": "kubernetes",
+					"credentials": {
+						"config": {
+						  "apiVersion": "v1",
+						  "clusters": [
+							{
+							  "cluster": {
+								"certificate-authority-data": "removed",
+								"server": "https://ip_removed:36443"
+							  },
+							  "name": "kubernetes"
+							}
+						  ],
+						  "contexts": [
+							{
+							  "context": {
+								"cluster": "kubernetes",
+								"user": "kubernetes-admin"
+							  },
+							  "name": "kubernetes-admin@kubernetes"
+							}
+						  ],
+						  "current-context": "kubernetes-admin@kubernetes",
+						  "kind": "Config",
+						  "preferences": {},
+						  "users": [
+							{
+							  "name": "kubernetes-admin",
+							  "user": {
+								"client-certificate-data": "removed",
+								"client-key-data": "removed"
+							  }
+							}
+						  ]
+					   }
+					}
+				},
+				"extra_properties": {
+					"owner": "ApplicationDeveloper",
+					"ditas_default": true
+				},
+				"resources": [
+					{
+						"name": "spart-fog-server-1",
+						"cpu": 1830,
+						"ram": 8000,
+						"disk": 480000,
+						"drives": [
+						],
+						"role": "master"
+					}
+				]
+			},    
+			{
+				"name": "spart-edge-infrastructure",
+				"type": "edge",
+				"provider": {
+					"api_endpoint": "ip_removed",
+					"apy_tpye": "kubernetes",
+					"credentials": {
+						"config": {
+						  "apiVersion": "v1",
+						  "clusters": [
+							{
+							  "cluster": {
+								"certificate-authority-data": "removed",
+								"server": "https://ip_removed:36444"
+							  },
+							  "name": "kubernetes"
+							}
+						  ],
+						  "contexts": [
+							{
+							  "context": {
+								"cluster": "kubernetes",
+								"user": "kubernetes-admin"
+							  },
+							  "name": "kubernetes-admin@kubernetes"
+							}
+						  ],
+						  "current-context": "kubernetes-admin@kubernetes",
+						  "kind": "Config",
+						  "preferences": {},
+						  "users": [
+							{
+							  "name": "kubernetes-admin",
+							  "user": {
+								"client-certificate-data": "removed",
+								"client-key-data": "removed"
+							  }
+							}
+						  ]
+						}
+					}
+				},
+				"extra_properties": {
+					"owner": "ApplicationDeveloper"
+				},
+				"resources": [
+					{
+						"name": "spart-edge-server-1",
+						"cpu": 1830,
+						"ram": 4000,
+						"disk": 120000,
+						"drives": [
+						],
+						"role": "master"
+					}
+				]
+			}
+		]
+	}
 }
