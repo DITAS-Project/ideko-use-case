@@ -732,7 +732,7 @@
                                     "type": "SSD"
                                 }
                             ],
-                            "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
+                            "image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
                             "role": "master"
                         },
                         {
@@ -747,7 +747,7 @@
                                     "type": "SSD"
                                 }
                             ],
-                            "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
+                            "image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
                             "role": "slave"
                         },
                         {
@@ -762,7 +762,7 @@
                                     "type": "SSD"
                                 }
                             ],
-                            "image_id": "39a559bb-25a7-4522-9bd0-115a908a6fb6",
+                            "image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
                             "role": "slave"
                         }
                     ]
