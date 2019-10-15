@@ -15,7 +15,8 @@ console.log(pDiagnosticResponse);
 				DiagnosticController.DateM1 = Date(pDiagnosticResponse.timestamp);
 				DiagnosticController.CauseM1 = pDiagnosticResponse.cause.raw;
 				DiagnosticController.MetricM1 = pDiagnosticResponse.cause.metric;
-				DiagnosticController.ValueM1 = parseFloat(pDiagnosticResponse.cause.value).toFixed(2);
+				readedValue = parseFloat(pDiagnosticResponse.cause.value).toFixed(2);
+				if (readedValue) DiagnosticController.ValueM1 = readedValue
 
 				if (pDiagnosticResponse.hasOwnProperty("signals") && pDiagnosticResponse.signals != null)
 				{
@@ -37,7 +38,8 @@ console.log(pDiagnosticResponse);
 				DiagnosticController.DateM2 = Date(pDiagnosticResponse.timestamp);
 				DiagnosticController.CauseM2 = pDiagnosticResponse.cause.raw;
 				DiagnosticController.MetricM2 = pDiagnosticResponse.cause.metric;
-				DiagnosticController.ValueM2 = parseFloat(pDiagnosticResponse.cause.value).toFixed(2);
+				readedValue = parseFloat(pDiagnosticResponse.cause.value).toFixed(2);
+				if (readedValue) DiagnosticController.ValueM2 = readedValue
 
 				if (pDiagnosticResponse.hasOwnProperty("signals") && pDiagnosticResponse.signals != null)
 				{
@@ -59,7 +61,8 @@ console.log(pDiagnosticResponse);
 				DiagnosticController.DateM3 = Date(pDiagnosticResponse.timestamp);
 				DiagnosticController.CauseM3 = pDiagnosticResponse.cause.raw;
 				DiagnosticController.MetricM3 = pDiagnosticResponse.cause.metric;
-				DiagnosticController.ValueM3 = parseFloat(pDiagnosticResponse.cause.value).toFixed(2);
+				readedValue = parseFloat(pDiagnosticResponse.cause.value).toFixed(2);
+				if (readedValue) DiagnosticController.ValueM3 = readedValue
 
 				if (pDiagnosticResponse.hasOwnProperty("signals") && pDiagnosticResponse.signals != null)
 				{
