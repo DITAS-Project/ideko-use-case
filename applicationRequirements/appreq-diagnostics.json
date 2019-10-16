@@ -88,9 +88,12 @@
                 {
                     "id": "accessControl_direct",
                     "description": "Access control Direct",
-                    "type": "AccessControl",
+                    "type": "Protocol",
                     "properties": {
-                        "Protocol": {
+                        "required":{
+							"value":"true"
+						},
+						"Protocol": {
                             "value": "Direct, OAuth"
                         }
                     }

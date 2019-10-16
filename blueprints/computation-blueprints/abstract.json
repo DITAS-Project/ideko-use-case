@@ -500,8 +500,11 @@
                         "description": "Access control Direct",
                         "type": "AccessControl",
                         "properties": {
-                            "Protocol": {
-                                "value": "Direct, OAuth"
+							"required":{
+								"value":"true"
+							},
+							"Protocol": {
+								"value": "Direct, OAuth"
                             }
                         }
                     }
@@ -561,7 +564,7 @@
                         "type": "Volume",
                         "properties": {
                             "volume": {
-                                "value": "10000",
+                                "value": 10000,
                                 "unit": "tuple"
                             }
                         }
@@ -590,9 +593,12 @@
                     {
                         "id": "accessControl_direct",
                         "description": "Access control Direct",
-                        "type": "AccessControl",
+                        "type": "Protocol",
                         "properties": {
-                            "Protocol": {
+                            "required":{
+								"value":"true"
+							},
+							"Protocol": {
                                 "value": "Direct, OAuth"
                             }
                         }
@@ -641,7 +647,7 @@
                         "type": "Volume",
                         "properties": {
                             "volume": {
-                                "value": "7776000",
+                                "value": 7776000,
                                 "unit": "none"
                             }
                         }
@@ -681,9 +687,12 @@
                     {
                         "id": "accessControl_direct",
                         "description": "Access control Direct",
-                        "type": "AccessControl",
+                        "type": "Protocol",
                         "properties": {
-                            "Protocol": {
+                            "required":{
+								"value":"true"
+							},
+							"Protocol": {
                                 "value": "Direct, OAuth"
                             }
                         }
