@@ -23,7 +23,7 @@
 					"availability": 
 					{
 						"unit": "percentage",
-						"minimum":95
+						"minimum":90
 					}				
 				}						
 			},
@@ -61,7 +61,7 @@
 				{
 					"precision": 
 					{
-						"minimum":0.8,
+						"maximum":0.8,
 						"unit": "none"
 					}
 				}
@@ -103,10 +103,20 @@
 			{
 				"id": "accessControl_direct",
 				"description": "Access Control Direct",
-				"type": "AccessControl",
+				"type": "Protocol",
 				"properties": {
-					"Protocol": {
-						"value": "Direct, OAuth"
+					"required":{
+						"value":"true"
+					},
+					"protocol": {
+						"unit": "enum",
+						"value": "username/password"
+					},
+					"credentials":{
+						"unit":"list",
+						"value":[
+							"researcher_id"
+						]
 					}
 				}
 			}

@@ -88,11 +88,21 @@
                 {
                     "id": "accessControl_direct",
                     "description": "Access control Direct",
-                    "type": "AccessControl",
+                    "type": "Protocol",
                     "properties": {
-                        "Protocol": {
-                            "value": "Direct, OAuth"
-                        }
+                        "required":{
+				"value":"true"
+				},
+			"protocol": {
+				"unit": "enum",
+				"value": "username/password"
+			},
+			"credentials":{
+			 	"unit":"list",
+			  	"value":[
+			     		"researcher_id"
+			  	]
+               		}
                     }
                 }  
             ],
