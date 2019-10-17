@@ -212,10 +212,10 @@
 		"infrastructures": [
 			{
 				"name": "spart-fog-infrastructure",
-				"type": "fog",
+				"type": "cloud",
 				"provider": {
 					"api_endpoint": "ip_removed",
-					"apy_tpye": "kubernetes",
+					"api_type": "kubernetes",
 					"credentials": {
 						"config": {
 						  "apiVersion": "v1",
@@ -249,7 +249,8 @@
 							  }
 							}
 						  ]
-					   }
+					   },
+						"registries_secret": "secret"
 					}
 				},
 				"extra_properties": {
@@ -307,7 +308,8 @@
 							  }
 							}
 						  ]
-						}
+						},
+						"registries_secret": "secret"
 					}
 				},
 				"extra_properties": {
