@@ -5,9 +5,9 @@ var AppConfiguration = {
   AppPassword: "260179d083fc875f132b1be295913e26070c76f677609796b73f09ae3f0dc7f8073a999e26a189a87e362a960b6b1288817a452b4ae697d3971327a589615bfb",
 
   // DAL endpoints:
-  GetSimplifiedDiagnosticURL: "http://localhost:1888/caf/GetSimplifiedDiagnostic",
-  GetFullDiagnosticURL: "http://localhost:1888/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://localhost:1888/caf/GetStreamingData",
+  GetSimplifiedDiagnosticURL: "http://212.8.121.134:30000/caf/GetSimplifiedDiagnostic",
+  GetFullDiagnosticURL: "http://212.8.121.134:30000/caf/GetFullDiagnostic",
+  GetStreamingDataURL: "http://212.8.121.134:30000/caf/GetStreamingData",
 
   // Keycloak
   KeycloakURL: "https://153.92.30.56:58080",

@@ -268,8 +268,10 @@
 
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	    <script src="../js/config.js"></script>
-		<script src="https://github.highcharts.com/master/highcharts.js"></script>
-	    <!--<script src="js/highcharts/highcharts.js"></script>-->
+		<!-- Este es el que ha dado problemas: -->
+		<!--<script src="https://github.highcharts.com/master/highcharts.js"></script>-->
+	    <script src="../js/highcharts/highcharts-final.js"></script>
+		<!-- Este estaba comentado ya -->
 	    <!--<script src="js/highcharts/highcharts-more.js"></script>-->
 	    <script src="../js/highcharts/charts/app3-bars.js"></script>
 	    <script src="../js/highcharts/charts/app3-graphs.js"></script>
@@ -279,7 +281,10 @@
 		<script src="../js/diagnostic/diagnostic.js"></script>
 		<script src="../js/diagnostic/diagnostic-controller.js"></script>
 		<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+		<!-- Este estaba comentado ya -->
 		<!--<script src="https://code.highcharts.com/6.1.4/modules/boost.js"></script>-->
+	    <script src="../js/highcharts/boost-final.js"></script>
+		<!-- Este es el que estaba puesto, antes de bajarse el local (el de encima)-->
 		<script src="https://code.highcharts.com/modules/boost.js"></script>
 		<script src="../js/login/check-local-storage.js"></script>
 		<script src="../js/login/logout.js"></script>
@@ -305,11 +310,11 @@
 
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms (" + AppConfiguration.CallAndPrintDiagnosticValuesInterval/1000 + " sec) to get values of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
-
+/*
 					// Kelly (1) - GetFullDiagnostic
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Kelly");
-
+*/
 					// Slater (2) - GetFullDiagnostic
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Slater;
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Slater");
@@ -318,7 +323,9 @@
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Zack;
 					console.log(urlFullDiagnostic);
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Zack");
+
 				}, AppConfiguration.CallAndPrintDiagnosticValuesInterval);
+
 			});
 		</script>
 	</div>

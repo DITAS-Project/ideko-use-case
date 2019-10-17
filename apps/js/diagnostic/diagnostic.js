@@ -31,7 +31,6 @@ var Diagnostic = {
 
 		request.onload = function()
 		{
-
 			if (typeof this.index == "undefined")
 				this.index = 0;
 			if (this.readyState >= 3 && this.status == 200)
