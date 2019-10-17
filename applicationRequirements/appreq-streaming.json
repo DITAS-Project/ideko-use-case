@@ -108,8 +108,15 @@
 					"required":{
 						"value":"true"
 					},
-					"Protocol": {
-						"value": "Direct, OAuth"
+					"protocol": {
+						"unit": "enum",
+						"value": "username/password"
+					},
+					"credentials":{
+						"unit":"list",
+						"value":[
+							"researcher_id"
+						]
 					}
 				}
 			}
