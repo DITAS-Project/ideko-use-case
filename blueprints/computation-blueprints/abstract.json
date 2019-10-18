@@ -748,7 +748,7 @@
                     },
                     "extra_properties": {
                         "owner": "DataAdministrator",
-						"ditas_default": true
+						"ditas_default":"true"
                     },
                     "resources": [
                         {
