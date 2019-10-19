@@ -436,12 +436,12 @@
                         }
                     },
                     {
-                        "id": "throughtput_05",
-                        "description": "throughtput",
-                        "type": "throughtput",
+                        "id": "throughput_05",
+                        "description": "throughput",
+                        "type": "throughput",
                         "properties": 
                         {
-                            "throughtput": 
+                            "throughput": 
                             {
                                 "minimum": 0.5,
                                 "unit": "MB/s"
