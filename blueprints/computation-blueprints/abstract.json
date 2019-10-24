@@ -430,7 +430,7 @@
                         {
                             "timeliness": 
                             {
-                                "maximum": 65,
+                                "minimum": 65,
                                 "unit": "percentage"
                             }
                         }
@@ -438,7 +438,7 @@
                     {
                         "id": "throughput_05",
                         "description": "throughput",
-                        "type": "throughput",
+                        "type": "Throughput",
                         "properties": 
                         {
                             "throughput": 
@@ -456,7 +456,7 @@
                         {
                             "precision": 
                             {
-                                "minimum": 0.8,
+                                "maximum": 0.8,
                                 "unit": "none"
                             }
                         }

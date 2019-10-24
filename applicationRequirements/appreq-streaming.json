@@ -42,8 +42,8 @@
 			},
 			{
 				"id": "throughput_05",
-				"description": "throughput",
-				"type": "throughput",
+				"description": "Throughput",
+				"type": "Throughput",
 				"properties": 
 				{
 					"throughput": 

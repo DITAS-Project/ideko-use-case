@@ -588,16 +588,16 @@
 				"type": "Timeliness",
 				"properties": {
 					"timeliness": {
-						"maximum": 65,
+						"minimum": 65,
 						"unit": "percentage"
 					}
 				}
 			}, {
-				"id": "throughtput_05",
-				"description": "throughtput",
-				"type": "throughtput",
+				"id": "throughput_05",
+				"description": "throughput",
+				"type": "Throughput",
 				"properties": {
-					"throughtput": {
+					"throughput": {
 						"minimum": 0.5,
 						"unit": "MB/s"
 					}
@@ -608,7 +608,7 @@
 				"type": "Precision",
 				"properties": {
 					"precision": {
-						"minimum": 0.8,
+						"maximum": 0.8,
 						"unit": "none"
 					}
 				}
@@ -643,11 +643,19 @@
 				}
 			}, {
 				"id": "accessControl_direct",
-				"description": "Access control Direct",
-				"type": "AccessControl",
+				"description": "Access Control Direct",
+				"type": "Protocol",
 				"properties": {
-					"Protocol": {
-						"value": "Direct, OAuth"
+					"required": {
+						"value": "true"
+					},
+					"protocol": {
+						"unit": "enum",
+						"value": "username/password"
+					},
+					"credentials": {
+						"unit": "list",
+						"value": ["researcher_id"]
 					}
 				}
 			}],
@@ -718,10 +726,18 @@
 			}, {
 				"id": "accessControl_direct",
 				"description": "Access control Direct",
-				"type": "AccessControl",
+				"type": "Protocol",
 				"properties": {
-					"Protocol": {
-						"value": "Direct, OAuth"
+					"required": {
+						"value": "true"
+					},
+					"protocol": {
+						"unit": "enum",
+						"value": "username/password"
+					},
+					"credentials": {
+						"unit": "list",
+						"value": ["researcher_id"]
 					}
 				}
 			}],
@@ -792,10 +808,18 @@
 			}, {
 				"id": "accessControl_direct",
 				"description": "Access control Direct",
-				"type": "AccessControl",
+				"type": "Protocol",
 				"properties": {
-					"Protocol": {
-						"value": "Direct, OAuth"
+					"required": {
+						"value": "true"
+					},
+					"protocol": {
+						"unit": "enum",
+						"value": "username/password"
+					},
+					"credentials": {
+						"unit": "list",
+						"value": ["researcher_id"]
 					}
 				}
 			}],
@@ -910,7 +934,7 @@
 				"type": "cloud",
 				"provider": {
 					"api_endpoint": "https://fra.cloudsigma.com/api/2.0",
-					"apy_tpye": "Cloudsigma",
+					"api_type": "Cloudsigma",
 					"credentials": {
 						"username": "apps@ideko.es",
 						"password": "ASK-FOR-IT"
@@ -918,7 +942,8 @@
 					"secret_id": ""
 				},
 				"extra_properties": {
-					"owner": "DataAdministrator"
+					"owner": "DataAdministrator",
+					"ditas_default": "true"
 				},
 				"resources": [{
 					"name": "ideko-c1",
@@ -931,7 +956,10 @@
 						"type": "SSD"
 					}],
 					"image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
-					"role": "master"
+					"role": "master",
+					"extra_properties": {
+						"cloudsigma_boot_drive_type": "custom"
+					}
 				}, {
 					"name": "ideko-c2",
 					"cpu": 8000,
@@ -943,7 +971,10 @@
 						"type": "SSD"
 					}],
 					"image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
-					"role": "slave"
+					"role": "slave",
+					"extra_properties": {
+						"cloudsigma_boot_drive_type": "custom"
+					}
 				}, {
 					"name": "ideko-c3",
 					"cpu": 8000,
@@ -955,14 +986,17 @@
 						"type": "SSD"
 					}],
 					"image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
-					"role": "slave"
+					"role": "slave",
+					"extra_properties": {
+						"cloudsigma_boot_drive_type": "custom"
+					}
 				}]
 			}, {
 				"name": "spart-fog-infrastructure",
-				"type": "fog",
+				"type": "cloud",
 				"provider": {
 					"api_endpoint": "ip_removed",
-					"apy_tpye": "kubernetes",
+					"api_type": "kubernetes",
 					"credentials": {
 						"config": {
 							"apiVersion": "v1",
@@ -990,7 +1024,8 @@
 									"client-key-data": "removed"
 								}
 							}]
-						}
+						},
+						"registries_secret": "secret"
 					}
 				},
 				"extra_properties": {
@@ -1010,7 +1045,7 @@
 				"type": "edge",
 				"provider": {
 					"api_endpoint": "ip_removed",
-					"apy_tpye": "kubernetes",
+					"api_type": "kubernetes",
 					"credentials": {
 						"config": {
 							"apiVersion": "v1",
@@ -1038,7 +1073,8 @@
 									"client-key-data": "removed"
 								}
 							}]
-						}
+						},
+						"registries_secret": "secret"
 					}
 				},
 				"extra_properties": {
