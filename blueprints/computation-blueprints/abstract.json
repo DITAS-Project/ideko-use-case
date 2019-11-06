@@ -755,7 +755,7 @@
                             "name": "ideko-c1",
                             "cpu": 4000,
                             "ram": 4096,
-                            "disk":  40000,
+                            "disk":  40960,
                             "drives": [
                                 {
                                     "name": "ideko-c1-d1",
