@@ -748,7 +748,8 @@
                     },
                     "extra_properties": {
                         "owner": "DataAdministrator",
-						"ditas_default":"true"
+						"ditas_default":"true",
+						"kubeadm_preinstalled_image":"true"
                     },
                     "resources": [
                         {
