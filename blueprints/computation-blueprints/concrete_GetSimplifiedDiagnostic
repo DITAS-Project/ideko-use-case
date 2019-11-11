@@ -91,10 +91,7 @@
             "api_endpoint": "https://fra.cloudsigma.com/api/2.0",
             "api_type": "cloudsigma",
             "secret_id": "",
-            "credentials": {
-              "password": "J4sj3HH3vd",
-              "username": "apps@ideko.es"
-            }
+            "credentials": {}
           },
           "resources": [
             {
