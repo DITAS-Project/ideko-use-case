@@ -763,7 +763,7 @@
                                     "type": "SSD"
                                 }
                             ],
-                            "image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
+                            "image_id": "560420b4-3f54-4670-ba1c-a8cd0b2a7f3e",
                             "role": "master",
 							"extra_properties": {
 								"cloudsigma_boot_drive_type": "custom"
@@ -781,7 +781,7 @@
                                     "type": "SSD"
                                 }
                             ],
-                            "image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
+                            "image_id": "560420b4-3f54-4670-ba1c-a8cd0b2a7f3e",
                             "role": "slave",
 							"extra_properties": {
 								"cloudsigma_boot_drive_type": "custom"
@@ -799,7 +799,7 @@
                                     "type": "SSD"
                                 }
                             ],
-                            "image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
+                            "image_id": "560420b4-3f54-4670-ba1c-a8cd0b2a7f3e",
                             "role": "slave",
 							"extra_properties": {
 								"cloudsigma_boot_drive_type": "custom"
