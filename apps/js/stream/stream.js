@@ -85,14 +85,22 @@ var Stream = {
 			}
 			else
 			{
-				console.log("Stream error. If you just lunched the stream this is normal, stream should start right after this message\n");
+				console.log("Launching stream!\n");
 			}
 		};
 
 		request.onerror = function()
 		{
 			// There was a connection error of some sort
-			console.log('onerror');
+			console.log('ERROR: onerror');
+			StreamController.reconnect(pUrl)
+		};
+
+		request.abort = function()
+		{
+			// Connection aborted
+			console.log('ERROR: abort');
+			StreamController.reconnect(pUrl)
 		};
 
 		request.send();

@@ -42,5 +42,12 @@ var StreamController =
 				if (pStreamResponseLine.data.hasOwnProperty(AppConfiguration.Z2AxisEngineIntensityM3id)) StreamController.Z2AxisEngineIntensityM3 = pStreamResponseLine.data[AppConfiguration.Z2AxisEngineIntensityM3id];
 			}
 		});
-	}
+	},
+
+	// Reconnects to the given URL
+	reconnect: function(pUrl)
+	{
+		console.log("Stream connection aborted, reconnecting to: " + pUrl);
+		StreamController.startStreaming(pUrl);
+	},
 }
