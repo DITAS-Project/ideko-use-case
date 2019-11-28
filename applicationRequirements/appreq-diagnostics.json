@@ -2,12 +2,9 @@
 	"applicationType": "batch",
 	"functionalRequirements": {
 		
-        "methodTags": ["machine", "diagnostic", "anomaly detection"],
-        
-		"vdcTags": ["ask_iccs"],
-		"schema": {
-			"attributes": ["ask_iccs"]
-		}
+        "vdcTags":["machines"],
+		
+		"methodTags":["anomaly detection"]
 
 	},
 	"attributes": 
