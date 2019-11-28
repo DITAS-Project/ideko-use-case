@@ -2,12 +2,9 @@
 	"applicationType": "streaming",
 	"functionalRequirements": {
 		
-        "methodTags": ["machine", "data", "json", "stream", "streaming"],
-        
-		"vdcTags": ["ask_iccs"],
-		"schema": {
-			"attributes": ["ask_iccs"]
-		}
+        "vdcTags":["machines"],
+		
+		"methodTags":["streaming"]
 
 	},
 	"attributes": 
