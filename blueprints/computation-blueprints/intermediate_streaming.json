@@ -884,7 +884,7 @@
 				"type": "cloud",
 				"provider": {
 					"api_endpoint": "https://fra.cloudsigma.com/api/2.0",
-					"api_type": "Cloudsigma",
+					"api_type": "cloudsigma",
 					"credentials": {
 						"username": "apps@ideko.es",
 						"password": "ASK-FOR-IT"
@@ -893,19 +893,20 @@
 				},
 				"extra_properties": {
 					"owner": "DataAdministrator",
-					"ditas_default": "true"
+					"ditas_default": "true",
+					"kubeadm_preinstalled_image": "true"
 				},
 				"resources": [{
 					"name": "ideko-c1",
 					"cpu": 4000,
-					"ram": 4000,
-					"disk": 40000,
+					"ram": 4096,
+					"disk": 40960,
 					"drives": [{
 						"name": "ideko-c1-d1",
 						"size": 10000,
 						"type": "SSD"
 					}],
-					"image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
+					"image_id": "560420b4-3f54-4670-ba1c-a8cd0b2a7f3e",
 					"role": "master",
 					"extra_properties": {
 						"cloudsigma_boot_drive_type": "custom"
@@ -920,7 +921,7 @@
 						"size": 70000,
 						"type": "SSD"
 					}],
-					"image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
+					"image_id": "560420b4-3f54-4670-ba1c-a8cd0b2a7f3e",
 					"role": "slave",
 					"extra_properties": {
 						"cloudsigma_boot_drive_type": "custom"
@@ -935,7 +936,7 @@
 						"size": 70000,
 						"type": "SSD"
 					}],
-					"image_id": "f24934bd-454c-4ae4-939c-c0923521f32f",
+					"image_id": "560420b4-3f54-4670-ba1c-a8cd0b2a7f3e",
 					"role": "slave",
 					"extra_properties": {
 						"cloudsigma_boot_drive_type": "custom"
