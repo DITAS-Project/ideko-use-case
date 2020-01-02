@@ -202,7 +202,7 @@ RUN mkdir -p /opt/ditas/python-teda-framework
 ARG bbuser
 ARG bbpass
 RUN apk add git
-RUN git clone --single-branch --branch ditas https://$bbuser:$bbpass@bitbucket.org/idekotics/python-teda-framework.git /opt/ditas/python-teda-framework
+RUN git clone --single-branch --branch ditas https://$bbuser:$bbpass@bitbucket.org/idekotics/ideko-analytics-framework.git /opt/ditas/python-teda-framework
 RUN apk add libc-dev alpine-sdk
 RUN pip install -r /opt/ditas/python-teda-framework/requirements.txt
 RUN mkdir -p /opt/ditas/data/input
