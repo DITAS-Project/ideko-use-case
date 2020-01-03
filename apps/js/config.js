@@ -7,7 +7,7 @@ var AppConfiguration = {
   // DAL endpoints:
   GetSimplifiedDiagnosticURL: "http://212.8.121.134:30000/caf/GetSimplifiedDiagnostic",
   GetFullDiagnosticURL: "http://212.8.121.134:30000/caf/GetFullDiagnostic",
-  GetStreamingDataURL: "http://212.8.121.134:30000/caf/GetStreamingData",
+  GetStreamingDataURL: "http://212.8.121.134:30003/caf/GetStreamingData",
 
   // Keycloak
   KeycloakURL: "https://153.92.30.56:58080",
