@@ -22,7 +22,7 @@ var AppConfiguration = {
   },
 
   // Call and print GetFullDiagnostic
-  CallAndPrintDiagnosticValuesInterval: 10000,
+  CallAndPrintDiagnosticValuesInterval: 30000,
 
   // Interval to get the values from GetStreamingData
   GetStreamValuesInterval: 2000,
