@@ -310,11 +310,11 @@
 
 				setInterval(function() {
 					console.log("Calling CAF every " + AppConfiguration.CallAndPrintDiagnosticValuesInterval + " ms (" + AppConfiguration.CallAndPrintDiagnosticValuesInterval/1000 + " sec) to get values of each machine. Actual time: " + new Date(Date.now()).toLocaleTimeString());
-/*
+
 					// Kelly (1) - GetFullDiagnostic
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Kelly;
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Kelly");
-*/
+
 					// Slater (2) - GetFullDiagnostic
 					urlFullDiagnostic = AppConfiguration.GetFullDiagnosticURL + "?machine=" + AppConfiguration.machineIds.Slater;
 					DiagnosticController.startDiagnosticCall(urlFullDiagnostic, "Slater");
